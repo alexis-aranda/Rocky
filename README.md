@@ -1,2 +1,2 @@
-# Ricky
-Nuestro ricky!
+# Rocky
+Nuestro rocky!
