@@ -3,7 +3,8 @@
  *  by Dejan Nedelkovski, www.HowToMechatronics.com
  *  
  */
- 
+
+//GND y OE a ground
 #define S0 4
 #define S1 5
 #define S2 6
@@ -31,9 +32,10 @@ void loop() {
   frequency = pulseIn(sensorOut, LOW);
   // Printing the value on the serial monitor
   Serial.print("R= ");//printing name
-  Serial.print(255-frequency);//printing RED color frequency
+  Serial.print(frequency);//printing RED color frequency
   Serial.print("  ");
   delay(100);
+  
   // Setting Green filtered photodiodes to be read
   digitalWrite(S2,HIGH);
   digitalWrite(S3,HIGH);
@@ -41,9 +43,10 @@ void loop() {
   frequency = pulseIn(sensorOut, LOW);
   // Printing the value on the serial monitor
   Serial.print("G= ");//printing name
-  Serial.print(255-frequency);//printing RED color frequency
+  Serial.print(frequency);//printing RED color frequency
   Serial.print("  ");
   delay(100);
+  
   // Setting Blue filtered photodiodes to be read
   digitalWrite(S2,LOW);
   digitalWrite(S3,HIGH);
@@ -51,7 +54,7 @@ void loop() {
   frequency = pulseIn(sensorOut, LOW);
   // Printing the value on the serial monitor
   Serial.print("B= ");//printing name
-  Serial.print(255-frequency);//printing RED color frequency
+  Serial.print(frequency);//printing RED color frequency
   Serial.println("  ");
   delay(100);
 }
