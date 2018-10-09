@@ -18,6 +18,20 @@ Colores: Rojo, Celeste, Naranja, Verde, Marrón, Amarillo
 - Potenciómetro
 - LED
 
+# Funciones
+- Barrera infrarroja: dice si hay rocklets para clasificar
+- Pulsador:
+  - Modo manual: toque tira rocklet y pulso largo vuelve a automatico
+  - Modo automatico: toque pasa a manual
+- Potenciometro:
+  - Modo manual: maneja tobogan
+- LED:
+   - Durante todo el recorrido, excepto cuando muevo el tobogán (manual): prende y apaga
+   - Al mover el tobogán (manual): intensidad según valor del potenciómetro
+   - Esperando rocklets (auto): sube y baja intensidad suavemente
+   - Al reconocer color (auto): se enciende
+   - Al tirar rocklets (auto): apago
+
 # Estados
 1. Esperando rocklet
 2. Yendo a buscar rocklet
