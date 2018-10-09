@@ -1,28 +1,8 @@
-/* Sweep
- by BARRAGAN <http://barraganstudio.com>
- This example code is in the public domain.
-
- modified 8 Nov 2013
- by Scott Fitzgerald
- http://www.arduino.cc/en/Tutorial/Sweep
-*/
-
-//238 es lo maximo para 0
-//187 para 180
-
 #include <Servo.h>
 
-#define ang0 238
-#define ang180 187
-//const int max = 240; //Servo negro
-//const int max = 220; //Prueba servo negro antes del limite
-//const int min = 80; //Servo negro
 const int max = 254; //Servo azul
 const int min = 50; //Servo azul
 const int delta = 5;
-
-int pwm = 0;
-int inc = delta;
 
 int pos1;
 int pos2;
@@ -43,22 +23,6 @@ void setup() {
 }
 
 void loop() {
-  /*
-  pwm += inc;
-  if(pwm > max){
-    pwm = max;
-    inc = -delta;
-  }
-  else if(pwm < min){
-    pwm = min;
-    inc = delta;
-  }
-
-  analogWrite(9, pwm);  
-  Serial.println(pwm);
-  delay(300);
-  */
-
   analogWrite(9, pos1);
   delay(1500);
   analogWrite(9, pos2);
