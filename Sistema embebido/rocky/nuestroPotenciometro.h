@@ -9,5 +9,5 @@ public:
 	int getPosicion();
 	int getPosicion256();
 private:
-	const int pin;
-}
+	int pin; //Le saco el const porque en el constructor intentamos asignarlo
+}; //El punto y coma, Alexis, sino no compila
