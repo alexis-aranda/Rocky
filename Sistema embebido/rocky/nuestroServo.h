@@ -15,13 +15,13 @@ class NuestroServo
     static const int COLOR_ST;
     static const int CAIDA_ST;
 
-    //Estaciones para el servo azul
-    static const int ST_1;
-    static const int ST_2;
-    static const int ST_3;
-    static const int ST_4;
-    static const int ST_5;
-    static const int ST_6;
+    //Estaciones en valores PWM para el servo azul
+    static const int ST_1=50;
+    static const int ST_2=84;
+    static const int ST_3=118;
+    static const int ST_4=163;
+    static const int ST_5=214;
+    static const int ST_6=248;
 
     //Funciones para ambos servos
     /** Inicializa un servo en el pin indicado y setea entre que valores PWM puede trabajar */
