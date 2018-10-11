@@ -9,5 +9,5 @@ public:
 	int getPosicion();
 	int getPosicion256();
 private:
-	int pin;
-};
+	const int pin;
+}
