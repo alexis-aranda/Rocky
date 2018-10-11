@@ -18,9 +18,9 @@ public:
 	void activar(); //Activo el LED, de forma generica, la idea es que sea transparente por cada ciclo, solo según el modo
 
 private:
-	const int pin;
+	int pin;
 	int modo; //Modo actual
 	int intensidad; //Intensidad actual
 	bool enSubida; //Para el modo SOFT_PWM
 	bool isON; //Para el modo PRENDE_APAGA
-}
+};
