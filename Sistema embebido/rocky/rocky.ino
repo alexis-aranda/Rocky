@@ -1,5 +1,6 @@
 #include "nuestroServo.h"
-#include "nuestroPotenciometro.h"
+#include "NuestroPotenciometro.h"
+#include "NuestroLED.h"
 
 void setup() {
   // put your setup code here, to run once:
