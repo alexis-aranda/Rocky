@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "NuestroLED.h"
 
 NuestroLED::NuestroLED(const int pin){
@@ -6,7 +7,7 @@ NuestroLED::NuestroLED(const int pin){
 }
 
 NuestroLED::NuestroLED(const int pin, const int modo){
-	NuestroLED(pin);
+	this->pin=pin;
+  pinMode(this->pin, OUTPUT);
 	this->modo=modo;
 }
-
