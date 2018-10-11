@@ -1,7 +1,7 @@
 /*
  * nuestroServo.h - Biblioteca para inicializar y mover los servos
  */
-
+#include <Arduino.h>
 #include "nuestroServo.h"
 
 NuestroServo::NuestroServo(int pin, int limiteInf, int limiteSup)

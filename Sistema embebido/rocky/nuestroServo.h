@@ -5,8 +5,6 @@
 #ifndef nuestroServo_h
 #define nuestroServo_h
 
-#include <Arduino.h>
-
 class NuestroServo
 {
   public:
