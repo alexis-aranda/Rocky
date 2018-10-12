@@ -4,7 +4,7 @@ class NuestroLED{
 public:
   static const int NO_MANUAL=-1; //Usada para cuando no hay necesidad de enviar una intensidad manualmente
 	static const int LIM_INF=0; //Creo que es este
-	static const int LIM_SUP=255 * 90 / 100; //Necesita actualización, no es realmente esto, creo que era el 90%
+	static const int LIM_SUP=255; //Necesita actualización, no es realmente esto, creo que era el 90%
 	static const int PRENDE_APAGA=0; //Manual, todo el tiempo excepto cuando se usa el tobogan
 	static const int INTENSIDAD_VARIABLE=1; // Manual, cuando se usa el tobogan
 	static const int SOFT_PWM=2; //Auto, esperando rocklets
