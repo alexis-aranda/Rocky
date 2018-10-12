@@ -23,12 +23,11 @@ private:
 	int intensidad; //Intensidad actual
 	bool enSubida; //Para el modo SOFT_PWM
 	bool isON; //Para el modo PRENDE_APAGA
+  unsigned long start; //Tiempo desde que inició o cambió de modo
   void setIntensidadPWM(); //Cambio de intensidad en el LED real, solo privada
   void setIntensidadBoolON(); //Cambio de intensidad en el LED real, solo privada
   void setIntensidadBoolOFF(); //Cambio de intensidad en el LED real, solo privada
   void onOff(); //Va prendiendo y apagando cada cierto tiempo
   void manual(const int intensidadPWMManual); //Modo manual, recibe de un potenciometro
   void soft(); //Varía subiendo y apagando el PWM
-  void on(); //Se mantiene encendido
-  void off(); //Se mantiene apagado
 };
