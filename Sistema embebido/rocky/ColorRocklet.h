@@ -61,7 +61,8 @@ class ColorRocklet{
 
     int getColor(); //lee los datos recibidos desde el sensor y los pone en los parámetros de los colores
     void setColor(const int idColor); //Seteo el id del color
-    bool enRango(const int vecColor[]); /*verifica que los valores esten dentro de un
+    
+    /*bool enRango(const int vecColor[]); *//*verifica que los valores esten dentro de un
                                          *rango indicado (equivalente a un color)*/
 };
 

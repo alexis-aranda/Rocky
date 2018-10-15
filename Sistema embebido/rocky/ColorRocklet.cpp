@@ -41,7 +41,7 @@ void ColorRocklet::identificarColor(){
     if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
         this->idColor = VERDE;
         return;
-    }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->azul < this->rojo)){
+    }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->verde < this->rojo)){
         this->idColor = AZUL;
         return;
     }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul)){
