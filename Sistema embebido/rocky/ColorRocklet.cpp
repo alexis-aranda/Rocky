@@ -1,18 +1,16 @@
 #include <Arduino.h>
 #include "ColorRocklet.h"
 
-ColorRocklet::ColorRocklet(){
+ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out){
     this->idColor = NO_IDENTIFICADO;
-    this->azul = 0;
     this->rojo = 0;
     this->verde = 0;
-}
-
-ColorRocklet::ColorRocklet(const int rojo, const int verde, const int azul){
-    this->idColor = NO_IDENTIFICADO;
-    this->rojo = rojo;
-    this->verde = verde;
-    this->azul = azul;
+    this->azul = 0;
+    this->pin_s0 = pin_s0;
+    this->pin_s1 = pin_s1;
+    this->pin_s2 = pin_s2;
+    this->pin_s3 = pin_s3;
+    this->pin_out = pin_out;
 }
 
 void ColorRocklet::setColor(const int idColor){
@@ -20,16 +18,24 @@ void ColorRocklet::setColor(const int idColor){
 }
 
 int ColorRocklet::getColor(){
-    return this->idColor;
+    digitalWrite(this->pin_s2, LOW);  
+    digitalWrite(this->pin_s3, LOW);   
+    this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+    digitalWrite(this->pin_s3, HIGH);   
+    this->azul = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+    digitalWrite(this->pin_s2, HIGH);    
+    this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
 }
 
 bool ColorRocklet::enRango(const int vecCol[]){
-    return ((this->rojo>=vecCol[0] - 5 && this->rojo<=vecCol[0] + 5)
-    && (this->verde>=vecCol[1] - 5 && this->verde<=vecCol[1] + 5)
-    && (this->azul>=vecCol[2] - 5 && this->azul<=vecCol[2] + 5));
+    return ((this->rojo>=vecCol[0] - DESVIO_COLOR && this->rojo<=vecCol[0] + DESVIO_COLOR)
+    && (this->verde>=vecCol[1] - DESVIO_COLOR && this->verde<=vecCol[1] + DESVIO_COLOR)
+    && (this->azul>=vecCol[2] - DESVIO_COLOR && this->azul<=vecCol[2] + DESVIO_COLOR));
 }
 
 void ColorRocklet::identificarColor(){
+    getColor();
+    
     if(enRango(M_VERDE)){
         this->idColor = VERDE;
         return;

@@ -6,6 +6,7 @@
 #define ColorRocklet_h
 #ifndef LECTURAS_X_COLOR
 #define LECTURAS_X_COLOR 3
+#define DESVIO_COLOR 10
 
 class ColorRocklet{
 	public:
@@ -27,10 +28,14 @@ class ColorRocklet{
 		static const int M_AMARILLO[LECTURAS_X_COLOR] = {98,138,158};
 		static const int M_MARRON[LECTURAS_X_COLOR] = {182,233,188};
 
-		ColorRocklet(); //Inicializo como NO_IDENTIFICADO por defecto
-		ColorRocklet(const int rojo, const int verde, const int azul); //Inicializo con parametros recibidos
-		void setColor(const int idColor); //Seteo el id del color
-		int getColor(); //Devuelve el id del color
+    /* 
+     * Inicializo con los pines que me asignen.
+     * Inicializo como NO_IDENTIFICADO por defecto.
+     * Inicializo parámetros de colores en 0.
+    */
+		ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out);
+
+    /*llama a getColor() e identifica el color con los parámetros leídos*/
 		void identificarColor();
 
 	private:
@@ -39,6 +44,15 @@ class ColorRocklet{
 		int verde; //verde medido actual
 		int azul; //azul medido actual
 
+    /* pines del sensor de color */
+    int pin_s0;
+    int pin_s1;
+    int pin_s2;
+    int pin_s3;
+    int pin_out;
+
+    int getColor(); //lee los datos recibidos desde el sensor y los pone en los parámetros de los colores
+    void setColor(const int idColor); //Seteo el id del color
     bool enRango(const int vecColor[]); /*verifica que los valores esten dentro de un
                                          *rango indicado (equivalente a un color)*/
 };

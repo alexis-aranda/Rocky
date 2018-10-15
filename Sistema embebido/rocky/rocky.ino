@@ -1,6 +1,7 @@
 #include "nuestroServo.h"
 #include "NuestroPotenciometro.h"
 #include "NuestroLED.h"
+#include "ColorRocklet.h"
 
 void setup() {
   // put your setup code here, to run once:
