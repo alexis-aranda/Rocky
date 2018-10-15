@@ -11,6 +11,14 @@ ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2,
     this->pin_s2 = pin_s2;
     this->pin_s3 = pin_s3;
     this->pin_out = pin_out;
+    pinMode(this->pin_s0, OUTPUT);
+    pinMode(this->pin_s1, OUTPUT);
+    pinMode(this->pin_s2, OUTPUT);
+    pinMode(this->pin_s3, OUTPUT);
+    pinMode(this->pin_out, INPUT);
+
+    digitalWrite(this->pin_s0,HIGH);
+    digitalWrite(this->pin_s1,LOW);
 }
 
 void ColorRocklet::setColor(const int idColor){
@@ -20,11 +28,14 @@ void ColorRocklet::setColor(const int idColor){
 int ColorRocklet::getColor(){
     digitalWrite(this->pin_s2, LOW);  
     digitalWrite(this->pin_s3, LOW);   
-    this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
-    digitalWrite(this->pin_s3, HIGH);   
-    this->azul = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
-    digitalWrite(this->pin_s2, HIGH);    
-    this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+    this->rojo = pulseIn(this->pin_out, LOW);
+    //this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+    digitalWrite(this->pin_s3, HIGH);
+    this->azul = pulseIn(this->pin_out, LOW);
+    //this->azul = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+    digitalWrite(this->pin_s2, HIGH);
+    this->verde = pulseIn(this->pin_out, LOW);
+    //this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
 }
 
 /*
