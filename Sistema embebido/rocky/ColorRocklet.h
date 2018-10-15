@@ -2,11 +2,13 @@
     ColorRocklet.h - Biblioteca para identificar el color de un rocklet
 */
 #include <Arduino.h>
-//#ifndef ColorRocklet_h
+#ifndef ColorRocklet_h
 #define ColorRocklet_h
+/*
 #ifndef LECTURAS_X_COLOR
 #define LECTURAS_X_COLOR 3
 #define DESVIO_COLOR 10
+*/
 
 class ColorRocklet{
 	public:
@@ -21,12 +23,18 @@ class ColorRocklet{
 
 		/* Defino las medias de valores para cada color */
 		/* MEDIA_COLOR[] = {rojo, verde, azul};*/
+		/*
 		static const int M_VERDE[LECTURAS_X_COLOR] = {155,142,154};
 		static const int M_AZUL[LECTURAS_X_COLOR] = {169,156,111};
 		static const int M_ROJO[LECTURAS_X_COLOR] = {135,231,183};
 		static const int M_NARANJA[LECTURAS_X_COLOR] = {100,183,163};
 		static const int M_AMARILLO[LECTURAS_X_COLOR] = {98,138,158};
-		static const int M_MARRON[LECTURAS_X_COLOR] = {182,233,188};
+		static const int M_MARRON[LECTURAS_X_COLOR] = {182,233,188};*/
+
+    /* Defino topes para los colores en conflicto*/
+    static const int MAX_NARANJA_R = 130;
+    static const int MAX_NARANJA_V = 200;
+    static const int MIN_MARRON_R = 160;
 
     /* 
      * Inicializo con los pines que me asignen.

@@ -27,38 +27,64 @@ int ColorRocklet::getColor(){
     this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
 }
 
+/*
 bool ColorRocklet::enRango(const int vecCol[]){
     return ((this->rojo>=vecCol[0] - DESVIO_COLOR && this->rojo<=vecCol[0] + DESVIO_COLOR)
     && (this->verde>=vecCol[1] - DESVIO_COLOR && this->verde<=vecCol[1] + DESVIO_COLOR)
     && (this->azul>=vecCol[2] - DESVIO_COLOR && this->azul<=vecCol[2] + DESVIO_COLOR));
 }
+*/
 
+void ColorRocklet::identificarColor(){
+    getColor();
+    
+    if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
+        this->idColor = VERDE;
+        return;
+    }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->azul < this->rojo)){
+        this->idColor = AZUL;
+        return;
+    }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul)){
+        this->idColor = AMARILLO;
+        return;
+    }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
+        if(this->rojo > MIN_MARRON_R){
+           this->idColor = MARRON;
+           return;
+        }else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V){
+          this->idColor = NARANJA;
+          return;
+        }else{
+          this->idColor = ROJO;
+          return;
+        }
+    }
+    //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto
+}
+
+/*
 void ColorRocklet::identificarColor(){
     getColor();
     
     if(enRango(M_VERDE)){
         this->idColor = VERDE;
         return;
-    }
-    if(enRango(M_AZUL)){
+    }else if(enRango(M_AZUL)){
         this->idColor = AZUL;
         return;
-    }
-    if(enRango(M_ROJO)){
-        this->idColor = ROJO;
-        return;
-    }
-    if(enRango(M_NARANJA)){
-        this->idColor = NARANJA;
-        return;
-    }
-    if(enRango(M_AMARILLO)){
+    }else if(enRango(M_AMARILLO)){
         this->idColor = AMARILLO;
         return;
-    }
-    if(enRango(M_MARRON)){
+    }else if(enRango(M_ROJO)){
+        this->idColor = ROJO;
+        return;
+    }else if(enRango(M_NARANJA)){
+        this->idColor = NARANJA;
+        return;
+    }else if(enRango(M_MARRON)){
         this->idColor = MARRON;
         return;
     }
     //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto
 }
+*/
