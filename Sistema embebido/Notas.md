@@ -76,11 +76,15 @@ Setear modo LED
   
 Pasar a Buscando:
 - si Automatico: LED en SIEMPRE_APAGADO
+
 Pasar a Tobogan M:
 - LED en INTENSIDAD_VARIABLE
+
 Pasar a Tobogan A:
 - LED en SIEMPRE_PRENDIDO
+
 Pasar a Despachando:
 - si Manual: LED en PRENDE_APAGA
+
 Pasar a En espera:
 - si Automatico: LED en SOFT_PWM
