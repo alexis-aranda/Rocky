@@ -46,31 +46,26 @@ bool ColorRocklet::enRango(const int vecCol[]){
 }
 */
 
-void ColorRocklet::identificarColor(){
+int ColorRocklet::identificarColor(){
     getColor();
     
     if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
         this->idColor = VERDE;
-        return;
     }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->verde < this->rojo)){
         this->idColor = AZUL;
-        return;
     }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul)){
         this->idColor = AMARILLO;
-        return;
     }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
         if(this->rojo > MIN_MARRON_R){
            this->idColor = MARRON;
-           return;
         }else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V){
           this->idColor = NARANJA;
-          return;
         }else{
           this->idColor = ROJO;
-          return;
         }
     }
     //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto
+    return this->idColor;
 }
 
 /*

@@ -43,8 +43,11 @@ class ColorRocklet{
     */
 		ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out);
 
-    /*llama a getColor() e identifica el color con los parámetros leídos*/
-		void identificarColor();
+    /*
+     * Llama a getColor() e identifica el color con los parámetros leídos.
+     * Devuelve el id del color identificado.
+     */
+		int identificarColor();
 
 	private:
 		int idColor; //id actual
