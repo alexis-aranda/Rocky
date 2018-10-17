@@ -35,7 +35,7 @@ Colores: Rojo, Celeste, Naranja, Verde, Marrón, Amarillo
 # Estados
 | Estados | Sensores a chequear | Si... | ... hacer | Accion
 | --- | --- | --- | --- | --- |
-| 1. En espera | Infrarrojo | Detecta     | Pasar a Buscando | Nada |
+| 1. En espera | Infrarrojo | Detecta  | Pasar a Buscando | Nada |
 | 2. Buscando |          |             |             | 1. ServoCinta a RECEPCION_ST |
 |             |          |             |             | 2. Esperar TBuscar (varios loops) |
 |             |          |             |             | 3. Pasar a Llevando |
@@ -46,15 +46,41 @@ Colores: Rojo, Celeste, Naranja, Verde, Marrón, Amarillo
 |             |          |             |             | 2. Informar color a app (proximamente) |
 |             |          |             |             | 3. Si M: pasar a Tobogan M |
 |             |          |             |             | 4. Si A: pasar a Tobogan A |
-| 5. Tobogan A| Pulsador | Pulso largo | 1. Switch M/A        | 1. Decidir estacion |
+| 5. Tobogan A| Pulsador | *Pulso largo* | 1. *Switch M/A*    | 1. Decidir estacion |
 |             |          |             | 2. Pasar a tobogan M | 2. ServoTobogan a estacion decidida|
 |             |          |             |                      | 3. Esperar TAcomodar (varios loops) |
 |             |          |             |                      | 4. Pasar a Despachando |
-| 6. Tobogan M| Pulsador | Pulso largo | 1. Switch M/A        | 1. Chequear potenciometro |
-|             |          |             | 2. Pasar a tobogan A | 2. Convertir valor |
-|             |          | Pulso corto | Pasar a Despachando  | 3. ServoTobogan a valor |
-|             |          |             |                      | Repetir 1, 2, 3 en cada loop |
+| 6. Tobogan M| Pulsador | *Pulso largo* | 1. *Switch M/A*    | 1. Setear LED en modo INTENSIDAD VARIABLE|
+|             |          |             | 2. Pasar a tobogan A | 2. Chequear potenciometro |
+|             |          | Pulso corto | Pasar a Despachando  | 3. Convertir valor|
+|             |          |             |                      | 4. ServoTobogan a valor 
+|             |          |             |                      | 5. *Activar LED* con valor
+|             |          |             |                      | Repetir 2, 3, 4, 5 en cada loop |
 | 7. Despachando|          |             |             | 1. ServoCinta a CAIDA_ST |
 |               |          |             |             | 2. Esperar TDespacho (varios loops) |
 |               |          |             |             | 3. Pasar a En espera |
-| **Todos** | **Pulsador** | **Pulso largo** | **Switch M/A**  |
+| **Todos** | **Pulsador** | **Pulso largo** | **Switch M/A**  | **Activar LED** (en cada loop)
+
+
+Switch M/A
+- Si estaba en Manual, setea modo Automatico y viceversa
+- Setear modo LED
+
+Setear modo LED
+- Si Tobogan M: INTENSIDAD_VARIABLE; return;
+- Si Manual: PRENDE_APAGA
+- Si Automatico
+  - Si En espera: SOFT_PWM
+  - Si Tobogan A o Despachando: SIEMPRE_PRENDIDO
+  - Si Buscando o Llevando o Sensando: SIEMPRE_APAGADO
+  
+Pasar a Buscando:
+- si Automatico: LED en SIEMPRE_APAGADO
+Pasar a Tobogan M:
+- LED en INTENSIDAD_VARIABLE
+Pasar a Tobogan A:
+- LED en SIEMPRE_PRENDIDO
+Pasar a Despachando:
+- si Manual: LED en PRENDE_APAGA
+Pasar a En espera:
+- si Automatico: LED en SOFT_PWM
