@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+<net id="Net-One" type="P/T net">
+<token id="Default" enabled="true" red="0" green="0" blue="0"/>
+<place id="Acomodar tobogan">
+<graphics>
+<position x="762.8571428571428" y="374.99999999999994"/>
+</graphics>
+<name>
+<value>Acomodar tobogan</value>
+<graphics>
+<offset x="63.0" y="44.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Acomodar tobogan manualmente">
+<graphics>
+<position x="720.0000000000002" y="199.28571428571428"/>
+</graphics>
+<name>
+<value>Acomodar tobogan manualmente</value>
+<graphics>
+<offset x="70.71428571428572" y="-6.428571428571426"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Buscando Rocklet">
+<graphics>
+<position x="229.2857142857143" y="289.2857142857142"/>
+</graphics>
+<name>
+<value>Buscando Rocklet</value>
+<graphics>
+<offset x="53.71428571428569" y="-9.857142857142847"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Esperando Detectar">
+<graphics>
+<position x="137.14285714285714" y="484.2857142857142"/>
+</graphics>
+<name>
+<value>Esperando Detectar</value>
+<graphics>
+<offset x="72.85714285714279" y="38.57142857142857"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Llevando Rocklet a despachar">
+<graphics>
+<position x="945.0" y="375.0"/>
+</graphics>
+<name>
+<value>Llevando Rocklet a despachar</value>
+<graphics>
+<offset x="189.5714285714286" y="12.857142857142845"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Llevando rocklet a sensar">
+<graphics>
+<position x="392.14285714285717" y="289.2857142857142"/>
+</graphics>
+<name>
+<value>Llevando rocklet a sensar</value>
+<graphics>
+<offset x="79.0" y="41.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Modo automatico">
+<graphics>
+<position x="165.0" y="105.0"/>
+</graphics>
+<name>
+<value>Modo automatico</value>
+<graphics>
+<offset x="57.0" y="41.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Modo manual">
+<graphics>
+<position x="345.0" y="105.0"/>
+</graphics>
+<name>
+<value>Modo manual</value>
+<graphics>
+<offset x="104.85714285714282" y="7.714285714285713"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Pulso corto">
+<graphics>
+<position x="874.2857142857147" y="137.1428571428571"/>
+</graphics>
+<name>
+<value>Pulso corto</value>
+<graphics>
+<offset x="47.0" y="44.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Pulso largo">
+<graphics>
+<position x="505.71428571428567" y="66.42857142857142"/>
+</graphics>
+<name>
+<value>Pulso largo</value>
+<graphics>
+<offset x="51.0" y="38.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Sensando color">
+<graphics>
+<position x="559.2857142857141" y="278.5714285714285"/>
+</graphics>
+<name>
+<value>Sensando color</value>
+<graphics>
+<offset x="37.571428571428555" y="40.2857142857143"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<transition id="">
+<graphics>
+<position x="855.0" y="285.0"/>
+</graphics>
+<name>
+<value/>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="0">
+<graphics>
+<position x="874.2857142857147" y="85.7142857142858"/>
+</graphics>
+<name>
+<value>0</value>
+<graphics>
+<offset x="-355.7142857142856" y="-64.2857142857143"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Barrera detecta Rocklet">
+<graphics>
+<position x="147.85714285714283" y="325.71428571428567"/>
+</graphics>
+<name>
+<value>Barrera detecta Rocklet</value>
+<graphics>
+<offset x="123.5714285714285" y="36.42857142857142"/>
+</graphics>
+</name>
+<orientation>
+<value>135</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Obtuvo Color1">
+<graphics>
+<position x="630.0" y="255.0"/>
+</graphics>
+<name>
+<value>Obtuvo Color1</value>
+<graphics>
+<offset x="97.14285714285711" y="27.857142857142847"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Obtuvo Color2">
+<graphics>
+<position x="640.7142857142858" y="364.2857142857143"/>
+</graphics>
+<name>
+<value>Obtuvo Color2</value>
+<graphics>
+<offset x="50.714285714285744" y="39.28571428571428"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="T0">
+<graphics>
+<position x="255.0" y="150.0"/>
+</graphics>
+<name>
+<value>T0</value>
+<graphics>
+<offset x="23.0" y="21.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="T1">
+<graphics>
+<position x="255.0" y="75.0"/>
+</graphics>
+<name>
+<value>T1</value>
+<graphics>
+<offset x="22.857142857142854" y="24.999999999999993"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="T12">
+<graphics>
+<position x="505.71428571428567" y="3.571428571428571"/>
+</graphics>
+<name>
+<value>T12</value>
+<graphics>
+<offset x="25.71428571428572" y="16.428571428571413"/>
+</graphics>
+</name>
+<orientation>
+<value>270</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="TAcomodar">
+<graphics>
+<position x="870.0" y="375.0"/>
+</graphics>
+<name>
+<value>TAcomodar</value>
+<graphics>
+<offset x="35.714285714285715" y="-7.142857142857155"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="TBuscar">
+<graphics>
+<position x="306.42857142857144" y="289.2857142857142"/>
+</graphics>
+<name>
+<value>TBuscar</value>
+<graphics>
+<offset x="34.28571428571429" y="-11.428571428571427"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="TDespacho">
+<graphics>
+<position x="540.0" y="465.0"/>
+</graphics>
+<name>
+<value>TDespacho</value>
+<graphics>
+<offset x="39.285714285714285" y="-12.142857142857135"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="TLlevar">
+<graphics>
+<position x="484.28571428571416" y="278.5714285714285"/>
+</graphics>
+<name>
+<value>TLlevar</value>
+<graphics>
+<offset x="33.57142857142857" y="-11.42857142857142"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<arc id="Acomodar tobogan manualmente to " source="Acomodar tobogan manualmente" target="">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="732" y="225" curvePoint="false"/>
+<arcpath id="001" x="737" y="293" curvePoint="false"/>
+<arcpath id="002" x="861" y="302" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="acomodar tobogan to T9" source="Acomodar tobogan" target="TAcomodar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="789" y="387" curvePoint="false"/>
+<arcpath id="001" x="876" y="387" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Barrera detecta Rocklet to Buscando Rocklet" source="Barrera detecta Rocklet" target="Buscando Rocklet">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="162" y="333" curvePoint="false"/>
+<arcpath id="001" x="227" y="307" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Buscando Rocklet to TBuscar" source="Buscando Rocklet" target="TBuscar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="255" y="301" curvePoint="false"/>
+<arcpath id="001" x="312" y="302" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Esperando Detectar to Barrera detecta Rocklet" source="Esperando Detectar" target="Barrera detecta Rocklet">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="137" y="486" curvePoint="false"/>
+<arcpath id="001" x="63" y="420" curvePoint="false"/>
+<arcpath id="002" x="155" y="340" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Llevando Rocklet a despachar to TDespacho" source="Llevando Rocklet a despachar" target="TDespacho">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="958" y="401" curvePoint="false"/>
+<arcpath id="001" x="970" y="481" curvePoint="false"/>
+<arcpath id="002" x="556" y="477" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="llevando rocklet a sensar to T7" source="Llevando rocklet a sensar" target="TLlevar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="418" y="299" curvePoint="false"/>
+<arcpath id="001" x="490" y="296" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="modo automatico to T0" source="Modo automatico" target="T0">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="189" y="123" curvePoint="false"/>
+<arcpath id="001" x="262" y="157" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="modo automatico to T11" source="Modo automatico" target="Obtuvo Color2">
+<graphics/>
+<inscription>
+<value/>
+<graphics/>
+</inscription>
+<tagged>
+<value/>
+</tagged>
+<arcpath id="000" x="162" y="117" curvePoint="false"/>
+<arcpath id="001" x="12" y="117" curvePoint="false"/>
+<arcpath id="002" x="12" y="387" curvePoint="false"/>
+<arcpath id="003" x="647" y="382" curvePoint="false"/>
+<type value="inhibitor"/>
+</arc>
+<arc id="Modo manual to Obtuvo Color1" source="Modo manual" target="Obtuvo Color1">
+<graphics/>
+<inscription>
+<value/>
+<graphics/>
+</inscription>
+<tagged>
+<value/>
+</tagged>
+<arcpath id="000" x="369" y="123" curvePoint="false"/>
+<arcpath id="001" x="488" y="185" curvePoint="false"/>
+<arcpath id="002" x="536" y="167" curvePoint="true"/>
+<arcpath id="003" x="538" y="209" curvePoint="true"/>
+<arcpath id="004" x="637" y="262" curvePoint="false"/>
+<type value="inhibitor"/>
+</arc>
+<arc id="modo manual to T1" source="Modo manual" target="T1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="342" y="112" curvePoint="false"/>
+<arcpath id="001" x="271" y="92" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Obtuvo Color1 to Acomodar tobogan manualmente" source="Obtuvo Color1" target="Acomodar tobogan manualmente">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="646" y="267" curvePoint="false"/>
+<arcpath id="001" x="719" y="219" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Pulso corto to " source="Pulso corto" target="">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="871" y="149" curvePoint="false"/>
+<arcpath id="001" x="813" y="154" curvePoint="false"/>
+<arcpath id="002" x="809" y="284" curvePoint="false"/>
+<arcpath id="003" x="862" y="292" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Pulso largo to T0" source="Pulso largo" target="T0">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="518" y="92" curvePoint="false"/>
+<arcpath id="001" x="525" y="218" curvePoint="false"/>
+<arcpath id="002" x="194" y="222" curvePoint="false"/>
+<arcpath id="003" x="187" y="173" curvePoint="false"/>
+<arcpath id="004" x="261" y="167" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="pulso largo to T1" source="Pulso largo" target="T1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="502" y="78" curvePoint="false"/>
+<arcpath id="001" x="272" y="82" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Sensando color to Obtuvo Color1" source="Sensando color" target="Obtuvo Color1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="585" y="286" curvePoint="false"/>
+<arcpath id="001" x="636" y="272" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="sensando color to T11" source="Sensando color" target="Obtuvo Color2">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="581" y="301" curvePoint="false"/>
+<arcpath id="001" x="647" y="372" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T0 to modo manual" source="T0" target="Modo manual">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="271" y="162" curvePoint="false"/>
+<arcpath id="001" x="343" y="123" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T11 to acomodar tobogan" source="Obtuvo Color2" target="Acomodar tobogan">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="657" y="376" curvePoint="false"/>
+<arcpath id="001" x="759" y="385" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T12 to pulso largo" source="T12" target="Pulso largo">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="518" y="20" curvePoint="false"/>
+<arcpath id="001" x="517" y="63" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T13 to pulso corto" source="0" target="Pulso corto">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="885" y="102" curvePoint="false"/>
+<arcpath id="001" x="885" y="134" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T1 to modo automatico" source="T1" target="Modo automatico">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="261" y="87" curvePoint="false"/>
+<arcpath id="001" x="190" y="112" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T6 to llevando rocklet a sensar" source="TBuscar" target="Llevando rocklet a sensar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="322" y="301" curvePoint="false"/>
+<arcpath id="001" x="389" y="301" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T7 to sensando color" source="TLlevar" target="Sensando color">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="500" y="290" curvePoint="false"/>
+<arcpath id="001" x="556" y="290" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T9 to llevando rocklet a despachar" source="TAcomodar" target="Llevando Rocklet a despachar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="886" y="387" curvePoint="false"/>
+<arcpath id="001" x="942" y="387" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="TDespacho to Esperando Detectar" source="TDespacho" target="Esperando Detectar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="546" y="477" curvePoint="false"/>
+<arcpath id="001" x="163" y="495" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id=" to Llevando Rocklet a despachar" source="" target="Llevando Rocklet a despachar">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="871" y="297" curvePoint="false"/>
+<arcpath id="001" x="946" y="375" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+</net>
+</pnml>
