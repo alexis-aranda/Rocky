@@ -88,3 +88,12 @@ Pasar a Despachando:
 
 Pasar a En espera:
 - si Automatico: LED en SOFT_PWM
+
+# Alimentacion
+Notas de los voltajes necesarios para cada componente
+
+| Componente | Modelo | Voltaje |
+| ---------- | ------ | ------- |
+| ServoTobogan (azul) | TowerPro SG90 Micro Servo | 4.8 - 6 |
+| ServoCinta (negro) | Small servo del Arduino Starter Kit | 5 |
+| Sensor color | TCS3200 | 2.7 - 5.5 |
