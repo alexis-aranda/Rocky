@@ -118,7 +118,31 @@ void loop() {
   /* Tobogan en modo auto*/
   if(estadoActual == TOBOGAN_A){
     if(modo == AUTO){
-      //TODO
+      switch( color )
+      {
+        case ColorRocklet::VERDE:
+          servoTobogan.irA(NuestroServo::ST_1);
+          break;
+        case ColorRocklet::AZUL:
+          servoTobogan.irA(NuestroServo::ST_2);
+          break;
+        case ColorRocklet::ROJO:
+          servoTobogan.irA(NuestroServo::ST_3);
+          break;
+        case ColorRocklet::NARANJA:
+          servoTobogan.irA(NuestroServo::ST_4);
+          break;
+        case ColorRocklet::AMARILLO:
+          servoTobogan.irA(NuestroServo::ST_5);
+          break;
+        case ColorRocklet::MARRON:
+          servoTobogan.irA(NuestroServo::ST_6);
+          break;
+        default:
+          // qué hacemos cuando es no identificado??  
+          break;
+      }
+      llendo = true;
     }else
       estadoActual == TOBOGAN_M;
   }
