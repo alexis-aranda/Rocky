@@ -35,6 +35,7 @@
 /*Tiempos de espera*/
 #define TBUSCAR 1000
 #define TLLEVAR 1000
+#define TDESPACHO 1000
 
 /*Seteo de variables y pines*/
 ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
@@ -49,6 +50,8 @@ int modo;
 bool barreraDetecta;
 unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se mueva
 bool llendo; //El servo está llendo a algún lado
+bool sensado; //El sensorColor fue sensado
+int color; //Color del rocklet leído
 
 void setup() {
   estadoActual = EN_ESPERA;
@@ -95,6 +98,48 @@ void loop() {
     }else if(millis() - inicioEsperaServo >= TLLEVAR){
       llendo=false;
       estadoActual = SENSANDO;
+    }
+  }
+
+  /* Condicion del sensor color */
+  if(estadoActual == SENSANDO){
+    if(!sensado){
+      color = lectorColor.identificarColor();
+      sensado=true;
+    }else{
+      sensado=false;
+      if(modo == AUTO)
+        estadoActual = TOBOGAN_A;
+      else
+        estadoActual = TOBOGAN_M;
+    }
+  }
+
+  /* Tobogan en modo auto*/
+  if(estadoActual == TOBOGAN_A){
+    if(modo == AUTO){
+      //TODO
+    }else
+      estadoActual == TOBOGAN_M;
+  }
+
+  /* Tobogan en modo manual */
+  if(estadoActual == TOBOGAN_M){
+    if(modo == MANUAL){
+      //TODO
+    }else
+      estadoActual == TOBOGAN_A;
+  }
+
+  /* Despacho */
+  if(estadoActual == DESPACHANDO){
+    if(!llendo){
+      servoCinta.irA(NuestroServo::CAIDA_ST);
+      llendo=true;
+      inicioEsperaServo = millis();
+    }else if(millis() - inicioEsperaServo >= TDESPACHO){
+      llendo=false;
+      estadoActual = EN_ESPERA;
     }
   }
 }
