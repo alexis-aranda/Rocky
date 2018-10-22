@@ -97,3 +97,8 @@ Notas de los voltajes necesarios para cada componente
 | ServoTobogan (azul) | TowerPro SG90 Micro Servo | 4.8 - 6 |
 | ServoCinta (negro) | Small servo del Arduino Starter Kit | 5 |
 | Sensor color | TCS3200 | 2.7 - 5.5 |
+
+#PWM
+Los pines digitales que pueden trabajar con PWM son: 3, 5, 6, 9, 10 y 11.
+Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
+5 y 6 no los usamos con servos, porque el valor PWM lo testeamos con 490 Hz.
