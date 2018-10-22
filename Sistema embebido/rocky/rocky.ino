@@ -32,21 +32,69 @@
 #define PIN_SERVO_CINTA 0
 #define PIN_SERVO_TOBOGAN 0
 
+/*Tiempos de espera*/
+#define TBUSCAR 1000
+#define TLLEVAR 1000
+
+/*Seteo de variables y pines*/
+ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
+NuestraBarreraLaser barreraLaser = NuestraBarreraLaser(PIN_LASER, PIN_FLAME_DETECTOR);
+NuestroLED led = NuestroLED(PIN_LED);
+NuestroPotenciometro potenciometro = NuestroPotenciometro(PIN_POTENCIOMETRO);
+NuestroPulsador pulsador = NuestroPulsador(PIN_PULSADOR);
+NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, NuestroServo::RECEPCION_ST, NuestroServo::CAIDA_ST);
+NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, NuestroServo::ST_1, NuestroServo::ST_6);
+int estadoActual;
+int modo;
+bool barreraDetecta;
+unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se mueva
+bool llendo; //El servo está llendo a algún lado
+
 void setup() {
-  /*Seteo de variables y pines*/
-  ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
-  NuestraBarreraLaser barreraLaser = NuestraBarreraLaser(PIN_LASER, PIN_FLAME_DETECTOR);
-  NuestroLED led = NuestroLED(PIN_LED);
-  NuestroPotenciometro potenciometro = NuestroPotenciometro(PIN_POTENCIOMETRO);
-  NuestroPulsador pulsador = NuestroPulsador(PIN_PULSADOR);
-  NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, NuestroServo::RECEPCION_ST, NuestroServo::CAIDA_ST);
-  NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, NuestroServo::ST_1, NuestroServo::ST_6);
-  int estadoActual = EN_ESPERA;
-  int modo = AUTO;
+  estadoActual = EN_ESPERA;
+  modo = AUTO;
+  barreraDetecta = false;
+  llendo = false;
 }
 
 void loop() {
-  /*if(estadoActual == EN_ESPERA){
-    
-  }*/
+  /* Condicion de la barrera laser */
+  if(estadoActual == EN_ESPERA){
+    if(barreraLaser.isOn())
+        barreraDetecta = barreraLaser.detecta();
+    else{
+      barreraLaser.activarBarrera();
+      barreraLaser.detecta();
+    }
+  }
+
+  /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
+  if(barreraDetecta){
+    barreraDetecta = false;
+    estadoActual = BUSCANDO;
+  }
+
+  /* Condicion de el servo cinta  para BUSCANDO*/
+  if(estadoActual == BUSCANDO){
+    if(!llendo){
+      servoCinta.irA(NuestroServo::RECEPCION_ST);
+      llendo=true;
+      inicioEsperaServo = millis();
+    }else if(millis() - inicioEsperaServo >= TBUSCAR){
+      llendo=false;
+      estadoActual = LLEVANDO;
+    }
+  }
+
+  /* Condicion del el servo cinta para LLEVANDO */
+   if(estadoActual == LLEVANDO){
+    if(!llendo){
+      servoCinta.irA(NuestroServo::COLOR_ST);
+      llendo=true;
+      inicioEsperaServo = millis();
+    }else if(millis() - inicioEsperaServo >= TLLEVAR){
+      llendo=false;
+      estadoActual = SENSANDO;
+    }
+  }
 }
