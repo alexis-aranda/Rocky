@@ -36,6 +36,7 @@
 #define TBUSCAR 1000
 #define TLLEVAR 1000
 #define TDESPACHO 1000
+#define TACOMODAR 1000
 
 /*Seteo de variables y pines*/
 ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
@@ -52,6 +53,7 @@ unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se 
 bool llendo; //El servo está llendo a algún lado
 bool sensado; //El sensorColor fue sensado
 int color; //Color del rocklet leído
+int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
   estadoActual = EN_ESPERA;
@@ -114,46 +116,66 @@ void loop() {
         estadoActual = TOBOGAN_M;
     }
   }
-
+  /* Checkeo si cambio de modo (verificar)*/ 
+  if(pulsador.detectaLargo()){
+    if(modo == AUTO)
+      modo = MANUAL;
+    else
+      modo = AUTO;
+  }
+    
   /* Tobogan en modo auto*/
   if(estadoActual == TOBOGAN_A){
     if(modo == AUTO){
-      switch( color )
-      {
-        case ColorRocklet::VERDE:
-          servoTobogan.irA(NuestroServo::ST_1);
-          break;
-        case ColorRocklet::AZUL:
-          servoTobogan.irA(NuestroServo::ST_2);
-          break;
-        case ColorRocklet::ROJO:
-          servoTobogan.irA(NuestroServo::ST_3);
-          break;
-        case ColorRocklet::NARANJA:
-          servoTobogan.irA(NuestroServo::ST_4);
-          break;
-        case ColorRocklet::AMARILLO:
-          servoTobogan.irA(NuestroServo::ST_5);
-          break;
-        case ColorRocklet::MARRON:
-          servoTobogan.irA(NuestroServo::ST_6);
-          break;
-        default:
-          // qué hacemos cuando es no identificado??  
-          break;
-      }
-      llendo = true;
+      if(!llendo){
+        switch( color )
+        {
+          case ColorRocklet::VERDE:
+            servoTobogan.irA(NuestroServo::ST_1);
+           break;
+          case ColorRocklet::AZUL:
+            servoTobogan.irA(NuestroServo::ST_2);
+            break;
+          case ColorRocklet::ROJO:
+            servoTobogan.irA(NuestroServo::ST_3);
+            break;
+          case ColorRocklet::NARANJA:
+            servoTobogan.irA(NuestroServo::ST_4);
+            break;
+          case ColorRocklet::AMARILLO:
+            servoTobogan.irA(NuestroServo::ST_5);
+           break;
+         case ColorRocklet::MARRON:
+            servoTobogan.irA(NuestroServo::ST_6);
+            break;
+          default:
+            // qué hacemos cuando es no identificado??  
+            break;
+        }
+        llendo = true;
+        inicioEsperaServo = millis();
+      }else if(millis() - inicioEsperaServo >= TACOMODAR){
+        llendo=false;
+        estadoActual = DESPACHANDO;
+    }
     }else
       estadoActual == TOBOGAN_M;
   }
 
-  /* Tobogan en modo manual */
+  /* Tobogan en modo manual (verificar)*/
   if(estadoActual == TOBOGAN_M){
     if(modo == MANUAL){
-      //TODO
+      if(!pulsador.detectaCorto()){
+        posPotenciometro = potenciometro.getPosicion256();
+        servoTobogan.irA(posPotenciometro);
+        
+      }else{ 
+        estadoActual = DESPACHANDO;
+    }
+    }
     }else
       estadoActual == TOBOGAN_A;
-  }
+  
 
   /* Despacho */
   if(estadoActual == DESPACHANDO){
