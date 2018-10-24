@@ -188,4 +188,36 @@ void loop() {
       estadoActual = EN_ESPERA;
     }
   }
+
+  /* Seteo de LED */
+  if( modo == MANUAL ){
+    if( estadoActual == TOBOGAN_M ){
+      led.setModo(NuestroLED::INTENSIDAD_VARIABLE);
+      //intensidadPWMManual = 
+    }else
+      led.setModo(NuestroLED::PRENDE_APAGA);
+  }else{
+    /* me rechazaba los or en los cases.
+     * switch (estadoActual) {
+      case EN_ESPERA:
+        led.setModo(NuestroLED::SOFT_PWM);
+        break;
+      case (TOBOGAN_A || DESPACHANDO):
+        led.setModo(NuestroLED::SIEMPRE_PRENDIDO); //deberia preguntar si ya esta en ese modo con el getModo antes de cambiarlo?
+        break;
+      case (BUSCANDO || LLEVANDO || SENSANDO):  
+        led.setModo(NuestroLED::SIEMPRE_APAGADO);
+        break;
+      }
+    */
+    if( estadoActual == EN_ESPERA )
+      led.setModo(NuestroLED::SOFT_PWM);
+    else{ 
+      if(estadoActual == TOBOGAN_A || estadoActual == DESPACHANDO)
+         led.setModo(NuestroLED::SIEMPRE_PRENDIDO);
+      else //BUSCANDO || LLEVANDO || SENSANDO
+        led.setModo(NuestroLED::SIEMPRE_APAGADO);
+    }
+  }
+  led.activar(posPotenciometro);
 }
