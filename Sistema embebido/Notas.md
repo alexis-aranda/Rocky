@@ -98,7 +98,23 @@ Notas de los voltajes necesarios para cada componente
 | ServoCinta (negro) | Small servo del Arduino Starter Kit | 5 |
 | Sensor color | TCS3200 | 2.7 - 5.5 |
 
-#PWM
+# PWM
 Los pines digitales que pueden trabajar con PWM son: 3, 5, 6, 9, 10 y 11.
 Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
 5 y 6 no los usamos con servos, porque el valor PWM lo testeamos con 490 Hz.
+
+# Pines
+
+| Componente | Pata | Pin | Modo |
+| --- | --- | --- | --- |
+| Laser | S | D2 | OUTPUT |
+| Detector de flama | D0 | D3 | INPUT |
+| Sensor color | S0 | D4 | OUTPUT |
+|              | S1 | D5 | OUTPUT |
+|              | S2 | D6 | OUTPUT |
+|              | S3 | D7 | OUTPUT |
+|              | OUT | D8 | INPUT |
+| LED          | larga | D9 | OUTPUT |
+| ServoTobogán | sig | D10 | OUTPUT |
+| ServoCinta    | sig | D11 | OUTPUT |
+| Potenciómetro | sig | A0 | INPUT |
