@@ -1,6 +1,8 @@
 # Rocky
 ## Informe final
-En esta carpeta vamos a subir el informe final del sistema embebido y la aplicaciÛn de Android
+En esta carpeta vamos a subir el informe final del sistema embebido y la aplicaci√≥n de Android.
+
+La edici√≥n del informe final la estamos haciendo en Google Docs https://docs.google.com/document/d/1XqZIiA_MjCQZH5N3eo0X5_ZrRjcD0-gQfS02WIU2Ldw/edit?usp=sharing
 
 # High Performance Computing
-En esta carpeta tambiÈn vamos a subir el trabajo de investigaciÛn sobre HPC.
+En esta carpeta tambi√©n vamos a subir el trabajo de investigaci√≥n sobre HPC.
