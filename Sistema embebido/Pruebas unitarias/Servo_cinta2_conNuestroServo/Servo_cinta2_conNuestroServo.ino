@@ -3,7 +3,7 @@
 const int max = 220; //Prueba servo negro antes del limite
 const int min = 60; //Servo negro
 
-NuestroServo serv(9, min, max);
+NuestroServo serv(11, min, max);
 
 void setup() {
 }

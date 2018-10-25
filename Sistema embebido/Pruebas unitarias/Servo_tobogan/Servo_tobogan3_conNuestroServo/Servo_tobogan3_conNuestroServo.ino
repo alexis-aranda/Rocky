@@ -2,7 +2,7 @@
 
 const int max = 254; //Servo azul
 const int min = 50; //Servo azul
-NuestroServo serv(9, min, max);
+NuestroServo serv(10, min, max);
 
 void setup() {
 }
