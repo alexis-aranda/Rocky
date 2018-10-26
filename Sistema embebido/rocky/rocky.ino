@@ -171,8 +171,8 @@ void loop() {
     case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
         if(modo == MANUAL){
           if(!pulsador.detectaCorto()){
-            posPotenciometro = potenciometro.getPosicion256();
-            servoTobogan.irA(posPotenciometro);
+            posPotenciometro = potenciometro.getPosicion();
+            servoTobogan.irAAnalogico(posPotenciometro);
           }else{ 
             estadoActual = DESPACHANDO;
             setearLED();
