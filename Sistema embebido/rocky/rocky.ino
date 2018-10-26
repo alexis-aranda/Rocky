@@ -111,12 +111,12 @@ void loop() {
         // Puede que tengamos que partirlo en varios loops
         if(!sensado){
           color = lectorColor.identificarColor();
-          sensado=true;
+          sensado = true;
           /*
            //planteo una alternativa usando un contador de lecturas
            color = lectorColor.identificarColor();
-           if(!ColorRocklet::NO_IDENTIFICADO){
-            sensado=true;
+           if(color != ColorRocklet::NO_IDENTIFICADO){
+            sensado = true;
            }
           */
         }else{
@@ -202,7 +202,6 @@ void loop() {
   }
   
   led.activar(posPotenciometro);
-  
 }
 
 //creo una función para setear el LED que es llamada en cada cambio de estado

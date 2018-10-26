@@ -63,7 +63,6 @@ class ColorRocklet{
     int pin_s3;
     int pin_out;
 
-    // para la 3er alternativa de resolución con millis y un contador de loops para la identificación del color
     bool inicio_lectura_loop;
     bool rojoLeido;
     bool azulLeido;
@@ -72,14 +71,15 @@ class ColorRocklet{
     static const unsigned long T_AZUL = 100; //Tiempo de espera entre lecturas
     static const unsigned long T_VERDE = 100; //Tiempo de espera entre lecturas
     unsigned long tmillis = 0; //Contador de espera entre lecturas
+    /*
+    // para la 3er alternativa de resolución con millis y un contador de loops para la identificación del color
     int cantLoops; //cuenta los loops de lectura de datos, vuelve a 0 cuando identifica el color
     
-    void agregarLectura();// para la alternativa de resolución //incrementa los datos leídos por cada color
     void obtenerPromedio();// para la alternativa de resolución //saca el promedio de todas las lecturas
     //fin de la 3er alternativa
-
-    int getColor(); //lee los datos recibidos desde el sensor y los pone en los parámetros de los colores
-    void setColor(const int idColor); //Seteo el id del color
+    */
+    int getColor(); //realiza la lectura de datos recibidos desde el sensor y los pone en los parámetros de los colores.
+    void setColor(const int idColor); //por si es necesario
     
     
     /*bool enRango(const int vecColor[]); *//*verifica que los valores esten dentro de un
