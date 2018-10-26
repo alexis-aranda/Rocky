@@ -81,6 +81,7 @@ void loop() {
         if(barreraDetecta){
           barreraDetecta = false;
           estadoActual = BUSCANDO;
+          setearLED();
           barreraLaser.desactivarBarrera();
         }
         break;
@@ -92,6 +93,7 @@ void loop() {
         }else if(millis() - inicioEsperaServo >= TBUSCAR){
           llendo=false;
           estadoActual = LLEVANDO;
+          setearLED();
         }
         break;
     case LLEVANDO:/* Condicion del el servo cinta para LLEVANDO */
@@ -102,27 +104,30 @@ void loop() {
         }else if(millis() - inicioEsperaServo >= TLLEVAR){
           llendo=false;
           estadoActual = SENSANDO;
+          setearLED();
         }
     case SENSANDO:/* Condicion del sensor color */
         //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
         // Puede que tengamos que partirlo en varios loops
         if(!sensado){
-          /*
           color = lectorColor.identificarColor();
           sensado=true;
-          */
-           //planteo una alternativa usando millis y un contador de lecturas
+          /*
+           //planteo una alternativa usando un contador de lecturas
            color = lectorColor.identificarColor();
            if(!ColorRocklet::NO_IDENTIFICADO){
             sensado=true;
            }
-          
+          */
         }else{
           sensado=false;
-          if(modo == AUTO)
+          if(modo == AUTO){
             estadoActual = TOBOGAN_A;
-          else
+            setearLED();
+          }else{
             estadoActual = TOBOGAN_M;
+            setearLED();
+          }
         }
         break;
     case TOBOGAN_A:/* Tobogan en modo auto*/
@@ -157,9 +162,11 @@ void loop() {
           }else if(millis() - inicioEsperaServo >= TACOMODAR){
             llendo=false;
             estadoActual = DESPACHANDO;
+            setearLED();
           }
         }else{
           estadoActual == TOBOGAN_M;
+          setearLED();
         }
     case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
         if(modo == MANUAL){
@@ -168,9 +175,11 @@ void loop() {
             servoTobogan.irA(posPotenciometro);
           }else{ 
             estadoActual = DESPACHANDO;
+            setearLED();
           }
         }else{
           estadoActual = TOBOGAN_A;
+          setearLED();
         }
     case DESPACHANDO:/* Despacho */
         if(!llendo){
@@ -180,6 +189,7 @@ void loop() {
         }else if(millis() - inicioEsperaServo >= TDESPACHO){
           llendo=false;
           estadoActual = EN_ESPERA;
+          setearLED();
         }
   }
   
@@ -191,7 +201,12 @@ void loop() {
       modo = AUTO;
   }
   
-  // Vamos a setear el modo del LED en cada loop?
+  led.activar(posPotenciometro);
+  
+}
+
+//creo una función para setear el LED que es llamada en cada cambio de estado
+void setearLED(){
   /* Seteo de LED */
   if( modo == MANUAL ){
     if( estadoActual == TOBOGAN_M ){
@@ -208,13 +223,7 @@ void loop() {
         led.setModo(NuestroLED::SIEMPRE_APAGADO);
     }
   }
-  
-  led.activar(posPotenciometro);
-  
 }
-
-
-
 
 /*
 void loop() {
