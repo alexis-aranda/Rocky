@@ -117,4 +117,5 @@ Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
 | LED          | larga | D9 | OUTPUT |
 | ServoTobogán | sig | D10 | OUTPUT |
 | ServoCinta    | sig | D11 | OUTPUT |
+| Pulsador      | sig | D12 | INPUT |
 | Potenciómetro | sig | A0 | INPUT |
