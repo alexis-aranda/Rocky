@@ -38,14 +38,20 @@
 #define TDESPACHO 1000
 #define TACOMODAR 1000
 
+/* Definicion de limites para servos*/
+#define MAX_NEGRO 220
+#define MIN_NEGRO 60
+#define MAX_AZUL 254
+#define MIN_AZUL 50
+
 /*Seteo de variables y pines*/
 ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
 NuestraBarreraLaser barreraLaser = NuestraBarreraLaser(PIN_LASER, PIN_FLAME_DETECTOR);
 NuestroLED led = NuestroLED(PIN_LED);
 NuestroPotenciometro potenciometro = NuestroPotenciometro(PIN_POTENCIOMETRO);
 NuestroPulsador pulsador = NuestroPulsador(PIN_PULSADOR);
-NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, NuestroServo::RECEPCION_ST, NuestroServo::CAIDA_ST);
-NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, NuestroServo::ST_1, NuestroServo::ST_6);
+NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, MIN_NEGRO, MAX_NEGRO);
+NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, MIN_AZUL, MAX_AZUL);
 int estadoActual;
 int modo;
 bool barreraDetecta;
