@@ -69,7 +69,155 @@ void setup() {
 }
 
 void loop() {
-  /* Condicion de la barrera laser */
+  switch(estadoActual){
+    case EN_ESPERA:/* Condicion de la barrera laser */
+        if(barreraLaser.isOn())
+            barreraDetecta = barreraLaser.detecta();
+        else{
+          barreraLaser.activarBarrera(); //Cuando la desactivamos?
+          barreraLaser.detecta();
+        }
+        /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
+        if(barreraDetecta){
+          barreraDetecta = false;
+          estadoActual = BUSCANDO;
+          barreraLaser.desactivarBarrera();
+        }
+        break;
+    case BUSCANDO:/* Condicion de el servo cinta  para BUSCANDO*/
+        if(!llendo){
+          servoCinta.irA(NuestroServo::RECEPCION_ST);
+          llendo=true;
+          inicioEsperaServo = millis();
+        }else if(millis() - inicioEsperaServo >= TBUSCAR){
+          llendo=false;
+          estadoActual = LLEVANDO;
+        }
+        break;
+    case LLEVANDO:/* Condicion del el servo cinta para LLEVANDO */
+        if(!llendo){
+          servoCinta.irA(NuestroServo::COLOR_ST);
+          llendo=true;
+          inicioEsperaServo = millis();
+        }else if(millis() - inicioEsperaServo >= TLLEVAR){
+          llendo=false;
+          estadoActual = SENSANDO;
+        }
+    case SENSANDO:/* Condicion del sensor color */
+        //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
+        // Puede que tengamos que partirlo en varios loops
+        if(!sensado){
+          /*
+          color = lectorColor.identificarColor();
+          sensado=true;
+          */
+           //planteo una alternativa usando millis y un contador de lecturas
+           color = lectorColor.identificarColor();
+           if(!ColorRocklet::NO_IDENTIFICADO){
+            sensado=true;
+           }
+          
+        }else{
+          sensado=false;
+          if(modo == AUTO)
+            estadoActual = TOBOGAN_A;
+          else
+            estadoActual = TOBOGAN_M;
+        }
+        break;
+    case TOBOGAN_A:/* Tobogan en modo auto*/
+        if(modo == AUTO){
+          if(!llendo){
+            switch( color )
+            {
+              case ColorRocklet::VERDE:
+                servoTobogan.irA(NuestroServo::ST_1);
+               break;
+              case ColorRocklet::AZUL:
+                servoTobogan.irA(NuestroServo::ST_2);
+                break;
+              case ColorRocklet::ROJO:
+                servoTobogan.irA(NuestroServo::ST_3);
+                break;
+              case ColorRocklet::NARANJA:
+                servoTobogan.irA(NuestroServo::ST_4);
+                break;
+              case ColorRocklet::AMARILLO:
+                servoTobogan.irA(NuestroServo::ST_5);
+               break;
+             case ColorRocklet::MARRON:
+                servoTobogan.irA(NuestroServo::ST_6);
+                break;
+              default:
+                // qué hacemos cuando es no identificado??  
+                break;
+            }
+            llendo = true;
+            inicioEsperaServo = millis();
+          }else if(millis() - inicioEsperaServo >= TACOMODAR){
+            llendo=false;
+            estadoActual = DESPACHANDO;
+          }
+        }else{
+          estadoActual == TOBOGAN_M;
+        }
+    case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
+        if(modo == MANUAL){
+          if(!pulsador.detectaCorto()){
+            posPotenciometro = potenciometro.getPosicion256();
+            servoTobogan.irA(posPotenciometro);
+          }else{ 
+            estadoActual = DESPACHANDO;
+          }
+        }else{
+          estadoActual = TOBOGAN_A;
+        }
+    case DESPACHANDO:/* Despacho */
+        if(!llendo){
+          servoCinta.irA(NuestroServo::CAIDA_ST);
+          llendo=true;
+          inicioEsperaServo = millis();
+        }else if(millis() - inicioEsperaServo >= TDESPACHO){
+          llendo=false;
+          estadoActual = EN_ESPERA;
+        }
+  }
+  
+  /* Checkeo si cambio de modo (verificar)*/ 
+  if(pulsador.detectaLargo()){
+    if(modo == AUTO)
+      modo = MANUAL;
+    else
+      modo = AUTO;
+  }
+  
+  // Vamos a setear el modo del LED en cada loop?
+  /* Seteo de LED */
+  if( modo == MANUAL ){
+    if( estadoActual == TOBOGAN_M ){
+      led.setModo(NuestroLED::INTENSIDAD_VARIABLE);
+    }else
+      led.setModo(NuestroLED::PRENDE_APAGA);
+  }else{
+    if( estadoActual == EN_ESPERA )
+      led.setModo(NuestroLED::SOFT_PWM);
+    else{ 
+      if(estadoActual == TOBOGAN_A || estadoActual == DESPACHANDO)
+         led.setModo(NuestroLED::SIEMPRE_PRENDIDO);
+      else //BUSCANDO || LLEVANDO || SENSANDO
+        led.setModo(NuestroLED::SIEMPRE_APAGADO);
+    }
+  }
+  
+  led.activar(posPotenciometro);
+  
+}
+
+
+
+
+/*
+void loop() {
   if(estadoActual == EN_ESPERA){
     if(barreraLaser.isOn())
         barreraDetecta = barreraLaser.detecta();
@@ -77,16 +225,15 @@ void loop() {
       barreraLaser.activarBarrera(); //Cuando la desactivamos?
       barreraLaser.detecta();
     }
+    // Condicion cambio de estado de EN_ESPERA a BUSCANDO 
+    if(barreraDetecta){
+      barreraDetecta = false;
+      estadoActual = BUSCANDO;
+      desactivarBarrera();
+    }
   }
 
-  //No deberia estar dentro de if estadoActual==EN_ESPERA ?
-  /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
-  if(barreraDetecta){
-    barreraDetecta = false;
-    estadoActual = BUSCANDO;
-  }
-
-  /* Condicion de el servo cinta  para BUSCANDO*/
+  // Condicion de el servo cinta  para BUSCANDO
   if(estadoActual == BUSCANDO){
     if(!llendo){
       servoCinta.irA(NuestroServo::RECEPCION_ST);
@@ -98,7 +245,7 @@ void loop() {
     }
   }
 
-  /* Condicion del el servo cinta para LLEVANDO */
+  // Condicion del el servo cinta para LLEVANDO
    if(estadoActual == LLEVANDO){
     if(!llendo){
       servoCinta.irA(NuestroServo::COLOR_ST);
@@ -112,7 +259,7 @@ void loop() {
 
   //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
   // Puede que tengamos que partirlo en varios loops
-  /* Condicion del sensor color */
+  // Condicion del sensor color
   if(estadoActual == SENSANDO){
     if(!sensado){
       color = lectorColor.identificarColor();
@@ -126,7 +273,7 @@ void loop() {
     }
   }
   
-  /* Checkeo si cambio de modo (verificar)*/ 
+  // Checkeo si cambio de modo (verificar)
   if(pulsador.detectaLargo()){
     if(modo == AUTO)
       modo = MANUAL;
@@ -134,7 +281,7 @@ void loop() {
       modo = AUTO;
   }
     
-  /* Tobogan en modo auto*/
+  // Tobogan en modo auto
   if(estadoActual == TOBOGAN_A){
     if(modo == AUTO){
       if(!llendo){
@@ -172,7 +319,7 @@ void loop() {
       estadoActual == TOBOGAN_M;
   }
 
-  /* Tobogan en modo manual (verificar)*/
+  // Tobogan en modo manual (verificar)
   if(estadoActual == TOBOGAN_M){
     if(modo == MANUAL){
       if(!pulsador.detectaCorto()){
@@ -181,12 +328,12 @@ void loop() {
       }else{ 
         estadoActual = DESPACHANDO;
       }
-    } //Puede ser que esta llave este de mas?
-    }else
-      estadoActual == TOBOGAN_A;
-  
+    }else{
+      estadoActual = TOBOGAN_A;
+    }
+  }
 
-  /* Despacho */
+  // Despacho
   if(estadoActual == DESPACHANDO){
     if(!llendo){
       servoCinta.irA(NuestroServo::CAIDA_ST);
@@ -199,7 +346,7 @@ void loop() {
   }
 
   // Vamos a setear el modo del LED en cada loop?
-  /* Seteo de LED */
+  // Seteo de LED
   if( modo == MANUAL ){
     if( estadoActual == TOBOGAN_M ){
       led.setModo(NuestroLED::INTENSIDAD_VARIABLE);
@@ -207,19 +354,19 @@ void loop() {
     }else
       led.setModo(NuestroLED::PRENDE_APAGA);
   }else{
-    /* me rechazaba los or en los cases.
-     * switch (estadoActual) {
-      case EN_ESPERA:
-        led.setModo(NuestroLED::SOFT_PWM);
-        break;
-      case (TOBOGAN_A || DESPACHANDO):
-        led.setModo(NuestroLED::SIEMPRE_PRENDIDO); //deberia preguntar si ya esta en ese modo con el getModo antes de cambiarlo?
-        break;
-      case (BUSCANDO || LLEVANDO || SENSANDO):  
-        led.setModo(NuestroLED::SIEMPRE_APAGADO);
-        break;
-      }
-    */
+    // me rechazaba los or en los cases.
+    // switch (estadoActual) {
+    //  case EN_ESPERA:
+    //   led.setModo(NuestroLED::SOFT_PWM);
+    //   break;
+    //  case (TOBOGAN_A || DESPACHANDO):
+    //   led.setModo(NuestroLED::SIEMPRE_PRENDIDO); //deberia preguntar si ya esta en ese modo con el getModo antes de cambiarlo?
+    //   break;
+    //  case (BUSCANDO || LLEVANDO || SENSANDO):  
+    //   led.setModo(NuestroLED::SIEMPRE_APAGADO);
+    //   break;
+    // }
+    
     if( estadoActual == EN_ESPERA )
       led.setModo(NuestroLED::SOFT_PWM);
     else{ 
@@ -232,3 +379,4 @@ void loop() {
   
   led.activar(posPotenciometro);
 }
+*/
