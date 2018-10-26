@@ -79,6 +79,7 @@ void loop() {
     }
   }
 
+  //No deberia estar dentro de if estadoActual==EN_ESPERA ?
   /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
   if(barreraDetecta){
     barreraDetecta = false;
@@ -109,6 +110,8 @@ void loop() {
     }
   }
 
+  //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
+  // Puede que tengamos que partirlo en varios loops
   /* Condicion del sensor color */
   if(estadoActual == SENSANDO){
     if(!sensado){
@@ -122,6 +125,7 @@ void loop() {
         estadoActual = TOBOGAN_M;
     }
   }
+  
   /* Checkeo si cambio de modo (verificar)*/ 
   if(pulsador.detectaLargo()){
     if(modo == AUTO)
@@ -163,7 +167,7 @@ void loop() {
       }else if(millis() - inicioEsperaServo >= TACOMODAR){
         llendo=false;
         estadoActual = DESPACHANDO;
-    }
+      }
     }else
       estadoActual == TOBOGAN_M;
   }
@@ -174,11 +178,10 @@ void loop() {
       if(!pulsador.detectaCorto()){
         posPotenciometro = potenciometro.getPosicion256();
         servoTobogan.irA(posPotenciometro);
-        
       }else{ 
         estadoActual = DESPACHANDO;
-    }
-    }
+      }
+    } //Puede ser que esta llave este de mas?
     }else
       estadoActual == TOBOGAN_A;
   
@@ -195,6 +198,7 @@ void loop() {
     }
   }
 
+  // Vamos a setear el modo del LED en cada loop?
   /* Seteo de LED */
   if( modo == MANUAL ){
     if( estadoActual == TOBOGAN_M ){
@@ -225,5 +229,6 @@ void loop() {
         led.setModo(NuestroLED::SIEMPRE_APAGADO);
     }
   }
+  
   led.activar(posPotenciometro);
 }
