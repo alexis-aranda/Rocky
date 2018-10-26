@@ -50,7 +50,7 @@ int estadoActual;
 int modo;
 bool barreraDetecta;
 unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se mueva
-bool llendo; //El servo está llendo a algún lado
+bool yendo; //El servo está yendo a algún lado
 bool sensado; //El sensorColor fue sensado
 int color; //Color del rocklet leído
 int posPotenciometro; // Posicion leida del potenciometro
@@ -59,7 +59,7 @@ void setup() {
   estadoActual = EN_ESPERA;
   modo = AUTO;
   barreraDetecta = false;
-  llendo = false;
+  yendo = false;
 }
 
 void loop() {
@@ -81,24 +81,24 @@ void loop() {
 
   /* Condicion de el servo cinta  para BUSCANDO*/
   if(estadoActual == BUSCANDO){
-    if(!llendo){
+    if(!yendo){
       servoCinta.irA(NuestroServo::RECEPCION_ST);
-      llendo=true;
+      yendo=true;
       inicioEsperaServo = millis();
     }else if(millis() - inicioEsperaServo >= TBUSCAR){
-      llendo=false;
+      yendo=false;
       estadoActual = LLEVANDO;
     }
   }
 
   /* Condicion del el servo cinta para LLEVANDO */
    if(estadoActual == LLEVANDO){
-    if(!llendo){
+    if(!yendo){
       servoCinta.irA(NuestroServo::COLOR_ST);
-      llendo=true;
+      yendo=true;
       inicioEsperaServo = millis();
     }else if(millis() - inicioEsperaServo >= TLLEVAR){
-      llendo=false;
+      yendo=false;
       estadoActual = SENSANDO;
     }
   }
@@ -127,7 +127,7 @@ void loop() {
   /* Tobogan en modo auto*/
   if(estadoActual == TOBOGAN_A){
     if(modo == AUTO){
-      if(!llendo){
+      if(!yendo){
         switch( color )
         {
           case ColorRocklet::VERDE:
@@ -152,10 +152,10 @@ void loop() {
             // qué hacemos cuando es no identificado??  
             break;
         }
-        llendo = true;
+        yendo = true;
         inicioEsperaServo = millis();
       }else if(millis() - inicioEsperaServo >= TACOMODAR){
-        llendo=false;
+        yendo=false;
         estadoActual = DESPACHANDO;
     }
     }else
@@ -179,12 +179,12 @@ void loop() {
 
   /* Despacho */
   if(estadoActual == DESPACHANDO){
-    if(!llendo){
+    if(!yendo){
       servoCinta.irA(NuestroServo::CAIDA_ST);
-      llendo=true;
+      yendo=true;
       inicioEsperaServo = millis();
     }else if(millis() - inicioEsperaServo >= TDESPACHO){
-      llendo=false;
+      yendo=false;
       estadoActual = EN_ESPERA;
     }
   }
