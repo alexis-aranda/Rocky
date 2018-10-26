@@ -19,18 +19,18 @@
 #define MANUAL 1
 
 /*Definicion de pines*/
-#define PIN_0_LECTOR_COLOR 0
-#define PIN_1_LECTOR_COLOR 0
-#define PIN_2_LECTOR_COLOR 0
-#define PIN_3_LECTOR_COLOR 0
-#define PIN_SALIDA_LECTOR_COLOR 0
-#define PIN_LASER 0
-#define PIN_FLAME_DETECTOR 0
-#define PIN_LED 0
+#define PIN_0_LECTOR_COLOR 4
+#define PIN_1_LECTOR_COLOR 5
+#define PIN_2_LECTOR_COLOR 6
+#define PIN_3_LECTOR_COLOR 7
+#define PIN_SALIDA_LECTOR_COLOR 8
+#define PIN_LASER 2
+#define PIN_FLAME_DETECTOR 3
+#define PIN_LED 9
 #define PIN_POTENCIOMETRO 0
-#define PIN_PULSADOR 0
-#define PIN_SERVO_CINTA 0
-#define PIN_SERVO_TOBOGAN 0
+#define PIN_PULSADOR 12
+#define PIN_SERVO_CINTA 11
+#define PIN_SERVO_TOBOGAN 10
 
 /*Tiempos de espera*/
 #define TBUSCAR 1000
@@ -74,7 +74,7 @@ void loop() {
     if(barreraLaser.isOn())
         barreraDetecta = barreraLaser.detecta();
     else{
-      barreraLaser.activarBarrera();
+      barreraLaser.activarBarrera(); //Cuando la desactivamos?
       barreraLaser.detecta();
     }
   }
