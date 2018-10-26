@@ -165,7 +165,7 @@ void loop() {
             setearLED();
           }
         }else{
-          estadoActual == TOBOGAN_M;
+          estadoActual = TOBOGAN_M;
           setearLED();
         }
     case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
