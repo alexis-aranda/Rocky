@@ -41,7 +41,7 @@ void ColorRocklet::setColor(const int idColor){
 }
 
 //esta opción actúa con una sola lectura
-int ColorRocklet::getColor(){
+void ColorRocklet::hacerLectura(){
 
       if(inicio_lectura_loop){
         
@@ -56,8 +56,9 @@ int ColorRocklet::getColor(){
         //this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
         this->tmillis = millis();
         rojoLeido = true;
+        verdeLeido = false;
         
-      }else if(millis() - this->tmillis >= T_AZUL && rojoLeido){
+      }else if(millis() - this->tmillis >= T_AZUL && rojoLeido && verdeLeido){
         
         digitalWrite(this->pin_s3, HIGH);
         this->azul = pulseIn(this->pin_out, LOW);
@@ -79,8 +80,8 @@ int ColorRocklet::getColor(){
       }    
 }
   
-int ColorRocklet::identificarColor(){
-    getColor();
+void ColorRocklet::identificarColor(){
+    hacerLectura();
     
     if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
         this->idColor = VERDE;
@@ -99,13 +100,18 @@ int ColorRocklet::identificarColor(){
     }
     
     //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto
-    return this->idColor;
 }
+
+int ColorRocklet::getColor(){
+  identificarColor();
+  return this->idColor;
+}
+
 //fin 2da alternativa
 
 /*
 // para la 3er alternativa de resolución que actúa con un contador de N lecturas
-int ColorRocklet::getColor(){
+void ColorRocklet::hacerLectura(){
 
     if(inicio_lectura_loop){
       this->tmillis = millis();
@@ -117,8 +123,9 @@ int ColorRocklet::getColor(){
       this->rojo = this->rojo + pulseIn(this->pin_out, LOW);
       this->tmillis = millis();
       rojoLeido = true;
+      verdeLeido = false;
       
-    }else if(millis() - this->tmillis >= T_AZUL && rojoLeido){
+    }else if(millis() - this->tmillis >= T_AZUL && rojoLeido  && verdeLeido){
       
       digitalWrite(this->pin_s3, HIGH);
       this->azul = this->azul + pulseIn(this->pin_out, LOW);
@@ -145,9 +152,9 @@ void ColorRocklet::obtenerPromedio(){
     this->azul = this->azul / this->cantLoops;
 }
 
-int ColorRocklet::identificarColor(){
+void ColorRocklet::identificarColor(){
     if(this->cantLoops < LOOPS_COLOR){
-      getColor();
+      hacerLectura();
     }else{
       obtenerPromedio();
       
@@ -171,7 +178,6 @@ int ColorRocklet::identificarColor(){
     }
     
     //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto
-    return this->idColor;
 }
 // fin 3er alternativa
 */
@@ -185,7 +191,7 @@ bool ColorRocklet::enRango(const int vecCol[]){
 }
 
 void ColorRocklet::identificarColor(){
-    getColor();
+    hacerLectura();
     
     if(enRango(M_VERDE)){
         this->idColor = VERDE;

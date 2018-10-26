@@ -110,7 +110,7 @@ void loop() {
         //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
         // Puede que tengamos que partirlo en varios loops
         if(!sensado){
-          color = lectorColor.identificarColor();
+          color = lectorColor.getColor();
           sensado = true;
           /*
            //planteo una alternativa usando un contador de lecturas

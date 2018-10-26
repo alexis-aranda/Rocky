@@ -45,10 +45,10 @@ class ColorRocklet{
 		ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out);
 
     /*
-     * Llama a getColor() e identifica el color con los parámetros leídos.
+     * Llama a identificarColor().
      * Devuelve el id del color identificado.
      */
-		int identificarColor();
+		int getColor();
 
 	private:
 		int idColor; //id actual
@@ -78,7 +78,8 @@ class ColorRocklet{
     void obtenerPromedio();// para la alternativa de resolución //saca el promedio de todas las lecturas
     //fin de la 3er alternativa
     */
-    int getColor(); //realiza la lectura de datos recibidos desde el sensor y los pone en los parámetros de los colores.
+    void identificarColor();//llama a hacerLectura identifica el color según los parámetros leídos.
+    void hacerLectura();//realiza la lectura de datos recibidos desde el sensor y los pone en los parámetros de los colores.
     void setColor(const int idColor); //por si es necesario
     
     
