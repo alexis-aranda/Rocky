@@ -30,6 +30,7 @@ class NuestroServo
      * La posicion debe pasarse en valores PWM.
      */
     void irA(int posicion);
+    void irAAnalogico(int posicion);
 
   private:
     int pin;
