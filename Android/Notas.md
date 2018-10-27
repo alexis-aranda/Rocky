@@ -1,5 +1,6 @@
 Ideas:
 
-* mover el tobog·n usando el acelerÛmetro o el girÛscopo.
-* cambiar de modo cuando el celu est· boca abajo, puede ser con el sensor de luz o con el sensor de distancia (con el acelerÛmetro serÌa complicado al pedo).
-* tirar el rocklet en X vaso cuando se detecta que se sacudiÛ el celu.
+* mover el tobog√°n usando el aceler√≥metro o el gir√≥scopo. (modo manual)
+* cambiar de modo cuando el celu est√° boca abajo, puede ser con el sensor de luz o con el sensor de distancia (con el aceler√≥metro ser√≠a complicado al pedo).
+* tirar el rocklet en X vaso cuando se detecta que se sacudi√≥ el celu.
+* variante de la anterior, shake para tirar el rocklet en modo manual
