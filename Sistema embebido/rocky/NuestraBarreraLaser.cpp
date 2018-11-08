@@ -25,9 +25,16 @@ bool NuestraBarreraLaser::isOn(){
   return this->prendido;
 }
 
+/**
+ * True si hay rocklet, false si no
+ */
 bool NuestraBarreraLaser::detecta(){
   //Leer HIGH es que el laser llega, por lo tanto no hay rocklet
   //Leer LOW es que el laser no llega, algo lo esta tapando (probablemente un rocklet)
+
+  return this->pinFD == LOW;
+  
+  /*
   if(digitalRead(this->pinFD) == LOW){ //Por ahí por formato quede bueno preguntar si está prendido tambien
     if(!counting){
       this->counting = true;
@@ -43,4 +50,5 @@ bool NuestraBarreraLaser::detecta(){
     this->counting = false;
   }
   return false;
+  */
 }

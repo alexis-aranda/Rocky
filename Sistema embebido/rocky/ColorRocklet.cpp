@@ -13,6 +13,8 @@ ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2,
     this->rojoLeido = false;
     this->azulLeido = false;
     this->verdeLeido = true;
+	
+	this->nLectura = LEER_ROJO;
 /*
     // para la 3er alternativa de resolución
     //inicialización de contador
@@ -48,36 +50,32 @@ void ColorRocklet::hacerLectura(){
         this->tmillis = millis();
         inicio_lectura_loop = false;
         
-      }else if (millis() - this->tmillis >= T_ROJO && verdeLeido){
+      }else if ( nLectura == LEER_ROJO && millis() - this->tmillis >= T_ROJO){
         
         digitalWrite(this->pin_s2, LOW);  
         digitalWrite(this->pin_s3, LOW);   
         this->rojo = pulseIn(this->pin_out, LOW);
         //this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
         this->tmillis = millis();
-        rojoLeido = true;
-        verdeLeido = false;
+		nLectura = LEER_AZUL;
         
-      }else if(millis() - this->tmillis >= T_AZUL && rojoLeido && verdeLeido){
+      }else if( nLectura == LEER_AZUL && millis() - this->tmillis >= T_AZUL){
         
         digitalWrite(this->pin_s3, HIGH);
         this->azul = pulseIn(this->pin_out, LOW);
         //this->azul = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);
         this->tmillis = millis();
-        azulLeido = true;
+		nLectura = LEER_VERDE;
         
-      }else if(millis() - this->tmillis >= T_VERDE && azulLeido){
+      }else if(nLectura == LEER_VERDE && millis() - this->tmillis >= T_VERDE){
         
         digitalWrite(this->pin_s2, HIGH);
         this->verde = pulseIn(this->pin_out, LOW);
         //this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
         this->tmillis = millis();
-        verdeLeido = true;
-        
-        rojoLeido = false;
-        azulLeido = false;
+		nLectura = LEER_ROJO;
         inicio_lectura_loop = true;
-      }    
+      } 
 }
   
 void ColorRocklet::identificarColor(){
@@ -85,18 +83,26 @@ void ColorRocklet::identificarColor(){
     
     if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
         this->idColor = VERDE;
+        Serial.println("Verde");
     }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->verde < this->rojo)){
         this->idColor = AZUL;
+        Serial.println("Azul");
     }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul)){
         this->idColor = AMARILLO;
+        Serial.println("Amarillo");
     }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
         if(this->rojo > MIN_MARRON_R){
            this->idColor = MARRON;
+           Serial.println("Marron");
         }else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V){
           this->idColor = NARANJA;
+          Serial.println("Naranja");
         }else{
           this->idColor = ROJO;
+          Serial.println("Rojo");
         }
+    } else {
+        this->idColor = NO_IDENTIFICADO;
     }
     
     //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO por defecto

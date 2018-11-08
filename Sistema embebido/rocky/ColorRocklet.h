@@ -20,7 +20,11 @@ class ColorRocklet{
 		static const int NARANJA = 4;
 		static const int AMARILLO = 5;
 		static const int MARRON = 6;
-    static const int LOOPS_COLOR = 10; // para la alternativa de resolución
+		static const int LOOPS_COLOR = 10; // para la alternativa de resolución
+		
+		static const int LEER_ROJO = 1;
+		static const int LEER_AZUL = 2;
+		static const int LEER_VERDE = 3;
 
 		/* Defino las medias de valores para cada color */
 		/* MEDIA_COLOR[] = {rojo, verde, azul};*/
@@ -55,6 +59,7 @@ class ColorRocklet{
 		int rojo; //rojo medido actual
 		int verde; //verde medido actual
 		int azul; //azul medido actual
+		int nLectura;
 
     /* pines del sensor de color */
     int pin_s0;
