@@ -34,12 +34,30 @@ ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2,
     pinMode(this->pin_s3, OUTPUT);
     pinMode(this->pin_out, INPUT);
 
-    digitalWrite(this->pin_s0,HIGH);
-    digitalWrite(this->pin_s1,LOW);
+    apagarSensor();
 }
 
 void ColorRocklet::setColor(const int idColor){
     this->idColor=idColor;
+}
+
+/**
+ * Enciende los leds para poder sensar el color.
+ * Setea una frecuencia del 20%.
+ * Se la puede llamar aunque ya est� prendido, sin problemas.
+ */
+void ColorRocklet::prenderSensor(){
+	digitalWrite(this->pin_s0,HIGH);
+	digitalWrite(this->pin_s1,LOW);
+}
+
+/**
+ * Apaga los leds para ahorrar energia. No se puede sensar mientras este apagado.
+ * Se la puede llamar aunque ya este apagado sin problemas.
+ */
+void ColorRocklet::apagarSensor(){
+	digitalWrite(this->pin_s0,LOW);
+	digitalWrite(this->pin_s1,LOW);
 }
 
 /**

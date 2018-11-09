@@ -115,6 +115,7 @@ void loop() {
         //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
         // Puede que tengamos que partirlo en varios loops
         if(!sensado){
+        	lectorColor.prenderSensor();
           sensado = lectorColor.hacerLectura();
           /*
            //planteo una alternativa usando un contador de lecturas
@@ -125,6 +126,7 @@ void loop() {
           */
         }else{
           sensado=false;
+          lectorColor.apagarSensor();
  //         if(modo == AUTO){
           	color = lectorColor.getColor();
             estadoActual = TOBOGAN_A;

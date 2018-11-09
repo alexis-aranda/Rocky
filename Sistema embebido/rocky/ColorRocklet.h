@@ -54,6 +54,8 @@ class ColorRocklet{
      */
 		int getColor();
 		bool hacerLectura();//realiza la lectura de datos recibidos desde el sensor y los pone en los parámetros de los colores.
+		void prenderSensor();
+		void apagarSensor();
 
 	private:
 		int idColor; //id actual
