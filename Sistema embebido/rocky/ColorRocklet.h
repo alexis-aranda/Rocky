@@ -38,7 +38,7 @@ class ColorRocklet{
 
     /* Defino topes para los colores en conflicto*/
     static const int MAX_NARANJA_R = 130;
-    static const int MAX_NARANJA_V = 200;
+    static const int MAX_NARANJA_V = 190;
     static const int MIN_MARRON_R = 160;
 
     /* 
