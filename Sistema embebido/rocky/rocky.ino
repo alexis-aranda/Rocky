@@ -111,6 +111,7 @@ void loop() {
 		  Serial.println("SENSANDO");
           setearLED();
         }
+        break;
     case SENSANDO:/* Condicion del sensor color */
         //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
         // Puede que tengamos que partirlo en varios loops
@@ -196,6 +197,7 @@ void loop() {
           estadoActual = TOBOGAN_A;
           setearLED();
         }*/
+          break;
     case DESPACHANDO:/* Despacho */
         if(!llendo){
           servoCinta.irA(NuestroServo::CAIDA_ST);
