@@ -42,44 +42,56 @@ void ColorRocklet::setColor(const int idColor){
     this->idColor=idColor;
 }
 
-//esta opción actúa con una sola lectura
-void ColorRocklet::hacerLectura(){
+/**
+ * A esta funcion se la llama varias veces.
+ * En el primer llamado inicia la lectura.
+ * En los siguientes chequea si ya paso un tiempo prudencial y si paso, lee el siguiente color.
+ * Devuelve verdadero recien cuando ya leyo el ultimo color necesario para identificar al rocklet.
+ * Todas las llamadas intermedias devuelven falso.
+ */
+bool ColorRocklet::hacerLectura(){
 
+	//La espera entre inicio y leer rojo no siempre tiene sentido. Por ahi habria que comparar contra los millis en que termino la lectura anterior
       if(inicio_lectura_loop){
         
         this->tmillis = millis();
         inicio_lectura_loop = false;
+        return false;
         
-      }else if ( nLectura == LEER_ROJO && millis() - this->tmillis >= T_ROJO){
-        
+      }else if ( nLectura == LEER_ROJO && millis() - this->tmillis >= T_ROJO){ //Veo si puedo leer rojo
+        //Leo rojo
         digitalWrite(this->pin_s2, LOW);  
         digitalWrite(this->pin_s3, LOW);   
         this->rojo = pulseIn(this->pin_out, LOW);
-        //this->rojo = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+        //Preparo para leer azul en la proxima vuelta
         this->tmillis = millis();
 		nLectura = LEER_AZUL;
+		return false;
         
-      }else if( nLectura == LEER_AZUL && millis() - this->tmillis >= T_AZUL){
-        
+      }else if( nLectura == LEER_AZUL && millis() - this->tmillis >= T_AZUL){ //Veo si puedo leer azul
+        //Leo azul
         digitalWrite(this->pin_s3, HIGH);
         this->azul = pulseIn(this->pin_out, LOW);
-        //this->azul = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);
+        //Preparo para leer verde en la proxima vuelta
         this->tmillis = millis();
 		nLectura = LEER_VERDE;
+        return false;
         
-      }else if(nLectura == LEER_VERDE && millis() - this->tmillis >= T_VERDE){
-        
+      }else if(nLectura == LEER_VERDE && millis() - this->tmillis >= T_VERDE){ //Veo si puedo leer verde
+        //Leo verde
         digitalWrite(this->pin_s2, HIGH);
         this->verde = pulseIn(this->pin_out, LOW);
-        //this->verde = pulseIn(this->pin_out, digitalRead(this->pin_out) == HIGH ? LOW : HIGH);  
+        //Preparo para leer rojo en la proxima vuelta
         this->tmillis = millis();
 		nLectura = LEER_ROJO;
         inicio_lectura_loop = true;
-      } 
+        return true; //Termine de leer los tres colores, ya puedo identificar un rocklet
+      }
+      return false; //No puedo hacer nada en esta vuelta
 }
   
 void ColorRocklet::identificarColor(){
-    hacerLectura();
+    //hacerLectura();
     
     if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
         this->idColor = VERDE;
