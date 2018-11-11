@@ -113,21 +113,14 @@ void loop() {
         }
         break;
     case SENSANDO:/* Condicion del sensor color */
-        //Testear. Nuestra prueba tenia delays entre el sensado de un color y el otro por estabilidad.
-        // Puede que tengamos que partirlo en varios loops
+    
         if(!sensado){
-        	//lectorColor.prenderSensor();
+        	lectorColor.prenderSensor();
           sensado = lectorColor.hacerLectura();
-          /*
-           //planteo una alternativa usando un contador de lecturas
-           color = lectorColor.identificarColor();
-           if(color != ColorRocklet::NO_IDENTIFICADO){
-            sensado = true;
-           }
-          */
+          
         }else{
           sensado=false;
-          //lectorColor.apagarSensor();
+          lectorColor.apagarSensor();
  //         if(modo == AUTO){
           	color = lectorColor.getColor();
             estadoActual = TOBOGAN_A;

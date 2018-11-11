@@ -22,13 +22,6 @@ void loop() {
     
           lectorColor.prenderSensor();
           sensado = lectorColor.hacerLectura();
-          /*
-           //planteo una alternativa usando un contador de lecturas
-           color = lectorColor.identificarColor();
-           if(color != ColorRocklet::NO_IDENTIFICADO){
-            sensado = true;
-           }
-          */
         }else{
           sensado=false;
           lectorColor.apagarSensor();
