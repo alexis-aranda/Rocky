@@ -11,6 +11,7 @@ class NuestroServo
 {
   public:
     //Estaciones para el servo negro
+
     static const int RECEPCION_ST=76;
     static const int COLOR_ST=140;
     static const int CAIDA_ST=220;
@@ -31,7 +32,7 @@ class NuestroServo
      * siempre que esta se encuentre entre los limites setados.
      * La posicion debe pasarse en valores PWM.
      */
-    void irA(int posicion);
+    int irA(int posicion);
 
   private:
     int pin;

@@ -39,8 +39,8 @@
 #define TACOMODAR 1000
 
 /* Definicion de limites para servos*/
-#define MAX_NEGRO 220
-#define MIN_NEGRO 60
+#define MAX_NEGRO 180
+#define MIN_NEGRO 0
 #define MAX_AZUL 254
 #define MIN_AZUL 50
 

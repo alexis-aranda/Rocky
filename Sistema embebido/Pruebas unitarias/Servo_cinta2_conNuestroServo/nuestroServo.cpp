@@ -12,8 +12,9 @@ NuestroServo::NuestroServo(int pin, int limiteInf, int limiteSup)
   pinMode(this->pin, OUTPUT);
 }
 
-void NuestroServo::irA(int pos)
+int NuestroServo::irA(int pos)
 {
   if(pos >= this->limInf && pos <= this->limSup)
      analogWrite(this->pin, pos);
+  return pos;
 }
