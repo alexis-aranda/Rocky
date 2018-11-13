@@ -16,6 +16,7 @@ class DeviceListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<BluetoothDevice> mData;
     private OnPairButtonClickListener mListener;
+    private OnPairButtonClickListener mListener2;
 
     public DeviceListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -25,8 +26,9 @@ class DeviceListAdapter extends BaseAdapter {
         mData = data;
     }
 
-    public void setListener(OnPairButtonClickListener listener) {
+    public void setListener(OnPairButtonClickListener listener, OnPairButtonClickListener listener2) {
         mListener = listener;
+        mListener2 = listener2;
     }
 
     public int getCount() {
@@ -52,6 +54,8 @@ class DeviceListAdapter extends BaseAdapter {
             holder.nameTv		= (TextView) convertView.findViewById(R.id.tv_name);
             holder.addressTv 	= (TextView) convertView.findViewById(R.id.tv_address);
             holder.pairBtn		= (Button) convertView.findViewById(R.id.btn_pair);
+            holder.iniBtn       = (Button) convertView.findViewById(R.id.btn_iniciar);
+
 
             convertView.setTag(holder);
         } else {
@@ -62,12 +66,22 @@ class DeviceListAdapter extends BaseAdapter {
 
         holder.nameTv.setText(device.getName());
         holder.addressTv.setText(device.getAddress());
-        holder.pairBtn.setText((device.getBondState() == BluetoothDevice.BOND_BONDED) ? "Desconectar" : "Conectar");
+        holder.pairBtn.setText((device.getBondState() == BluetoothDevice.BOND_BONDED) ? "Unpair" : "Pair");
         holder.pairBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
                     mListener.onPairButtonClick(position);
+                }
+            }
+        });
+
+        holder.iniBtn.setText("Iniciar");
+        holder.iniBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener2 != null) {
+                    mListener2.onPairButtonClick(position);
                 }
             }
         });
@@ -79,6 +93,7 @@ class DeviceListAdapter extends BaseAdapter {
         TextView nameTv;
         TextView addressTv;
         TextView pairBtn;
+        TextView iniBtn;//ojo
     }
 
     public interface OnPairButtonClickListener {

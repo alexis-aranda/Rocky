@@ -9,23 +9,26 @@
 
     <Button
         android:id="@+id/btn_pair"
-        android:layout_width="125dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="201dp"
+        android:layout_marginRight="0dp"
         android:text="@string/text_pair" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/btn_pair"
-        android:layout_alignTop="@+id/btn_pair"
+        android:layout_below="@+id/tv_address"
         android:layout_alignParentLeft="true"
-        android:textSize="16sp"
+        android:layout_marginTop="-49dp"
+        android:layout_toLeftOf="@+id/btn_pair"
+        android:text="Galaxy Nexus"
         android:textColor="#000000"
-        android:text="Galaxy Nexus" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -35,5 +38,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignBottom="@+id/btn_pair"
         android:text="000000000" />
+
+    <Button
+        android:id="@+id/btn_iniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_pair"
+        android:layout_toStartOf="@+id/btn_pair"
+        android:text="@string/text_iniciar" />
 
 </RelativeLayout>
