@@ -1,5 +1,6 @@
 package rocky.rockyapp.app;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,7 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BluetoothAdapter mBluetoothAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //Se Crea la ventana de dialogo que indica que se esta buscando dispositivos bluethoot
         mProgressDlg = new ProgressDialog(this);
 
-        mProgressDlg.setMessage("Buscando dispositivos...");
+        mProgressDlg.setMessage("Buscando dispositivos");
         mProgressDlg.setCancelable(false);
 
         //se asocia un listener al boton cancelar para la ventana de dialogo ue busca los dispositivos bluethoot
@@ -67,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         {
             //si el celular soporta bluethoot, se definen los listener para los botones de la activity
             btnEmparejar.setOnClickListener(btnEmparejarListener);
+
+            //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
 
             btnBuscar.setOnClickListener(btnBuscarListener);
 
@@ -88,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         //se definen un broadcastReceiver que captura el broadcast del SO cuando captura los siguientes eventos:
         IntentFilter filter = new IntentFilter();
 
-        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED); //Cambia el estado del Bluethoot (Acrtivado /Desactivado)
         filter.addAction(BluetoothDevice.ACTION_FOUND); //Se encuentra un dispositivo bluethoot al realizar una busqueda
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED); //Cambia el estado del Bluethoot (Acrtivado /Desactivado)
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED); //Cuando se comienza una busqueda de bluethoot
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); //cuando la busqueda de bluethoot finaliza
 
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showEnabled() {
-        txtEstado.setText("Bluetooth Habilitar");
+        txtEstado.setText("Bluetooth Habilitado");
         txtEstado.setTextColor(Color.BLUE);
 
         btnActivar.setText("Desactivar");
@@ -160,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
 
-            //Atraves del Intent obtengo el evento de Bluethoot que informo el broadcast del SO
+           //Atraves del Intent obtengo el evento de Bluethoot que informo el broadcast del SO
             String action = intent.getAction();
+
 
             //Si cambio de estado el Bluethoot(Activado/desactivado)
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action))
@@ -180,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             //Si se inicio la busqueda de dispositivos bluethoot
             else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
             {
+
                 //Creo la lista donde voy a mostrar los dispositivos encontrados
                 mDeviceList = new ArrayList<BluetoothDevice>();
 
@@ -242,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener btnBuscarListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+
             mBluetoothAdapter.startDiscovery();
         }
     };
