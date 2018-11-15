@@ -8,6 +8,84 @@
     android:padding="@dimen/activity_vertical_margin"
     tools:context=".Funciones">
 
+    <TextView
+        android:id="@+id/textViewVaso1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso1: verde"
+        android:textColor="@android:color/holo_green_dark"/>
+
+    <TextView
+        android:id="@+id/textViewCont1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textViewVaso2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso2: azul"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+    <TextView
+        android:id="@+id/textViewCont2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textViewVaso3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso3: rojo"
+        android:textColor="@android:color/holo_red_dark"/>
+
+    <TextView
+        android:id="@+id/textViewCont3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textViewVaso4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso4: naranja"
+        android:textColor="@android:color/holo_orange_dark"/>
+
+    <TextView
+        android:id="@+id/textViewCont4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textViewVaso5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso5: amarillo"
+        android:textColor="#AAAA00"/>
+
+    <TextView
+        android:id="@+id/textViewCont5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textViewVaso6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaso6: marron"
+        android:textColor="#800000"/>
+
+    <TextView
+        android:id="@+id/textViewCont6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
     <Button
         android:id="@+id/btnCantRocklets"
         android:layout_width="match_parent"
