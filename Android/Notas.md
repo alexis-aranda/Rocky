@@ -7,9 +7,13 @@ Ideas:
 * cambiar colores segun luz ambiente (por ejemplo, colores brillantes y alto contraste cuando hay mucha luz, y colores oscuros cuando es de noche)
 
 # Funcionalidades
-* Pausa y play del clasificador de rocklets
-* Cuenta rocklets por vaso
+* Pausa y play del clasificador de rocklets (boton activity)
+* Muestra cuenta rocklets por vaso. La cuenta la hace el Arduino.
 * Estadisticas, graficos de colores de rocklets
-* Vasos tienen un limite. Pausa si un vaso se llena y muestra error, reanuda cuando le digo que lo solucione y reinicia la cuenta de ese vaso.
-* En modo Manual, mover el tobogan con el giroscopo. Para que no entre en conflicto con el potenciometro, podriamos usar el sensor de distancia o luz para ver que el celu este boca abajo en la mesa, y lo toma solo si esta boca abajo.
-* En modo Manual, shake tira rocklet?
+* Vasos tienen un limite. Lo cuenta el arduino y se lo informa a android. Pausa si un vaso se llena y muestra error, reanuda cuando le digo que lo solucione y reinicia la cuenta de ese vaso.
+* En modo Manual, mover el tobogan con el giroscopo.
+* En modo Manual, usar proximidad para tirar rocklet.
+* Sensor de luz define el tono del fondo.
+* Mostrar por pantalla si esta en modo Automatico, Manual o Celular.
+
+Cuando pongo modo Celular, no importa si estaba Automatico o Manual, se maneja con el celu. Cuando salgo de modo Celular, usa el que tenga. Mientras estoy en modo Celular el boton puede cambiar entre Manual y Automatico, pero los cambios se van a ver recien cuando salga del celu.
