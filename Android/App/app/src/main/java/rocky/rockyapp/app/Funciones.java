@@ -18,6 +18,7 @@ public class Funciones extends AppCompatActivity {
     TextView tvCont5;
     TextView tvCont6;
     Button tobogan;
+    Button pausar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +33,6 @@ public class Funciones extends AppCompatActivity {
         tvCont6 = (TextView)findViewById(R.id.textViewCont6);
 
         tobogan = (Button)findViewById(R.id.btnTobogan);
+        pausar = (Button)findViewById(R.id.btnPausar);
     }
 }

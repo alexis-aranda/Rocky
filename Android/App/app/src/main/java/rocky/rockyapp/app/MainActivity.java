@@ -215,9 +215,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 //Se lo agregan sus datos a una lista de dispositivos encontrados
                 BluetoothDevice device = (BluetoothDevice) intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if(device.getName()!=null){
+                    mDeviceList.add(device);
+                    showToast("Dispositivo Encontrado:" + device.getName());
+                }
 
-                mDeviceList.add(device);
-                showToast("Dispositivo Encontrado:" + device.getName());
             }
         }
     };
