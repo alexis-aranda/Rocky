@@ -87,12 +87,11 @@
         android:text="0" />
 
     <Button
-        android:id="@+id/btnCantRocklets"
+        android:id="@+id/btnTobogan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:enabled="true"
-        android:text="@string/text_conteo" />
+        android:text="@string/text_tobogan" />
 
     <Button
         android:id="@+id/btnPausar"
@@ -100,12 +99,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/text_pausar" />
-
-    <Button
-        android:id="@+id/btnTobogan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/text_tobogan" />
 
 </LinearLayout>
