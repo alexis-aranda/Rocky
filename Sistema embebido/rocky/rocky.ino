@@ -73,15 +73,10 @@ void setup() {
 void loop() {
   switch (estadoActual) {
     case EN_ESPERA:/* Condicion de la barrera laser */
-      if (barreraLaser.isOn())
-        barreraDetecta = barreraLaser.detecta();
-      else {
-        barreraLaser.activarBarrera(); //Cuando la desactivamos?
-        barreraDetecta = barreraLaser.detecta();
-      }
+      barreraLaser.activarBarrera();
       /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
-      if (barreraDetecta) {
-        barreraDetecta = false;
+      if (barreraLaser.detecta()) {
+        //barreraDetecta = false;
         estadoActual = BUSCANDO;
         Serial.println("BUSCANDO");
         setearLED();
@@ -175,8 +170,10 @@ void loop() {
         }
       } else {
         estadoActual = TOBOGAN_M;
+        Serial.println("TOBOGAN_M");
         setearLED();
       }
+      break;
     case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
       if (modo == MANUAL) {
         if (!pulsador.detectaCorto()) {
@@ -184,10 +181,12 @@ void loop() {
           servoTobogan.irAAnalogico(posPotenciometro);
         } else {
           estadoActual = DESPACHANDO;
+          Serial.println("DESPACHANDO");
           setearLED();
         }
       } else {
         estadoActual = TOBOGAN_A;
+        Serial.println("TOBOGAN_A");
         setearLED();
       }
       break;
@@ -206,10 +205,14 @@ void loop() {
 
   /* Checkeo si cambio de modo (verificar)*/
   if (pulsador.detectaLargo()) {
-    if (modo == AUTO)
+    if (modo == AUTO){
       modo = MANUAL;
-    else
+      Serial.println("M");
+    }
+    else{
       modo = AUTO;
+      Serial.println("A");
+    }
   }
 
   led.activar(posPotenciometro);
