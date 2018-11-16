@@ -54,7 +54,7 @@ NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, MIN_NEGRO, MAX_NEGRO);
 NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, MIN_AZUL, MAX_AZUL);
 
 int estadoActual;
-//int modo;
+int modo;
 bool barreraDetecta;
 unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se mueva
 bool llendo; //El servo está llendo a algún lado
@@ -65,172 +65,172 @@ int posPotenciometro; // Posicion leida del potenciometro
 void setup() {
   Serial.begin(9600);
   estadoActual = EN_ESPERA;
-//  modo = AUTO;
+  modo = AUTO;
   barreraDetecta = false;
   llendo = false;
 }
 
 void loop() {
-  switch(estadoActual){
+  switch (estadoActual) {
     case EN_ESPERA:/* Condicion de la barrera laser */
-/*        if(barreraLaser.isOn())
-            barreraDetecta = barreraLaser.detecta();
-        else{
-          barreraLaser.activarBarrera(); //Cuando la desactivamos?
-          barreraDetecta = barreraLaser.detecta();
-        }
-        /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
-/*        if(barreraDetecta){
-          barreraDetecta = false;*/
-          estadoActual = BUSCANDO;
-		  Serial.println("BUSCANDO");
-          setearLED();
-/*          barreraLaser.desactivarBarrera();
-        }*/
-        break;
+      if (barreraLaser.isOn())
+        barreraDetecta = barreraLaser.detecta();
+      else {
+        barreraLaser.activarBarrera(); //Cuando la desactivamos?
+        barreraDetecta = barreraLaser.detecta();
+      }
+      /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
+      if (barreraDetecta) {
+        barreraDetecta = false;
+        estadoActual = BUSCANDO;
+        Serial.println("BUSCANDO");
+        setearLED();
+        barreraLaser.desactivarBarrera();
+      }
+      break;
     case BUSCANDO:/* Condicion de el servo cinta  para BUSCANDO*/
-        if(!llendo){
-          servoCinta.irA(NuestroServo::RECEPCION_ST);
-          llendo=true;
-          inicioEsperaServo = millis();
-        }else if(millis() - inicioEsperaServo >= TBUSCAR){
-          llendo=false;
-          estadoActual = LLEVANDO;
-		  Serial.println("LLEVANDO");
-          setearLED();
-        }
-        break;
+      if (!llendo) {
+        servoCinta.irA(NuestroServo::RECEPCION_ST);
+        llendo = true;
+        inicioEsperaServo = millis();
+      } else if (millis() - inicioEsperaServo >= TBUSCAR) {
+        llendo = false;
+        estadoActual = LLEVANDO;
+        Serial.println("LLEVANDO");
+        setearLED();
+      }
+      break;
     case LLEVANDO:/* Condicion del el servo cinta para LLEVANDO */
-        if(!llendo){
-          servoCinta.irA(NuestroServo::COLOR_ST);
-          llendo=true;
-          inicioEsperaServo = millis();
-        }else if(millis() - inicioEsperaServo >= TLLEVAR){
-          llendo=false;
-          estadoActual = SENSANDO;
-		  Serial.println("SENSANDO");
-          setearLED();
-        }
-        break;
+      if (!llendo) {
+        servoCinta.irA(NuestroServo::COLOR_ST);
+        llendo = true;
+        inicioEsperaServo = millis();
+      } else if (millis() - inicioEsperaServo >= TLLEVAR) {
+        llendo = false;
+        estadoActual = SENSANDO;
+        Serial.println("SENSANDO");
+        setearLED();
+      }
+      break;
     case SENSANDO:/* Condicion del sensor color */
-    
-        if(!sensado){
-        	lectorColor.prenderSensor();
-          sensado = lectorColor.hacerLectura();
-          
-        }else{
-          sensado=false;
-          lectorColor.apagarSensor();
- //         if(modo == AUTO){
-          	color = lectorColor.getColor();
-            estadoActual = TOBOGAN_A;
-			Serial.println("TOBOGAN_A");
-            setearLED();
-/*          }else{
-            estadoActual = TOBOGAN_M;
-            setearLED();
-          }*/
-        }
-        break;
-    case TOBOGAN_A:/* Tobogan en modo auto*/
- //       if(modo == AUTO){
-          if(!llendo){
-            switch( color )
-            {
-              case ColorRocklet::VERDE:
-                servoTobogan.irA(NuestroServo::ST_1);
-                Serial.println("V");
-               break;
-              case ColorRocklet::AZUL:
-                servoTobogan.irA(NuestroServo::ST_2);
-                Serial.println("Az");
-                break;
-              case ColorRocklet::ROJO:
-                servoTobogan.irA(NuestroServo::ST_3);
-                Serial.println("R");
-                break;
-              case ColorRocklet::NARANJA:
-                servoTobogan.irA(NuestroServo::ST_4);
-                Serial.println("N");
-                break;
-              case ColorRocklet::AMARILLO:
-                servoTobogan.irA(NuestroServo::ST_5);
-                Serial.println("Am");
-               break;
-             case ColorRocklet::MARRON:
-                servoTobogan.irA(NuestroServo::ST_6);
-                Serial.println("M");
-                break;
-              default:
-                servoTobogan.irA(NuestroServo::ST_3);
-                Serial.println("Sin color");
-            }
-            llendo = true;
-            inicioEsperaServo = millis();
-          }else if(millis() - inicioEsperaServo >= TACOMODAR){
-            llendo=false;
-            estadoActual = DESPACHANDO;
-			Serial.println("DESPACHANDO");
-            setearLED();
-          }
-/*        }else{
+
+      if (!sensado) {
+        lectorColor.prenderSensor();
+        sensado = lectorColor.hacerLectura();
+
+      } else {
+        sensado = false;
+        lectorColor.apagarSensor();
+        if (modo == AUTO) {
+          color = lectorColor.getColor();
+          estadoActual = TOBOGAN_A;
+          Serial.println("TOBOGAN_A");
+          setearLED();
+        } else {
           estadoActual = TOBOGAN_M;
           setearLED();
-        }*/
-/*    case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
-/*        if(modo == MANUAL){
-          if(!pulsador.detectaCorto()){
-            posPotenciometro = potenciometro.getPosicion();
-            servoTobogan.irAAnalogico(posPotenciometro);
-          }else{ 
-            estadoActual = DESPACHANDO;
-            setearLED();
+        }
+      }
+      break;
+    case TOBOGAN_A:/* Tobogan en modo auto*/
+      if (modo == AUTO) {
+        if (!llendo) {
+          switch ( color )
+          {
+            case ColorRocklet::VERDE:
+              servoTobogan.irA(NuestroServo::ST_1);
+              Serial.println("V");
+              break;
+            case ColorRocklet::AZUL:
+              servoTobogan.irA(NuestroServo::ST_2);
+              Serial.println("Az");
+              break;
+            case ColorRocklet::ROJO:
+              servoTobogan.irA(NuestroServo::ST_3);
+              Serial.println("R");
+              break;
+            case ColorRocklet::NARANJA:
+              servoTobogan.irA(NuestroServo::ST_4);
+              Serial.println("N");
+              break;
+            case ColorRocklet::AMARILLO:
+              servoTobogan.irA(NuestroServo::ST_5);
+              Serial.println("Am");
+              break;
+            case ColorRocklet::MARRON:
+              servoTobogan.irA(NuestroServo::ST_6);
+              Serial.println("M");
+              break;
+            default:
+              servoTobogan.irA(NuestroServo::ST_3);
+              Serial.println("Sin color");
           }
-        }else{
-          estadoActual = TOBOGAN_A;
-          setearLED();
-        }*/
-          break;
-    case DESPACHANDO:/* Despacho */
-        if(!llendo){
-          servoCinta.irA(NuestroServo::CAIDA_ST);
-          llendo=true;
+          llendo = true;
           inicioEsperaServo = millis();
-        }else if(millis() - inicioEsperaServo >= TDESPACHO){
-          llendo=false;
-          estadoActual = EN_ESPERA;
-		      Serial.println("EN_ESPERA");
+        } else if (millis() - inicioEsperaServo >= TACOMODAR) {
+          llendo = false;
+          estadoActual = DESPACHANDO;
+          Serial.println("DESPACHANDO");
           setearLED();
         }
+      } else {
+        estadoActual = TOBOGAN_M;
+        setearLED();
+      }
+    case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
+      if (modo == MANUAL) {
+        if (!pulsador.detectaCorto()) {
+          posPotenciometro = potenciometro.getPosicion();
+          servoTobogan.irAAnalogico(posPotenciometro);
+        } else {
+          estadoActual = DESPACHANDO;
+          setearLED();
+        }
+      } else {
+        estadoActual = TOBOGAN_A;
+        setearLED();
+      }
+      break;
+    case DESPACHANDO:/* Despacho */
+      if (!llendo) {
+        servoCinta.irA(NuestroServo::CAIDA_ST);
+        llendo = true;
+        inicioEsperaServo = millis();
+      } else if (millis() - inicioEsperaServo >= TDESPACHO) {
+        llendo = false;
+        estadoActual = EN_ESPERA;
+        Serial.println("EN_ESPERA");
+        setearLED();
+      }
   }
-  
-  /* Checkeo si cambio de modo (verificar)*/ 
-/*  if(pulsador.detectaLargo()){
-    if(modo == AUTO)
+
+  /* Checkeo si cambio de modo (verificar)*/
+  if (pulsador.detectaLargo()) {
+    if (modo == AUTO)
       modo = MANUAL;
     else
       modo = AUTO;
-  }*/
-  
+  }
+
   led.activar(posPotenciometro);
 }
 
 //creo una función para setear el LED que es llamada en cada cambio de estado
-void setearLED(){
+void setearLED() {
   /* Seteo de LED */
-/*  if( modo == MANUAL ){
-    if( estadoActual == TOBOGAN_M ){
+  if ( modo == MANUAL ) {
+    if ( estadoActual == TOBOGAN_M ) {
       led.setModo(NuestroLED::INTENSIDAD_VARIABLE);
-    }else
+    } else
       led.setModo(NuestroLED::PRENDE_APAGA);
-  }else{*/
-    if( estadoActual == EN_ESPERA )
+  } else {
+    if ( estadoActual == EN_ESPERA )
       led.setModo(NuestroLED::SOFT_PWM);
-    else{ 
-      if(estadoActual == TOBOGAN_A || estadoActual == DESPACHANDO)
-         led.setModo(NuestroLED::SIEMPRE_PRENDIDO);
+    else {
+      if (estadoActual == TOBOGAN_A || estadoActual == DESPACHANDO)
+        led.setModo(NuestroLED::SIEMPRE_PRENDIDO);
       else //BUSCANDO || LLEVANDO || SENSANDO
         led.setModo(NuestroLED::SIEMPRE_APAGADO);
     }
-//  }
+  }
 }
