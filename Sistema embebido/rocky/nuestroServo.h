@@ -9,9 +9,9 @@ class NuestroServo
 {
   public:
     //Estaciones para el servo negro
-    static const int RECEPCION_ST=190;
-    static const int COLOR_ST=128;
-    static const int CAIDA_ST=55;
+    static const int RECEPCION_ST=180; //190
+    static const int COLOR_ST=120; //128
+    static const int CAIDA_ST=40; //55
 
     //Estaciones en valores PWM para el servo azul
     static const int ST_1=50;
