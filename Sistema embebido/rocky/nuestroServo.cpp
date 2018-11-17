@@ -19,7 +19,7 @@ void NuestroServo::irA(int pos)
 }
 
 /**
- * Recibe un valor entre 0 y 255 y mueve el servo proporcionalmente
+ * Recibe un valor entre 0 y 1023 y mueve el servo proporcionalmente
  * entre sus valores minimo y maximo. Si el valor no esta entre 0 o 1023
  * lo ignora.
 */
