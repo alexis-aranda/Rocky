@@ -204,6 +204,7 @@ void loop() {
   }
 
   /* Checkeo si cambio de modo (verificar)*/
+  pulsador.chequear();
   if (pulsador.detectaLargo()) {
     if (modo == AUTO){
       modo = MANUAL;

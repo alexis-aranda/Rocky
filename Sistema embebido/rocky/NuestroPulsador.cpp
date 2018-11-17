@@ -1,48 +1,50 @@
 #include <Arduino.h>
 #include "NuestroPulsador.h"
 
-NuestroPulsador::NuestroPulsador(int const pin){
-  this->pin=pin;
+NuestroPulsador::NuestroPulsador(int const pin) {
+  this->pin = pin;
   pinMode(this->pin, OUTPUT);
 }
 
-bool NuestroPulsador::detectaCorto(){
-  if(digitalRead(this->pin) == HIGH){
-    if(!countingC){
-      this->countingC = true;
-      this->tmillisC = millis();
-      return false;
-    }
-    if(millis() - this->tmillisC > MINSHORT){
-      this->countingC = false;
-      this->posibleShort = true;
-    }
-  }
-  else{
-    if(posibleShort && millis() - this->tmillisC < MAXSHORT){
-      this->countingC = false;
-      this->posibleShort = false;
-      return true;
-    }
-    this->countingC = false;
-  }
-  return false;
+bool NuestroPulsador::detectaCorto() {
+  return this->estado == CORTO;
 }
 
-bool NuestroPulsador::detectaLargo(){
-  if(digitalRead(this->pin) == HIGH){
-    if(!countingL){
-      this->countingL = true;
-      this->tmillisL = millis();
-      return false;
+bool NuestroPulsador::detectaLargo() {
+  return this->estado == LARGO;
+}
+
+/**
+   Chequea el estado del pulsador y define si se trata de un pulso
+   corto, largo o nada.
+*/
+void NuestroPulsador::chequear() {
+  if (digitalRead(this->pin) == HIGH) { //Si esta pulsado
+    if (!counting) { //Si no estaba contando, no estaba pulsado antes
+      //Arranco la cuenta ahora
+      this->counting = true;
+      this->tmillis = millis();
+      //Return porque todavia no se que es
     }
-    if(millis() - this->tmillisL > MAXSHORT){
-      this->countingL = false;
-      return true;
+    //Si ya venia contando o recien empiezo a contar, espero a que lo suelte para definir que es
+  } else {
+    if (counting) {
+      //Si no esta pulsado pero venia contando, es que recien lo suelta
+      this->counting = false;
+      //Defino que es
+      if (millis() - this->tmillis > MAXSHORT) {
+        Serial.println("L");
+        this->estado = LARGO;
+        return ;
+      }
+      else if (millis() - this->tmillis > MINSHORT) {
+        Serial.println("C");
+        this->estado = CORTO;
+        return;
+      }
+      Serial.println(millis() - this->tmillis);
+      //Si llego aca es que fue un pulso muy corto para ser algo
     }
   }
-  else{
-    this->countingL = false;
-  }
-  return false;
+  this->estado = NADA;
 }
