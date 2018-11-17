@@ -121,19 +121,19 @@ public class DeviceListActivity extends AppCompatActivity {
             {
                 //Si esta emparejado,quiere decir que se selecciono desemparjar y entonces se le desempareja
                 //unpairDevice(device);
-                Intent i=new Intent(DeviceListActivity.this,Funciones.class);
-                startActivity(i);
+                //Intent i=new Intent(DeviceListActivity.this,Funciones.class);
+                //startActivity(i);
 
                 /*********************************************************************************************************
                  * usar esto para iniciar conexion con arduino
                  **********************************************************************************************************/
-                //BluetoothDevice dispositivo = (BluetoothDevice) mAdapter.getItem(posicionListBluethoot);
+                BluetoothDevice dispositivo = (BluetoothDevice) mAdapter.getItem(posicionListBluethoot);
                 //se inicia el Activity de comunicacion con el bluethoot, para transferir los datos.
                 //Para eso se le envia como parametro la direccion(MAC) del bluethoot Arduino
-                //String direccionBluethoot = dispositivo.getAddress();
-                //Intent i = new Intent(DeviceListActivity.this, activity_comunicacion.class);
-                //i.putExtra("Direccion_Bluethoot", direccionBluethoot);
-                //startActivity(i);
+                String direccionBluetooth = dispositivo.getAddress();
+                Intent i = new Intent(DeviceListActivity.this, Funciones.class);
+                i.putExtra("Direccion_Bluetooth", direccionBluetooth);
+                startActivity(i);
             }
             else
             {
@@ -168,19 +168,19 @@ public class DeviceListActivity extends AppCompatActivity {
                     //Si se detecto que se puedo emparejar el bluethoot
                     showToast("Emparejado");
 
-                    Intent i=new Intent(DeviceListActivity.this,Funciones.class);
-                    startActivity(i);
+                    //Intent i=new Intent(DeviceListActivity.this,Funciones.class);
+                    //startActivity(i);
 
                     /*********************************************************************************************************
                      * usar esto para iniciar conexion con arduino
                      **********************************************************************************************************/
-                    //BluetoothDevice dispositivo = (BluetoothDevice) mAdapter.getItem(posicionListBluethoot);
+                    BluetoothDevice dispositivo = (BluetoothDevice) mAdapter.getItem(posicionListBluethoot);
                     //se inicia el Activity de comunicacion con el bluethoot, para transferir los datos.
                     //Para eso se le envia como parametro la direccion(MAC) del bluethoot Arduino
-                    //String direccionBluethoot = dispositivo.getAddress();
-                    //Intent i = new Intent(DeviceListActivity.this, activity_comunicacion.class);
-                    //i.putExtra("Direccion_Bluethoot", direccionBluethoot);
-                    //startActivity(i);
+                    String direccionBluetooth = dispositivo.getAddress();
+                    Intent i = new Intent(DeviceListActivity.this, Funciones.class);
+                    i.putExtra("Direccion_Bluetooth", direccionBluetooth);
+                    startActivity(i);
 
                 }  //si se detrecto un desaemparejamiento
                 else if (state == BluetoothDevice.BOND_NONE && prevState == BluetoothDevice.BOND_BONDED) {
