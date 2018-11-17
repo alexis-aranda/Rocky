@@ -11,4 +11,5 @@
     <string name="text_tobogan">Mover tobogan</string>
     <string name="text_conteo">cantidad rocklets</string>
     <string name="text_pausar">pausar</string>
+    <string name="inicio_contador">0</string>
 </resources>
