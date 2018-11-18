@@ -19,11 +19,13 @@
 * Funciones: Actividad central del programa, nos informa de la cantidad de rocklets en los vasos, por color y del modo actual del embebido (Manual o Automatico). Ademas tiene los siguientes botones:
   * Pausar/Reanudar: Permite pausar o reanudar el funcionamiento del embebido
   * Mover Tobogan: Permite al embebido entrar el en modo "ManualConGiroscopio" el cual nos permite: Mover el tobogan utilizando el groscopio del dispositivo, y soltar el rocklet acercando nuestra mano a la pantalla
+  * Ademas, la Activity pone en ejecucón el hilo que permite escuchar mensajes desde Arduino. Los mensajes deben comenzar con el simbolo "#", terminar con "\r\n" y los atributos pasados deben estar separados por "-"
 
 # Otras clases
 * Tools: Funciones varias que no nos parecía que fueran en las Activities
 * SingletonColorPantalla: Clase tipo Singleton que controla el color de la pantalla según el brillo que el dispositivo detecte
  * La clase controla que se posea o no un sensor de luz en el dispositivo. Informa de esto al abrir la aplicación, y de no poseerlo, el fondo de pantalla de la aplicación se mantendrá blanco durante el resto de su ejecución
- * La clase solo tiene un método público que sirve para indicarle la activity sobre la que tiene que operar. Este método es llamado durante la creación o reanudación de una Activity
+ * La clase solo tiene dos métodos públicos: Uno que sirve para indicarle la activity sobre la que tiene que operar, y otro para informar que la app está en pausa. El primero se usa cada vez que se ejecuta onResume(), y el segundo cada vez que se ejecuta onPause()
  * La clase implementa SensorEventListener por lo que escucha el sensor de luz del dispositivo de forma paralela a la actividad en ejecución
  * La clase cambia el color a cada vez mas oscuro cuanto menos luz detecte (Para proteger la vista) hasta llegar al negro cuando no se detecte luz. A su vez tiende al blanco conforme sube la cantidad de luz hasta los 128 Lux (Unidad de medida de luz), a partir de donde se muestra en blanco para que sea visible a pesar de la luz.
+* ConnectedThread: Clase encargada de los datos de la conexión Bluetooth, es la que informa y recibe mensajes con el dispositivo
