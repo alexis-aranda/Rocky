@@ -115,7 +115,7 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <TextView
@@ -136,7 +136,7 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="6dp"
         android:layout_weight="1">
 
         <Button
@@ -154,6 +154,31 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:text="@string/text_tobogan" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/inicio_contador"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Modo: " />
+
+        <TextView
+            android:id="@+id/txtModo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/inicio_contador"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Automatico" />
     </TableRow>
 
 </TableLayout>
