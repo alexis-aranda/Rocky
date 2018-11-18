@@ -45,28 +45,41 @@
 #define MIN_AZUL 50
 
 /*Seteo de variables y pines*/
-ColorRocklet lectorColor = ColorRocklet(PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, PIN_SALIDA_LECTOR_COLOR);
-NuestraBarreraLaser barreraLaser = NuestraBarreraLaser(PIN_LASER, PIN_FLAME_DETECTOR);
+ColorRocklet lectorColor = ColorRocklet(
+    PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR, 
+    PIN_2_LECTOR_COLOR, PIN_3_LECTOR_COLOR, 
+    PIN_SALIDA_LECTOR_COLOR); //Sensor de color
+NuestraBarreraLaser barreraLaser = NuestraBarreraLaser(
+    PIN_LASER, 
+    PIN_FLAME_DETECTOR); //Barrera con laser y detector de flama
 NuestroLED led = NuestroLED(PIN_LED);
 NuestroPotenciometro potenciometro = NuestroPotenciometro(PIN_POTENCIOMETRO);
 NuestroPulsador pulsador = NuestroPulsador(PIN_PULSADOR);
-NuestroServo servoCinta = NuestroServo(PIN_SERVO_CINTA, MIN_NEGRO, MAX_NEGRO);
-NuestroServo servoTobogan = NuestroServo(PIN_SERVO_TOBOGAN, MIN_AZUL, MAX_AZUL);
+NuestroServo servoCinta = NuestroServo(
+    PIN_SERVO_CINTA, 
+    MIN_NEGRO, MAX_NEGRO); //Servo de estaciones RECEPCION, COLOR y CAIDA
+NuestroServo servoTobogan = NuestroServo(
+    PIN_SERVO_TOBOGAN, 
+    MIN_AZUL, MAX_AZUL); //Servo de estaciones de colores
 
 int estadoActual;
-int modo;
-bool barreraDetecta;
-unsigned int inicioEsperaServo; //El programa salta loops hasta que el servo se mueva
+int modo; //Automatico o manual
+unsigned int inicioEsperaServo; //Tiempo en que el servo comenzo a moverse, para saber hasta que tiempo esperar
 bool llendo; //El servo está llendo a algún lado
 bool sensado; //El sensorColor fue sensado
 int color; //Color del rocklet leído
+int cantColores[6] = {0}; //Contador de cantidad de cada color
+const int estaciones[] = {
+    NuestroServo::ST_1, NuestroServo::ST_2, 
+    NuestroServo::ST_3, NuestroServo::ST_4, 
+    NuestroServo::ST_5, NuestroServo::ST_6 }; //Estaciones segun el color
 int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
   Serial.begin(9600);
   estadoActual = EN_ESPERA;
   modo = AUTO;
-  barreraDetecta = false;
+  Serial.print(modo);
   llendo = false;
 }
 
@@ -109,20 +122,34 @@ void loop() {
       break;
     case SENSANDO:/* Condicion del sensor color */
 
-      if (!sensado) {
+      if (!sensado) { //Si todavia no lo identifique, hago otra lectura
         lectorColor.prenderSensor();
         sensado = lectorColor.hacerLectura();
 
-      } else {
+      } else { //Si ya lo identifique
         sensado = false;
         lectorColor.apagarSensor();
+
+        //Obtengo el color
+        color = lectorColor.getColor();
+        if (color != ColorRocklet::NO_IDENTIFICADO)
+            cantColores[color]++;
+        //TODO informar el color a la app !!!
+        for(int i = 0; i < 6; i++){
+            Serial.print(cantColores[i]);
+            Serial.print(" ");
+        }
+        Serial.println();
+        Serial.println(modo);
+
+        //Paso al tobogan segun el estado
         if (modo == AUTO) {
-          color = lectorColor.getColor();
           estadoActual = TOBOGAN_A;
           Serial.println("TOBOGAN_A");
           setearLED();
         } else {
           estadoActual = TOBOGAN_M;
+          Serial.println("TOBOGAN_M");
           setearLED();
         }
       }
@@ -130,36 +157,13 @@ void loop() {
     case TOBOGAN_A:/* Tobogan en modo auto*/
       if (modo == AUTO) {
         if (!llendo) {
-          switch ( color )
-          {
-            case ColorRocklet::VERDE:
-              servoTobogan.irA(NuestroServo::ST_1);
-              Serial.println("V");
-              break;
-            case ColorRocklet::AZUL:
-              servoTobogan.irA(NuestroServo::ST_2);
-              Serial.println("Az");
-              break;
-            case ColorRocklet::ROJO:
-              servoTobogan.irA(NuestroServo::ST_3);
-              Serial.println("R");
-              break;
-            case ColorRocklet::NARANJA:
-              servoTobogan.irA(NuestroServo::ST_4);
-              Serial.println("N");
-              break;
-            case ColorRocklet::AMARILLO:
-              servoTobogan.irA(NuestroServo::ST_5);
-              Serial.println("Am");
-              break;
-            case ColorRocklet::MARRON:
-              servoTobogan.irA(NuestroServo::ST_6);
-              Serial.println("M");
-              break;
-            default:
-              servoTobogan.irA(NuestroServo::ST_3);
-              Serial.println("Sin color");
-          }
+            //Los colores están del 0 al 5, para servir de indices en los vectores
+            if(color != ColorRocklet::NO_IDENTIFICADO) //Si reconoci un color
+                servoTobogan.irA( estaciones[color] );
+            else { //Sino lo mando a alguna estacion definida para los no reconocidos
+                servoTobogan.irA(NuestroServo::ST_3);
+                Serial.println("Sin color");
+            }
           llendo = true;
           inicioEsperaServo = millis();
         } else if (millis() - inicioEsperaServo >= TACOMODAR) {
@@ -170,7 +174,7 @@ void loop() {
         }
       } else {
         estadoActual = TOBOGAN_M;
-        Serial.println("TOBOGAN_M");
+        Serial.println("TOBOGAN_M1");
         setearLED();
       }
       break;
@@ -186,7 +190,7 @@ void loop() {
         }
       } else {
         estadoActual = TOBOGAN_A;
-        Serial.println("TOBOGAN_A");
+        Serial.println("TOBOGAN_A1");
         setearLED();
       }
       break;
