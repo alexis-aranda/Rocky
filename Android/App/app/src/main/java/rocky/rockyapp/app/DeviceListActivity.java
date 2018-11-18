@@ -24,6 +24,7 @@ public class DeviceListActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        SingletonColorPantalla.pantallaActiva(this);
 
         setContentView(R.layout.activity_paired_devices);
 
@@ -51,6 +52,8 @@ public class DeviceListActivity extends AppCompatActivity {
         //se define (registra) el handler que captura los broadcast anterirmente mencionados.
         registerReceiver(mPairReceiver, filter);
 
+
+
     }
 
     @Override
@@ -60,6 +63,11 @@ public class DeviceListActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        SingletonColorPantalla.pantallaActiva(this);
+        super.onResume();
+    }
 
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

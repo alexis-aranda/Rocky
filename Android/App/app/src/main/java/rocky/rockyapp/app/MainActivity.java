@@ -11,6 +11,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +27,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private TextView txtEstado;
     private Button btnActivar;
     private Button btnEmparejar;
     private Button btnBuscar;
+    //Para que sense la luz de la pantalla
+    private SensorManager sensorManager;
+    private Sensor sensorDeLuz;
+    private Sensor sensorProx;
+    private TextView textLuz;
+    private TextView textProx;
 
     private ProgressDialog mProgressDlg;
 
@@ -41,15 +51,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SingletonColorPantalla.pantallaActiva(this);
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
-
+        //Cosas del sensor de luz
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorDeLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorProx = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        //Valido el sensor de luz, y preparo su Listener
+        if(sensorDeLuz == null){
+            Toast.makeText(getApplicationContext(), "No hay Sensor de Luz", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
+            sensorManager.registerListener(this, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if(sensorProx == null){
+            Toast.makeText(getApplicationContext(), "No hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
+            sensorManager.registerListener(this,sensorProx, SensorManager.SENSOR_DELAY_NORMAL);
+        }
         //Se definen los componentes del layout
         txtEstado = (TextView) findViewById(R.id.txtEstado);
         btnActivar = (Button) findViewById(R.id.btnActivar);
         btnEmparejar = (Button) findViewById(R.id.btnEmparejar);
         btnBuscar = (Button) findViewById(R.id.btnBuscar);
+        textLuz = (TextView) findViewById(R.id.textLuz);
+        textProx = (TextView) findViewById(R.id.textProx);
 
         //Se crea un adaptador para podermanejar el bluethoot del celular
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -106,10 +137,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),SensorManager.SENSOR_DELAY_NORMAL);
+        SingletonColorPantalla.pantallaActiva(this);
+        super.onResume();
+    }
+
+    @Override
     //Cuando se llama al metodo OnPausa se cancela la busqueda de dispositivos bluethoot
     public void onPause()
     {
-
+        sensorManager.unregisterListener(this);
         if (mBluetoothAdapter != null) {
             if (mBluetoothAdapter.isDiscovering()) {
                 mBluetoothAdapter.cancelDiscovery();
@@ -285,4 +324,35 @@ public class MainActivity extends AppCompatActivity {
             mBluetoothAdapter.cancelDiscovery();
         }
     };
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        synchronized (this){
+            float[] masData;
+            switch(event.sensor.getType()){
+                case Sensor.TYPE_PROXIMITY:
+                    masData = event.values;
+                    textProx.setText((String.valueOf(masData[0])));
+                    break;
+                case Sensor.TYPE_LIGHT:
+                    masData = event.values;
+                    //getWindow().getDecorView().setBackgroundColor(Tools.luxToGreyColor(masData[0]));
+                    /*if(masData[0]>30){
+                        getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+                    }
+                    else if(masData[0]<=30)
+                        getWindow().getDecorView().setBackgroundColor(Color.BLACK);*/
+                    textLuz.setText((String.valueOf(masData[0])));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 }
