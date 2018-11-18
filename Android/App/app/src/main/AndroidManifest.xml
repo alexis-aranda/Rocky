@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rocky.rockyapp.app">
-
-
     android:versionCode="1"
     android:versionName="1.0.0">
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -33,7 +31,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity_comunicacion" />
-        <activity android:name=".Funciones"></activity>
+        <activity android:name=".Funciones" />
+        <activity android:name=".GiroActivity"></activity>
     </application>
 
 </manifest>
