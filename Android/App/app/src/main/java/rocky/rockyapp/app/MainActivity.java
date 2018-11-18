@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SingletonColorPantalla.pantallaActiva(this);
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
@@ -148,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Cuando se llama al metodo OnPausa se cancela la busqueda de dispositivos bluethoot
     public void onPause()
     {
+        SingletonColorPantalla.pantallaInactiva();
         sensorManager.unregisterListener(this);
         if (mBluetoothAdapter != null) {
             if (mBluetoothAdapter.isDiscovering()) {

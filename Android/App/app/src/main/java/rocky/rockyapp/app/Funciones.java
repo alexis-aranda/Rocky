@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -125,7 +126,7 @@ public class Funciones extends AppCompatActivity {
     private Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler() {
-            public void handleMessage(android.os.Message msg)
+            public void handleMessage(Message msg)
             {
                 //si se recibio un msj del hilo secundario
                 if (msg.what == estadoHandler)
@@ -142,7 +143,7 @@ public class Funciones extends AppCompatActivity {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
                         if(dataInPrint.charAt(0) == '#') { //arduino deberia mandar un # para que android reconozca estos datos
                            String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
-                            tvContverde.setText(array[0].substring(1,array.length-1)); // el primer caracter de este contador es un #
+                            tvContverde.setText(array[0].substring(1,array[0].length()-1)); // el primer caracter de este contador es un #
                             tvContazul.setText(array[1]);
                             tvControjo.setText(array[2]);
                             tvContnaranja.setText(array[3]);

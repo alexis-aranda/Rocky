@@ -13,20 +13,22 @@ import static android.content.Context.SENSOR_SERVICE;
 class SingletonColorPantalla implements SensorEventListener{
     private static SingletonColorPantalla instancia;
     private static Activity actividad;
-    private SensorManager sensorManager;
-    private Sensor sensorDeLuz;
+    private static SensorManager sensorManager;
+    private static Sensor sensorDeLuz;
+    private static boolean noLight;
 
-    //private constructor to avoid client applications to use constructor
     private SingletonColorPantalla(Activity actividad){
         setActivity(actividad);
         sensorManager = (SensorManager) actividad.getSystemService(SENSOR_SERVICE);
         sensorDeLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if(sensorDeLuz == null){
             Toast.makeText(actividad.getApplicationContext(), "No hay Sensor de Luz", Toast.LENGTH_SHORT).show();
+            noLight=true;
         }
         else{
             Toast.makeText(actividad.getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
+            noLight=false;
         }
     }
 
@@ -35,6 +37,13 @@ class SingletonColorPantalla implements SensorEventListener{
             instancia = new SingletonColorPantalla(actividad);
         }
         instancia.setActivity(actividad);
+        if(!noLight)
+            sensorManager.registerListener(instancia, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public static void pantallaInactiva(){
+        if(!noLight)
+            sensorManager.unregisterListener(instancia);
     }
 
     private void setActivity(Activity actividad){
@@ -43,6 +52,7 @@ class SingletonColorPantalla implements SensorEventListener{
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if(noLight) return;
         synchronized (this){
             float[] masData;
             if(event.sensor.getType() == Sensor.TYPE_LIGHT){

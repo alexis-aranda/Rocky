@@ -24,7 +24,6 @@ public class DeviceListActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        SingletonColorPantalla.pantallaActiva(this);
 
         setContentView(R.layout.activity_paired_devices);
 
@@ -67,6 +66,13 @@ public class DeviceListActivity extends AppCompatActivity {
     protected void onResume() {
         SingletonColorPantalla.pantallaActiva(this);
         super.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        SingletonColorPantalla.pantallaInactiva();
+        super.onPause();
     }
 
     private void showToast(String message) {
