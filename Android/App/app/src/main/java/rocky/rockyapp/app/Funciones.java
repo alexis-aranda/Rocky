@@ -1,5 +1,6 @@
 package rocky.rockyapp.app;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -22,12 +23,12 @@ Aca irian los listeners de los botones cantRocklets, mover tobogan y pausar
  */
 public class Funciones extends AppCompatActivity {
 
-    TextView tvCont1;
-    TextView tvCont2;
-    TextView tvCont3;
-    TextView tvCont4;
-    TextView tvCont5;
-    TextView tvCont6;
+    TextView tvContverde;
+    TextView tvContazul;
+    TextView tvControjo;
+    TextView tvContnaranja;
+    TextView tvContamarillo;
+    TextView tvContmarron;
     Button tobogan;
     Button pausar;
 
@@ -49,12 +50,12 @@ public class Funciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funciones);
 
-        tvCont1 = (TextView)findViewById(R.id.textViewCont1);
-        tvCont2 = (TextView)findViewById(R.id.textViewCont2);
-        tvCont3 = (TextView)findViewById(R.id.textViewCont3);
-        tvCont4 = (TextView)findViewById(R.id.textViewCont4);
-        tvCont5 = (TextView)findViewById(R.id.textViewCont5);
-        tvCont6 = (TextView)findViewById(R.id.textViewCont6);
+        tvContverde = (TextView)findViewById(R.id.textViewCont1); //contador verde
+        tvContazul = (TextView)findViewById(R.id.textViewCont2); //contador azul
+        tvControjo = (TextView)findViewById(R.id.textViewCont3); //contador rojo
+        tvContnaranja = (TextView)findViewById(R.id.textViewCont4); //contador naranja
+        tvContamarillo = (TextView)findViewById(R.id.textViewCont5); //contador amarillo
+        tvContmarron = (TextView)findViewById(R.id.textViewCont6); //contador marron
 
         tobogan = (Button)findViewById(R.id.btnTobogan);
         pausar = (Button)findViewById(R.id.btnPausar);
@@ -73,10 +74,10 @@ public class Funciones extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Intent i =getIntent();
-        Bundle extras=i.getExtras();
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
 
-        adress=extras.getString("Direccion_Bluetooth");//ojo
+        adress = extras.getString("Direccion_Bluetooth");
 
         BluetoothDevice device = btAdapter.getRemoteDevice(adress); //obtengo el adress del device
 
@@ -91,7 +92,7 @@ public class Funciones extends AppCompatActivity {
         // conexion del socket
         try
         {
-            btSocket.connect(); //no pasa de aca
+            btSocket.connect(); //no pasa de aca--- segun vale, esto podria funcionar solo con arduino
         }
         catch (IOException e)
         {
@@ -120,6 +121,7 @@ public class Funciones extends AppCompatActivity {
     //RECIBIR DATOS DEL ARDUINO
     //Handler que sirve que permite mostrar datos en el Layout al hilo secundario
     //CAMBIAR POR LOS DATOS DE CANTIDAD DE ROCKLETS
+    @SuppressLint("HandlerLeak")
     private Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler() {
@@ -131,13 +133,22 @@ public class Funciones extends AppCompatActivity {
                     //voy concatenando el msj
                     String readMessage = (String) msg.obj;
                     recDataString.append(readMessage);
-                    int endOfLineIndex = recDataString.indexOf("\r\n");
+                    int endOfLineIndex = recDataString.indexOf("\r\n");//definir caracter de fin de datos enviados
+
 
                     //cuando recibo toda una linea la muestro en el layout
                     if (endOfLineIndex > 0)
                     {
-                        String dataInPrint = recDataString.substring(0, endOfLineIndex);
-                        tvCont1.setText(dataInPrint);//cambiar
+                        String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
+                        if(dataInPrint.charAt(0) == '#') { //arduino deberia mandar un # para que android reconozca estos datos
+                           String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
+                            tvContverde.setText(array[0].substring(1,array.length-1)); // el primer caracter de este contador es un #
+                            tvContazul.setText(array[1]);
+                            tvControjo.setText(array[2]);
+                            tvContnaranja.setText(array[3]);
+                            tvContamarillo.setText(array[4]);
+                            tvContmarron.setText(array[5]);
+                        }
 
                         recDataString.delete(0, recDataString.length());
                     }
