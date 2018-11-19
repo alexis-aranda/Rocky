@@ -37,8 +37,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     private Sensor sensorDeLuz;
     private Sensor sensorProx;
+    private Sensor sensorGyro;
     private TextView textLuz;
     private TextView textProx;
+    private TextView txtGyro;
 
     private ProgressDialog mProgressDlg;
 
@@ -58,7 +60,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorDeLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorProx = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        sensorGyro = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         //Valido el sensor de luz, y preparo su Listener
+        if(sensorGyro == null){
+            Toast.makeText(getApplicationContext(), "No hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
+            sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
+        }
         if(sensorDeLuz == null){
             Toast.makeText(getApplicationContext(), "No hay Sensor de Luz", Toast.LENGTH_SHORT).show();
         }
@@ -80,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnBuscar = (Button) findViewById(R.id.btnBuscar);
         textLuz = (TextView) findViewById(R.id.textLuz);
         textProx = (TextView) findViewById(R.id.textProx);
+        txtGyro = (TextView) findViewById(R.id.txtGyro);
 
         //Se crea un adaptador para podermanejar el bluethoot del celular
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -139,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_NORMAL);
         SingletonColorPantalla.pantallaActiva(this);
         super.onResume();
     }
@@ -344,6 +356,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         getWindow().getDecorView().setBackgroundColor(Color.BLACK);*/
                     textLuz.setText((String.valueOf(masData[0])));
                     break;
+                case Sensor.TYPE_ROTATION_VECTOR:
+                        masData = event.values;
+                        txtGyro.setText((String.valueOf(masData[2])));
                 default:
                     break;
             }

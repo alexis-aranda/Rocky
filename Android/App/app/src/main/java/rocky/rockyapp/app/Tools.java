@@ -20,4 +20,6 @@ class Tools {
         int lightPer = (int)(luxValue / 128 * 16);
         return Color.BLACK + SALTO_GRIS * lightPer;
     }
+
+
 }

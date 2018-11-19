@@ -12,6 +12,7 @@ public class GiroActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giro);
+
     }
 
     @Override
