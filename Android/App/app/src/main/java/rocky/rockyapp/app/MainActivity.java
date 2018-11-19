@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
-        //Cosas del sensor de luz
+        //Cosas de los sensores
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorDeLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorProx = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);

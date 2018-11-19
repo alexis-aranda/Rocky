@@ -21,5 +21,19 @@ class Tools {
         return Color.BLACK + SALTO_GRIS * lightPer;
     }
 
+    static public int gyroToServo(float gyroValue){
+        if(gyroValue >= 0.5)
+            return 1023;
+        if(gyroValue <= -0.5)
+            return 0;
+        return (int)((gyroValue + 0.5) * 1024 );
+    }
 
+    static public int gyroToServoInverse(float gyroValue){
+        if(gyroValue >= 0.5)
+            return 0;
+        if(gyroValue <= -0.5)
+            return 1023;
+        return (int)((gyroValue - 0.5) * -1024 );
+    }
 }
