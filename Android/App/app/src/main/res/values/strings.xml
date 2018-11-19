@@ -1,0 +1,15 @@
+<resources>
+    <string name="text_enable">Activar</string>
+    <string name="text_disable">Desactivar</string>
+    <string name="text_list_paired_device">Dispositivos emparejados</string>
+    <string name="text_scan_devices">Buscar dispositivos</string>
+    <string name="text_bluetooth_off">Bluetooth Deshabilitado</string>
+    <string name="text_bluetooth_on">Bluetooth Habilitado</string>
+    <string name="text_list_devices">Lista de Dispositivos</string>
+    <string name="text_pair">Emparejar</string>
+    <string name="text_iniciar">iniciar</string>
+    <string name="text_tobogan">Mover tobogan</string>
+    <string name="text_conteo">cantidad rocklets</string>
+    <string name="text_pausar">pausar</string>
+    <string name="inicio_contador">0</string>
+</resources>
