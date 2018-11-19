@@ -1,9 +1,12 @@
+#include <SoftwareSerial.h>
 #include "nuestroServo.h"
 #include "NuestroPotenciometro.h"
 #include "NuestroLED.h"
 #include "ColorRocklet.h"
 #include "NuestraBarreraLaser.h"
 #include "NuestroPulsador.h"
+
+#define CANT_COLORES 6
 
 /*Definicion de estados*/
 #define EN_ESPERA 0
@@ -31,6 +34,8 @@
 #define PIN_PULSADOR 12
 #define PIN_SERVO_CINTA 11
 #define PIN_SERVO_TOBOGAN 10
+#define PIN_BT_RX 0
+#define PIN_BT_TX 1
 
 /*Tiempos de espera*/
 #define TBUSCAR 1000
@@ -61,6 +66,7 @@ NuestroServo servoCinta = NuestroServo(
 NuestroServo servoTobogan = NuestroServo(
     PIN_SERVO_TOBOGAN, 
     MIN_AZUL, MAX_AZUL); //Servo de estaciones de colores
+SoftwareSerial bluetooth(PIN_BT_RX, PIN_BT_TX); //Modulo bluetooth
 
 int estadoActual;
 int modo; //Automatico o manual
@@ -68,7 +74,7 @@ unsigned int inicioEsperaServo; //Tiempo en que el servo comenzo a moverse, para
 bool llendo; //El servo está llendo a algún lado
 bool sensado; //El sensorColor fue sensado
 int color; //Color del rocklet leído
-int cantColores[6] = {0}; //Contador de cantidad de cada color
+int cantColores[CANT_COLORES] = {0}; //Contador de cantidad de cada color
 const int estaciones[] = {
     NuestroServo::ST_1, NuestroServo::ST_2, 
     NuestroServo::ST_3, NuestroServo::ST_4, 
@@ -76,22 +82,24 @@ const int estaciones[] = {
 int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
+  bluetooth.begin(9600);
   estadoActual = EN_ESPERA;
   modo = AUTO;
-  Serial.print(modo);
   llendo = false;
 }
 
 void loop() {
+    loDeSiempre(); //Chequea y hace todo lo que tiene que hacer en cada loop
+
+    //Decide qué más ejecutar según el estado actual
   switch (estadoActual) {
     case EN_ESPERA:/* Condicion de la barrera laser */
       barreraLaser.activarBarrera();
       /* Condicion cambio de estado de EN_ESPERA a BUSCANDO */
       if (barreraLaser.detecta()) {
-        //barreraDetecta = false;
         estadoActual = BUSCANDO;
-        Serial.println("BUSCANDO");
+        //Serial.println("BUSCANDO");
         setearLED();
         barreraLaser.desactivarBarrera();
       }
@@ -134,7 +142,8 @@ void loop() {
         color = lectorColor.getColor();
         if (color != ColorRocklet::NO_IDENTIFICADO)
             cantColores[color]++;
-        //TODO informar el color a la app !!!
+        reportarColores();
+        
         for(int i = 0; i < 6; i++){
             Serial.print(cantColores[i]);
             Serial.print(" ");
@@ -206,21 +215,6 @@ void loop() {
         setearLED();
       }
   }
-
-  /* Checkeo si cambio de modo (verificar)*/
-  pulsador.chequear();
-  if (pulsador.detectaLargo()) {
-    if (modo == AUTO){
-      modo = MANUAL;
-      Serial.println("M");
-    }
-    else{
-      modo = AUTO;
-      Serial.println("A");
-    }
-  }
-
-  led.activar(posPotenciometro);
 }
 
 //creo una función para setear el LED que es llamada en cada cambio de estado
@@ -241,4 +235,38 @@ void setearLED() {
         led.setModo(NuestroLED::SIEMPRE_APAGADO);
     }
   }
+}
+
+void loDeSiempre(){
+    //Chequeo el bluetooth
+    if(bluetooth.available()){
+        //TODO recibir datos
+    }
+    
+  /* Checkeo el pulsador */
+  pulsador.chequear();
+  //Si hace falta, cambio de modo
+  if (pulsador.detectaLargo()) {
+    if (modo == AUTO){
+      modo = MANUAL;
+      //Serial.println("M");
+    }
+    else{
+      modo = AUTO;
+      //Serial.println("A");
+    }
+  }
+
+  //Mando un tick al LED
+  led.activar(posPotenciometro);
+}
+
+void reportarColores(){
+    bluetooth.print("#");
+    bluetooth.print(cantColores[0]);
+    for(int i = 1; i < CANT_COLORES; i++){
+        bluetooth.print("-");
+        bluetooth.print(cantColores[i]);
+    }
+    bluetooth.println();
 }
