@@ -29,7 +29,7 @@ class Tools {
         return (int)((gyroValue + 0.5) * 1024 );
     }
 
-    static public int gyroToServoInverse(float gyroValue){
+    static public int gyroToServoInverse(float gyroValue){ //Inversa, por si el servo gira al reves, solo dejar la que se valla a usar
         if(gyroValue >= 0.5)
             return 0;
         if(gyroValue <= -0.5)

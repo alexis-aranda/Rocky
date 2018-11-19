@@ -97,6 +97,7 @@ public class Funciones extends AppCompatActivity {
         }
         catch (IOException e)
         {
+            Toast.makeText(getApplicationContext(),"No se puede conectar!",Toast.LENGTH_SHORT).show();
             try
             {
                 btSocket.close();
