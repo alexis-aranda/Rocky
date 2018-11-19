@@ -34,8 +34,8 @@
 #define PIN_PULSADOR 12
 #define PIN_SERVO_CINTA 11
 #define PIN_SERVO_TOBOGAN 10
-#define PIN_BT_RX 0
-#define PIN_BT_TX 1
+#define PIN_BT_RX 15
+#define PIN_BT_TX 16
 
 /*Tiempos de espera*/
 #define TBUSCAR 1000
@@ -112,7 +112,7 @@ void loop() {
       } else if (millis() - inicioEsperaServo >= TBUSCAR) {
         llendo = false;
         estadoActual = LLEVANDO;
-        Serial.println("LLEVANDO");
+        //Serial.println("LLEVANDO");
         setearLED();
       }
       break;
@@ -124,7 +124,7 @@ void loop() {
       } else if (millis() - inicioEsperaServo >= TLLEVAR) {
         llendo = false;
         estadoActual = SENSANDO;
-        Serial.println("SENSANDO");
+        //Serial.println("SENSANDO");
         setearLED();
       }
       break;
@@ -145,20 +145,20 @@ void loop() {
         reportarColores();
         
         for(int i = 0; i < 6; i++){
-            Serial.print(cantColores[i]);
-            Serial.print(" ");
+            //Serial.print(cantColores[i]);
+            //Serial.print(" ");
         }
-        Serial.println();
-        Serial.println(modo);
+        //Serial.println();
+        //Serial.println(modo);
 
         //Paso al tobogan segun el estado
         if (modo == AUTO) {
           estadoActual = TOBOGAN_A;
-          Serial.println("TOBOGAN_A");
+          //Serial.println("TOBOGAN_A");
           setearLED();
         } else {
           estadoActual = TOBOGAN_M;
-          Serial.println("TOBOGAN_M");
+          //Serial.println("TOBOGAN_M");
           setearLED();
         }
       }
@@ -171,19 +171,19 @@ void loop() {
                 servoTobogan.irA( estaciones[color] );
             else { //Sino lo mando a alguna estacion definida para los no reconocidos
                 servoTobogan.irA(NuestroServo::ST_3);
-                Serial.println("Sin color");
+                //Serial.println("Sin color");
             }
           llendo = true;
           inicioEsperaServo = millis();
         } else if (millis() - inicioEsperaServo >= TACOMODAR) {
           llendo = false;
           estadoActual = DESPACHANDO;
-          Serial.println("DESPACHANDO");
+          //Serial.println("DESPACHANDO");
           setearLED();
         }
       } else {
         estadoActual = TOBOGAN_M;
-        Serial.println("TOBOGAN_M1");
+        //Serial.println("TOBOGAN_M1");
         setearLED();
       }
       break;
@@ -194,12 +194,12 @@ void loop() {
           servoTobogan.irAAnalogico(posPotenciometro);
         } else {
           estadoActual = DESPACHANDO;
-          Serial.println("DESPACHANDO");
+          //Serial.println("DESPACHANDO");
           setearLED();
         }
       } else {
         estadoActual = TOBOGAN_A;
-        Serial.println("TOBOGAN_A1");
+        //Serial.println("TOBOGAN_A1");
         setearLED();
       }
       break;
@@ -211,7 +211,7 @@ void loop() {
       } else if (millis() - inicioEsperaServo >= TDESPACHO) {
         llendo = false;
         estadoActual = EN_ESPERA;
-        Serial.println("EN_ESPERA");
+        //Serial.println("EN_ESPERA");
         setearLED();
       }
   }
@@ -241,6 +241,7 @@ void loDeSiempre(){
     //Chequeo el bluetooth
     if(bluetooth.available()){
         //TODO recibir datos
+        char c = bluetooth.read();
     }
     
   /* Checkeo el pulsador */
