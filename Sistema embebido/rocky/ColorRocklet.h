@@ -15,15 +15,6 @@ class ColorRocklet{
 		static const int ROJO = 3;
 		static const int NARANJA = 4;
 		static const int AMARILLO = 5;
-		
-		static const int LEER_ROJO = 1;
-		static const int LEER_AZUL = 2;
-		static const int LEER_VERDE = 3;
-
-        /* Defino topes para los colores en conflicto*/
-        static const int MAX_NARANJA_R = 130;
-        static const int MAX_NARANJA_V = 190;
-        static const int MIN_MARRON_R = 160;
 
 		ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out);
 
@@ -37,11 +28,30 @@ class ColorRocklet{
 		void apagarSensor();
 
 	private:
+        //Constantes para definir que color debo leer a continuacion
+        static const int LEER_ROJO = 1;
+        static const int LEER_AZUL = 2;
+        static const int LEER_VERDE = 3;
+
+        static const unsigned long T_ROJO = 100; //Tiempo de espera entre lecturas
+        static const unsigned long T_AZUL = 100; //Tiempo de espera entre lecturas
+        static const unsigned long T_VERDE = 100; //Tiempo de espera entre lecturas
+
+        /* Defino topes para los colores en conflicto*/
+        static const int MAX_NARANJA_R = 130;
+        static const int MAX_NARANJA_V = 190;
+        static const int MIN_MARRON_R = 160;
+
+        //Atributos
 		int idColor; //id actual
+        
 		int rojo; //rojo medido actual
 		int verde; //verde medido actual
 		int azul; //azul medido actual
-		int nLectura;
+      
+		int nLectura; //Indica que color hay que leer a continuacion
+        bool inicio_lectura_loop; //Indica si recien inicio la lectura
+        unsigned long tmillis = 0; //Contador de espera entre lecturas
     
         /* pines del sensor de color */
         int pin_s0;
@@ -49,18 +59,8 @@ class ColorRocklet{
         int pin_s2;
         int pin_s3;
         int pin_out;
-    
-        bool inicio_lectura_loop;
-        bool rojoLeido;
-        bool azulLeido;
-        bool verdeLeido;
-        static const unsigned long T_ROJO = 100; //Tiempo de espera entre lecturas
-        static const unsigned long T_AZUL = 100; //Tiempo de espera entre lecturas
-        static const unsigned long T_VERDE = 100; //Tiempo de espera entre lecturas
-        unsigned long tmillis = 0; //Contador de espera entre lecturas
-    
-        void identificarColor();//llama a hacerLectura identifica el color según los parámetros leídos.
-        void setColor(const int idColor); //por si es necesario
+
+        void identificarColor();
     
 };
 

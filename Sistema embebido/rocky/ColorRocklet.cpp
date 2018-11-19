@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "ColorRocklet.h"
 
+/**
+ * Instancia un sensor de color. Los pines para S0, S1, S2, S3 y OUT se pasan por parametros.
+ */
 ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2, const int pin_s3, const int pin_out){
     //inicialización de ids y valores
     this->idColor = NO_IDENTIFICADO;
@@ -10,10 +13,6 @@ ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2,
 
     //inicialización de condiciones
     this->inicio_lectura_loop = true;
-    this->rojoLeido = false;
-    this->azulLeido = false;
-    this->verdeLeido = true;
-	
 	this->nLectura = LEER_ROJO;
 
   //inicialización de pines
@@ -32,10 +31,6 @@ ColorRocklet::ColorRocklet(const int pin_s0, const int pin_s1, const int pin_s2,
     apagarSensor();
 }
 
-void ColorRocklet::setColor(const int idColor){
-    this->idColor=idColor;
-}
-
 /**
  * Enciende los leds para poder sensar el color.
  * Setea una frecuencia del 20%.
@@ -51,7 +46,7 @@ void ColorRocklet::prenderSensor(){
  * Se la puede llamar aunque ya este apagado sin problemas.
  */
 void ColorRocklet::apagarSensor(){
-  digitalWrite(this->pin_s0,LOW);
+    digitalWrite(this->pin_s0,LOW);
 	digitalWrite(this->pin_s1,LOW);
 }
 
@@ -66,7 +61,6 @@ bool ColorRocklet::hacerLectura(){
   
 	//La espera entre inicio y leer rojo no siempre tiene sentido. Por ahi habria que comparar contra los millis en que termino la lectura anterior
       if(inicio_lectura_loop){
-        
         this->tmillis = millis();
         inicio_lectura_loop = false;
         return false;
@@ -102,36 +96,35 @@ bool ColorRocklet::hacerLectura(){
       }
       return false; //No puedo hacer nada en esta vuelta
 }
-  
+
+/**
+ * Identifica el color segun los valores de la ultima lectura.
+ */
 void ColorRocklet::identificarColor(){
     
-    if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo)){
+    if((this->verde < this->rojo) && (this->verde < this->azul) && (this->azul < this->rojo))
         this->idColor = VERDE;
-        Serial.println("Verde");
-    }else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->verde < this->rojo)){
+    else if((this->azul < this->rojo) && (this->azul < this->verde) && (this->verde < this->rojo))
         this->idColor = AZUL;
-        Serial.println("Azul");
-    }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul)){
+    else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul))
         this->idColor = AMARILLO;
-        Serial.println("Amarillo");
-    }else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
-        if(this->rojo > MIN_MARRON_R){
+    else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
+        if(this->rojo > MIN_MARRON_R)
            this->idColor = MARRON;
-           Serial.println("Marron");
-        }else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V){
+        else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V)
           this->idColor = NARANJA;
-          Serial.println("Naranja");
-        }else{
+        else
           this->idColor = ROJO;
-          Serial.println("Rojo");
-        }
-    } else {
+        
+    } else 
       //si no esta dentro de ningun rango, queda como NO_IDENTIFICADO
         this->idColor = NO_IDENTIFICADO;
-    }
     
 }
 
+/**
+ * Identifica el color segun los valores leidos y lo devuelve.
+ */
 int ColorRocklet::getColor(){
   identificarColor();
   return this->idColor;
