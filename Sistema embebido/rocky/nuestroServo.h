@@ -22,13 +22,7 @@ class NuestroServo
     static const int ST_6=248;
 
     //Funciones para ambos servos
-    /** Inicializa un servo en el pin indicado y setea entre que valores PWM puede trabajar */
     NuestroServo(int pin, int limiteInf, int limiteSup);
-    /* 
-     * Indica al servo que se mueva hasta la posicion recibida por parametro, 
-     * siempre que esta se encuentre entre los limites setados.
-     * La posicion debe pasarse en valores PWM.
-     */
     void irA(int posicion);
     void irAAnalogico(int posicion);
 
