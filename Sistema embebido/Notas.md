@@ -120,10 +120,21 @@ Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
 | Pulsador      | sig | D12 | INPUT |
 | Potenciómetro | sig | A0 | INPUT |
 
-#Android
+# Android
+## Android a Arduino
+- Poner modo celular
+- Sacar modo celular
+- Pausar
+- Reanudar
+- Soltar rocklet
+- Posicion de giro (0 a 1023)
+
+## Arduino a Android
+- color reconocido
+- cantidades de cada color
+- modo
+
 Manera de enviar cantidad de rocklets a android:
--la linea debe empezar con '#'. 
--los datos debe enviarse separados con un '-'
+- la linea debe empezar con '#'. 
+- los datos debe enviarse separados con un '-'
 *se debe enviar siempre los 6 datos (cant de rocklets en los 6 vasos)
-
-
