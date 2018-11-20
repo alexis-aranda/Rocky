@@ -33,6 +33,7 @@ public class Funciones extends AppCompatActivity {
     TextView tvContmarron;
     TextView txtModo;
     TextView txtUltLanzado;
+    TextView textmsg;
     Button tobogan;
     Button pausar;
 
@@ -70,6 +71,7 @@ public class Funciones extends AppCompatActivity {
         tvContnaranja = (TextView)findViewById(R.id.textViewCont4); //contador naranja
         tvContamarillo = (TextView)findViewById(R.id.textViewCont5); //contador amarillo
         tvContmarron = (TextView)findViewById(R.id.textViewCont6); //contador marron
+        textmsg = (TextView) findViewById(R.id.textmsg);
 
         tobogan = (Button)findViewById(R.id.btnTobogan);
         pausar = (Button)findViewById(R.id.btnPausar);
@@ -167,6 +169,7 @@ public class Funciones extends AppCompatActivity {
                     {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
                         String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
+                        textmsg.setText(dataInPrint);
                         switch (dataInPrint.charAt(0)){
 
                             case '#':
@@ -221,7 +224,8 @@ public class Funciones extends AppCompatActivity {
     private View.OnClickListener toboganListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO ventana de gyro
+
+
         }
     };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
