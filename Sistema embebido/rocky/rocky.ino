@@ -80,7 +80,7 @@ const int estaciones[] = { NuestroServo::ST_1, NuestroServo::ST_2,
 int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
-	//Serial.begin(9600);
+	Serial.begin(9600);
 	bluetooth.begin(9600);
 	estadoActual = EN_ESPERA;
 	modo = AUTO;
