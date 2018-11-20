@@ -34,8 +34,8 @@
 #define PIN_PULSADOR 12
 #define PIN_SERVO_CINTA 11
 #define PIN_SERVO_TOBOGAN 10
-#define PIN_BT_RX 15
-#define PIN_BT_TX 16
+//#define PIN_BT_RX 15
+//#define PIN_BT_TX 16
 
 /*Tiempos de espera*/
 #define TBUSCAR 1000
@@ -66,11 +66,11 @@ NuestroServo servoCinta = NuestroServo(
 NuestroServo servoTobogan = NuestroServo(
 		PIN_SERVO_TOBOGAN,
 		MIN_AZUL, MAX_AZUL); //Servo de estaciones de colores
-SoftwareSerial bluetooth(PIN_BT_RX, PIN_BT_TX); //Modulo bluetooth
+SoftwareSerial bluetooth(0, 1); //Modulo bluetooth
 
 int estadoActual;
 int modo; //Automatico o manual
-unsigned int inicioEsperaServo; //Tiempo en que el servo comenzo a moverse, para saber hasta que tiempo esperar
+unsigned long inicioEsperaServo; //Tiempo en que el servo comenzo a moverse, para saber hasta que tiempo esperar
 bool sensado; //El sensorColor fue sensado
 int color; //Color del rocklet leído
 int cantColores[CANT_COLORES] = { 0 }; //Contador de cantidad de cada color
@@ -81,6 +81,8 @@ int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
 	Serial.begin(9600);
+    pinMode(0, INPUT);
+    pinMode(1, OUTPUT);
 	bluetooth.begin(9600);
 	estadoActual = EN_ESPERA;
 	modo = AUTO;
@@ -108,8 +110,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TLLEVAR) {
 			//Pasa a SENSANDO
 			estadoActual = SENSANDO;
-            Serial.print("S ");
-			//Serial.println("SENSANDO");
+            //Serial.print("S ");
 			setearLED();
 		}
 		break;
@@ -161,7 +162,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TDESPACHO) {
 			//Pasa a EN_ESPERA
 			estadoActual = EN_ESPERA;
-			Serial.println("E ");
+			//Serial.print("E ");
 			setearLED();
 		}
 	}
@@ -196,10 +197,8 @@ void setearLED() {
  */
 void loDeSiempre() {
 	//Chequeo el bluetooth
-	if (bluetooth.available()) {
-		//TODO recibir datos
-		char c = bluetooth.read();
-	}
+	if (bluetooth.available())
+		recibirDatos();
 
 	/* Checkeo el pulsador */
 	pulsador.chequear();
@@ -207,10 +206,10 @@ void loDeSiempre() {
 	if (pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
-			Serial.print("(M) ");
+			//Serial.print("(M) ");
 		} else {
 			modo = AUTO;
-			Serial.print("(A) ");
+			//Serial.print("(A) ");
 		}
 	}
 
@@ -222,18 +221,27 @@ void loDeSiempre() {
  * Envia el nuevo color y los contadores actualizados a la app
  */
 void reportarColores() {
-	bluetooth.print("#");
-    bluetooth.print(color); //Mando el color identificado
-    Serial.println(color);
+	//bluetooth.print("#");
+    //bluetooth.print(color); //Mando el color identificado
+    Serial.print("#");
+    Serial.print(color);
     //Mando los contadores de cada color
 	for (int i = 0; i < CANT_COLORES; i++) {
-		bluetooth.print("-");
-        Serial.print("..");
-		bluetooth.print(cantColores[i]);
+		//bluetooth.print("-");
+        Serial.print("-");
+		//bluetooth.print(cantColores[i]);
         Serial.print(cantColores[i]);
 	}
-	bluetooth.println();
+	//bluetooth.println();
     Serial.println();
+}
+
+/**
+ * Recibe datos del bluetooth y actua en consecuencia
+ */
+void recibirDatos(){
+    char c = bluetooth.read();
+    //Serial.print(c);
 }
 
 /**
@@ -242,9 +250,8 @@ void reportarColores() {
  */
 void aBuscando(){
 	estadoActual = BUSCANDO;
-	Serial.print("B ");
+	//Serial.print("B ");
 	setearLED();
-	
 	
 	//Seteo el servo para que busque el rocklet
 	servoCinta.irA(NuestroServo::RECEPCION_ST);
@@ -257,7 +264,7 @@ void aBuscando(){
  */
 void aLlevando(){
 	estadoActual = LLEVANDO;
-	Serial.print("L ");
+	//Serial.print("L ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
@@ -271,7 +278,7 @@ void aLlevando(){
  */
 void aToboganA(){
 	estadoActual = TOBOGAN_A;
-	Serial.println("TA ");
+	//Serial.print("TA ");
 	setearLED();
 	
 	//Los colores estan del 0 al 5, para servir de indices en los vectores
@@ -288,7 +295,7 @@ void aToboganA(){
  */
 void aToboganM(){
 	estadoActual = TOBOGAN_M;
-	Serial.print("TM ");
+	//Serial.print("TM ");
 	setearLED();
 }
 
@@ -298,7 +305,7 @@ void aToboganM(){
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
-	Serial.println("D ");
+	//Serial.print("D ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
