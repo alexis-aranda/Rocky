@@ -14,40 +14,30 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/textViewVaso1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/vaso1_verde"
-            android:textColor="@android:color/holo_green_dark" />
-
-        <TextView
-            android:id="@+id/textViewCont1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/inicio_contador" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <TextView
             android:id="@+id/textViewVaso2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/vaso2_azul"
-            android:textColor="@android:color/holo_blue_dark" />
+
+            android:background="@android:color/holo_blue_dark"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewCont2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador" />
+            android:text="@string/inicio_contador"
+
+            android:background="@android:color/holo_blue_dark"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </TableRow>
 
     <TableRow
@@ -56,19 +46,61 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/textViewVaso3"
+            android:id="@+id/textViewVaso1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/vaso3_rojo"
-            android:textColor="@android:color/holo_red_dark" />
+            android:background="@android:color/holo_green_dark"
+            android:text="@string/vaso1_verde"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewCont3"
+            android:id="@+id/textViewCont1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador" />
+            android:background="@android:color/holo_green_dark"
+
+            android:text="@string/inicio_contador"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewVaso5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#DFA922"
+
+            android:text="@string/vaso5_amarillo"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewCont5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#DFA922"
+
+            android:text="@string/inicio_contador"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow
@@ -82,14 +114,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/vaso4_naranja"
-            android:textColor="@android:color/holo_orange_dark" />
+
+            android:background="#FF7700"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewCont4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador" />
+            android:text="@string/inicio_contador"
+
+            android:background="#FF7700"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </TableRow>
 
     <TableRow
@@ -98,19 +141,30 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/textViewVaso5"
+            android:id="@+id/textViewVaso3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/vaso5_amarillo"
-            android:textColor="#AAAA00" />
+            android:background="@android:color/holo_red_dark"
+
+            android:text="@string/vaso3_rojo"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewCont5"
+            android:id="@+id/textViewCont3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador" />
+            android:background="@android:color/holo_red_dark"
+
+            android:text="@string/inicio_contador"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow
@@ -124,14 +178,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/vaso6_marron"
-            android:textColor="#800000" />
+
+            android:background="#A0522D"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textViewCont6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador" />
+            android:text="@string/inicio_contador"
+
+            android:background="#A0522D"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </TableRow>
 
     <TableRow
@@ -160,15 +225,21 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:id="@+id/txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/inicio_contador"
+            android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Modo: " />
 
         <TextView
@@ -176,7 +247,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </TableRow>
 
     <TableRow
@@ -189,8 +264,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/ultimo_color_le_do"
+            android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Ultimo color leído:" />
 
         <TextView
@@ -198,7 +278,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </TableRow>
 
 </TableLayout>

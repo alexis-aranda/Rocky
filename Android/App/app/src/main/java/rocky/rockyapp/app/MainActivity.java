@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void showEnabled() {
         txtEstado.setText("Bluetooth Habilitado");
-        txtEstado.setTextColor(Color.BLUE);
+        //txtEstado.setTextColor(Color.BLUE);
 
         btnActivar.setText("Desactivar");
         btnActivar.setEnabled(true);
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void showDisabled() {
         txtEstado.setText("Bluetooth Deshabilitado");
-        txtEstado.setTextColor(Color.RED);
+        //txtEstado.setTextColor(Color.RED);
 
         btnActivar.setText("Activar");
         btnActivar.setEnabled(true);

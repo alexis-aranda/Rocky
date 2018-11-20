@@ -5,6 +5,7 @@ import android.graphics.Color;
 class Tools {
 
     public static final int SALTO_GRIS = 1118481;
+    public static final int MUCHA_LUX = 600;
 
     static public int luxToColor(float luxValue){
         if(luxValue > 100)
@@ -15,9 +16,9 @@ class Tools {
     }
 
     static public int luxToGreyColor(float luxValue){
-        if(luxValue >= 128)
+        if(luxValue >= MUCHA_LUX)
             return Color.WHITE;
-        int lightPer = (int)(luxValue / 128 * 16);
+        int lightPer = (int)(luxValue / MUCHA_LUX * 16);
         return Color.BLACK + SALTO_GRIS * lightPer;
     }
 

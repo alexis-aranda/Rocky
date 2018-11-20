@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/colorPrimary"
         android:text="@string/text_bluetooth_on"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textColorLink="@color/colorPrimary"
         android:textSize="17sp" />
 
@@ -45,39 +46,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cantluz:"
-        android:textColor="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textLuz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textColor="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CantProx"
-        android:textColor="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textProx"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textColor="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CantRotacion" />
+        android:text="CantRotacion"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/txtGyro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0" />
+        android:text="0"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
