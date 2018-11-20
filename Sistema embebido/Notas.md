@@ -130,9 +130,12 @@ Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
 - Posicion de giro (0 a 1023)
 
 ## Arduino a Android
-- color reconocido
-- cantidades de cada color
+- color reconocido y cantidades de cada color
+#codigoColor-color0-color1-....-color5\r\n
+codigoColor usa los codigos del arduino y colorN es la cantidad de se color
 - modo
+$codigo
+codigo usa los modos 'a' y 'm' para automatico y manual respectivamente
 
 Manera de enviar cantidad de rocklets a android:
 - la linea debe empezar con '#'. 
