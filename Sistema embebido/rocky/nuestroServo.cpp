@@ -4,6 +4,9 @@
 #include <Arduino.h>
 #include "nuestroServo.h"
 
+/** 
+* Instancia un servo en el pin indicado y setea entre que valores PWM puede trabajar 
+*/
 NuestroServo::NuestroServo(int pin, int limiteInf, int limiteSup)
 {
   this->pin = pin;
@@ -12,6 +15,11 @@ NuestroServo::NuestroServo(int pin, int limiteInf, int limiteSup)
   pinMode(this->pin, OUTPUT);
 }
 
+/* 
+* Indica al servo que se mueva hasta la posicion recibida por parametro, 
+* siempre que esta se encuentre entre los limites setados.
+* La posicion debe pasarse en valores PWM.
+*/
 void NuestroServo::irA(int pos)
 {
   if(pos >= this->limInf && pos <= this->limSup)
