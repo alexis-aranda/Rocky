@@ -12,4 +12,11 @@
     <string name="text_conteo">cantidad rocklets</string>
     <string name="text_pausar">pausar</string>
     <string name="inicio_contador">0</string>
+    <string name="ultimo_color_le_do">Ultimo color leído:</string>
+    <string name="vaso1_verde">Vaso1: verde</string>
+    <string name="vaso2_azul">Vaso2: azul</string>
+    <string name="vaso3_rojo">Vaso3: rojo</string>
+    <string name="vaso4_naranja">Vaso4: naranja</string>
+    <string name="vaso5_amarillo">Vaso5: amarillo</string>
+    <string name="vaso6_marron">Vaso6: marron</string>
 </resources>

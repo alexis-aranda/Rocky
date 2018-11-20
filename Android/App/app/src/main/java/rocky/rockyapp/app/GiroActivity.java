@@ -14,6 +14,7 @@ public class GiroActivity extends AppCompatActivity implements SensorEventListen
     private Sensor sensorProx;
     private Sensor sensorGyro;
     private TextView textGyro;
+    private TextView textEstado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class GiroActivity extends AppCompatActivity implements SensorEventListen
         }
 
         textGyro = (TextView) findViewById(R.id.textGyro);
+        textEstado = (TextView) findViewById(R.id.textEstado);
     }
 
     @Override

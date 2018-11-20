@@ -36,4 +36,34 @@ class Tools {
             return 1023;
         return (int)((gyroValue - 0.5) * -1024 );
     }
+
+    static public String codToStringColor(String value){
+        switch(value.charAt(0)){
+            case '0':
+                return "Marron";
+            case '1':
+                return "Verde";
+            case '2':
+                return "Azul";
+            case '3':
+                return "Rojo";
+            case '4':
+                return "Naranja";
+            case '5':
+                return "Amarillo";
+            default:
+                return "Error";
+        }
+    }
+
+    static public String codToStringModo(String value){
+        switch(value.charAt(0)){
+            case 'a':
+                return "Automatico";
+            case 'm':
+                return "Manual";
+            default:
+                return "Error";
+        }
+    }
 }

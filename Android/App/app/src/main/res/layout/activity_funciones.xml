@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso1: verde"
+            android:text="@string/vaso1_verde"
             android:textColor="@android:color/holo_green_dark" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso2: azul"
+            android:text="@string/vaso2_azul"
             android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso3: rojo"
+            android:text="@string/vaso3_rojo"
             android:textColor="@android:color/holo_red_dark" />
 
         <TextView
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso4: naranja"
+            android:text="@string/vaso4_naranja"
             android:textColor="@android:color/holo_orange_dark" />
 
         <TextView
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso5: amarillo"
+            android:text="@string/vaso5_amarillo"
             android:textColor="#AAAA00" />
 
         <TextView
@@ -123,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vaso6: marron"
+            android:text="@string/vaso6_marron"
             android:textColor="#800000" />
 
         <TextView
@@ -176,9 +176,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/inicio_contador"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ultimo_color_le_do"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            tools:text="Automatico" />
+            tools:text="Ultimo color leído:" />
+
+        <TextView
+            android:id="@+id/txtUltLanzado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
     </TableRow>
 
 </TableLayout>

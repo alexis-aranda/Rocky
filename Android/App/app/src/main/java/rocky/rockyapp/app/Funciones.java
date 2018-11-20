@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +31,20 @@ public class Funciones extends AppCompatActivity {
     TextView tvContnaranja;
     TextView tvContamarillo;
     TextView tvContmarron;
+    TextView txtModo;
+    TextView txtUltLanzado;
     Button tobogan;
     Button pausar;
+
+    private static final String MODO_CELULAR_ON = "0";
+    private static final String MODO_CELULAR_OFF = "1";
+    private static final String PAUSA = "2";
+    private static final String REANUDAR = "3";
+    private static final String SOLTAR_ROCKLET = "4";
+    private static final String GYRO = "5";
+
+    private boolean modoAuto;
+    private boolean corriendo;
 
     //comunicacion con arduino
     Handler btIn;
@@ -65,10 +78,10 @@ public class Funciones extends AppCompatActivity {
 
         btIn = Handler_Msg_Hilo_Principal();
 
-        //ver handlers para los botones
-
-
-
+        pausar.setOnClickListener(pausarListener);
+        tobogan.setOnClickListener(toboganListener);
+        txtModo = (TextView)findViewById(R.id.txtModo);
+        txtUltLanzado = (TextView)findViewById(R.id.txtUltLanzado);
     }
 
     @Override
@@ -93,7 +106,7 @@ public class Funciones extends AppCompatActivity {
         // conexion del socket
         try
         {
-            btSocket.connect(); //no pasa de aca--- segun vale, esto podria funcionar solo con arduino
+            btSocket.connect(); //Solo con Arduino: debe haber una aplicación esperando la conexion
         }
         catch (IOException e)
         {
@@ -120,6 +133,16 @@ public class Funciones extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        try {
+            btSocket.close();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(),"Error al cerrar socket",Toast.LENGTH_SHORT).show();
+        }
+    }
+
     //RECIBIR DATOS DEL ARDUINO
     //Handler que sirve que permite mostrar datos en el Layout al hilo secundario
     //CAMBIAR POR LOS DATOS DE CANTIDAD DE ROCKLETS
@@ -138,11 +161,26 @@ public class Funciones extends AppCompatActivity {
                     int endOfLineIndex = recDataString.indexOf("\r\n");//definir caracter de fin de datos enviados
 
 
-                    //cuando recibo toda una linea la muestro en el layout
+                    //cuando recibo toda una linea, me fijo que estoy recibiendo
                     if (endOfLineIndex > 0)
                     {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
-                        if(dataInPrint.charAt(0) == '#') { //arduino deberia mandar un # para que android reconozca estos datos
+                        String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
+                        switch (dataInPrint.charAt(0)){
+
+                            case '#':
+                                txtUltLanzado.setText(Tools.codToStringColor(array[0].substring(1,array[0].length()-1)));
+                                tvContverde.setText(array[2]); // el primer caracter de este contador es un #
+                                tvContazul.setText(array[3]);
+                                tvControjo.setText(array[4]);
+                                tvContnaranja.setText(array[5]);
+                                tvContamarillo.setText(array[6]);
+                                tvContmarron.setText(array[1]);
+                            case '$':
+                                txtModo.setText(Tools.codToStringModo(array[0].substring(1,array[0].length()-1)));
+                        }
+
+                        /*if(dataInPrint.charAt(0) == '#') { //arduino deberia mandar un # para que android reconozca estos datos
                            String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
                             tvContverde.setText(array[0].substring(1,array[0].length()-1)); // el primer caracter de este contador es un #
                             tvContazul.setText(array[1]);
@@ -150,7 +188,7 @@ public class Funciones extends AppCompatActivity {
                             tvContnaranja.setText(array[3]);
                             tvContamarillo.setText(array[4]);
                             tvContmarron.setText(array[5]);
-                        }
+                        }*/
 
                         recDataString.delete(0, recDataString.length());
                     }
@@ -164,6 +202,27 @@ public class Funciones extends AppCompatActivity {
 
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
     }
+
+    private View.OnClickListener pausarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(corriendo){
+                thread.write(PAUSA);
+                pausar.setText("Reanudar");
+            }
+            else{
+                thread.write(REANUDAR);
+                pausar.setText("Pausar");
+            }
+        }
+    };
+
+    private View.OnClickListener toboganListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO ventana de gyro
+        }
+    };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
