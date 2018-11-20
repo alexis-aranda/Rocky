@@ -108,6 +108,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TLLEVAR) {
 			//Pasa a SENSANDO
 			estadoActual = SENSANDO;
+            Serial.print("S ");
 			//Serial.println("SENSANDO");
 			setearLED();
 		}
@@ -160,7 +161,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TDESPACHO) {
 			//Pasa a EN_ESPERA
 			estadoActual = EN_ESPERA;
-			//Serial.println("EN_ESPERA");
+			Serial.println("E ");
 			setearLED();
 		}
 	}
@@ -206,10 +207,10 @@ void loDeSiempre() {
 	if (pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
-			//Serial.println("M");
+			Serial.print("(M) ");
 		} else {
 			modo = AUTO;
-			//Serial.println("A");
+			Serial.print("(A) ");
 		}
 	}
 
@@ -222,12 +223,17 @@ void loDeSiempre() {
  */
 void reportarColores() {
 	bluetooth.print("#");
-	bluetooth.print(cantColores[0]);
-	for (int i = 1; i < CANT_COLORES; i++) {
+    bluetooth.print(color); //Mando el color identificado
+    Serial.println(color);
+    //Mando los contadores de cada color
+	for (int i = 0; i < CANT_COLORES; i++) {
 		bluetooth.print("-");
+        Serial.print("..");
 		bluetooth.print(cantColores[i]);
+        Serial.print(cantColores[i]);
 	}
 	bluetooth.println();
+    Serial.println();
 }
 
 /**
@@ -236,7 +242,7 @@ void reportarColores() {
  */
 void aBuscando(){
 	estadoActual = BUSCANDO;
-	//Serial.println("BUSCANDO");
+	Serial.print("B ");
 	setearLED();
 	
 	
@@ -251,7 +257,7 @@ void aBuscando(){
  */
 void aLlevando(){
 	estadoActual = LLEVANDO;
-	//Serial.println("LLEVANDO");
+	Serial.print("L ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
@@ -265,16 +271,14 @@ void aLlevando(){
  */
 void aToboganA(){
 	estadoActual = TOBOGAN_A;
-	//Serial.println("TOBOGAN_A");
+	Serial.println("TA ");
 	setearLED();
 	
 	//Los colores estan del 0 al 5, para servir de indices en los vectores
 	if (color != ColorRocklet::NO_IDENTIFICADO) //Si reconoci un color
 		servoTobogan.irA(estaciones[color]);
-	else { //Sino lo mando a alguna estacion definida para los no reconocidos
+	else //Sino lo mando a alguna estacion definida para los no reconocidos
 		servoTobogan.irA(NuestroServo::ST_3);
-		//Serial.println("Sin color");
-	}
 	inicioEsperaServo = millis();
 }
 
@@ -284,7 +288,7 @@ void aToboganA(){
  */
 void aToboganM(){
 	estadoActual = TOBOGAN_M;
-	//Serial.println("TOBOGAN_M");
+	Serial.print("TM ");
 	setearLED();
 }
 
@@ -294,7 +298,7 @@ void aToboganM(){
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
-	//Serial.println("DESPACHANDO");
+	Serial.println("D ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
