@@ -136,6 +136,7 @@ public class Funciones extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+        thread.kill();
         try {
             btSocket.close();
         } catch (IOException e) {
@@ -232,6 +233,7 @@ Clase para manejar el hilo secundario
     {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
+        private boolean isAlive=true;
 
         //Constructor de la clase del hilo secundario
         public ConnectedThread(BluetoothSocket socket)
@@ -257,7 +259,7 @@ Clase para manejar el hilo secundario
             int bytes;
 
             //el hilo secundario se queda esperando mensajes del HC05
-            while (true)
+            while (isAlive)
             {
                 try
                 {
@@ -274,6 +276,9 @@ Clase para manejar el hilo secundario
             }
         }
 
+        public void kill(){
+            this.isAlive=false;
+        }
 
         //write method
         public void write(String input) {
