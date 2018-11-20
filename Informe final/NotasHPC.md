@@ -5,3 +5,6 @@ Definir algoritmo de reconocimiento de color y forma. Marcar partes paralelizabl
 
 El procesamiento podria hacerlo una raspberry pi con linux o una jetson.
 Para reconocer formas y demas podemos usar Open CV
+
+#Estructura
+https://academic.oup.com/view-large/27747354
