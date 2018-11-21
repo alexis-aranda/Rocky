@@ -38,8 +38,8 @@ class Tools {
         return (int)((gyroValue - 0.5) * -1024 );
     }
 
-    static public String codToStringColor(String value){
-        switch(value.charAt(0)){
+    static public String codToStringColor(char value){
+        switch(value){
             case '0':
                 return "Marron";
             case '1':

@@ -168,31 +168,27 @@ public class Funciones extends AppCompatActivity {
                     if (endOfLineIndex > 0)
                     {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
-                        String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
                         textmsg.setText(dataInPrint);
                         switch (dataInPrint.charAt(0)){
 
                             case '#':
-                                txtUltLanzado.setText(Tools.codToStringColor(array[0].substring(1,array[0].length()-1)));
-                                tvContverde.setText(array[2]); // el primer caracter de este contador es un #
-                                tvContazul.setText(array[3]);
-                                tvControjo.setText(array[4]);
-                                tvContnaranja.setText(array[5]);
-                                tvContamarillo.setText(array[6]);
-                                tvContmarron.setText(array[1]);
+                                String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
+                                if(array.length >= 7) {
+                                    txtUltLanzado.setText(Tools.codToStringColor(array[0].charAt(1)));
+                                    tvContverde.setText(array[2]); // el primer caracter de este contador es un #
+                                    tvContazul.setText(array[3]);
+                                    tvControjo.setText(array[4]);
+                                    tvContnaranja.setText(array[5]);
+                                    tvContamarillo.setText(array[6]);
+                                    tvContmarron.setText(array[1]);
+                                }
+                                break;
                             case '$':
-                                txtModo.setText(Tools.codToStringModo(array[0].substring(1,array[0].length()-1)));
+                                txtModo.setText(Tools.codToStringModo((String.valueOf(dataInPrint.charAt(1)))));
+                                break;
+                            default:
+                                break;
                         }
-
-                        /*if(dataInPrint.charAt(0) == '#') { //arduino deberia mandar un # para que android reconozca estos datos
-                           String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
-                            tvContverde.setText(array[0].substring(1,array[0].length()-1)); // el primer caracter de este contador es un #
-                            tvContazul.setText(array[1]);
-                            tvControjo.setText(array[2]);
-                            tvContnaranja.setText(array[3]);
-                            tvContamarillo.setText(array[4]);
-                            tvContmarron.setText(array[5]);
-                        }*/
 
                         recDataString.delete(0, recDataString.length());
                     }
