@@ -20,6 +20,7 @@
 /*Defino los modos de operación*/
 #define AUTO 0
 #define MANUAL 1
+#define CELULAR 2
 
 /*Definicion de pines*/
 #define PIN_0_LECTOR_COLOR 4
@@ -80,7 +81,7 @@ const int estaciones[] = { NuestroServo::ST_1, NuestroServo::ST_2,
 int posPotenciometro; // Posicion leida del potenciometro
 
 void setup() {
-	Serial.begin(9600);
+	//Serial.begin(9600);
     pinMode(0, INPUT);
     pinMode(1, OUTPUT);
 	bluetooth.begin(9600);
@@ -110,7 +111,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TLLEVAR) {
 			//Pasa a SENSANDO
 			estadoActual = SENSANDO;
-            Serial.print("S ");
+            //Serial.print("S ");
 			setearLED();
 		}
 		break;
@@ -162,7 +163,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TDESPACHO) {
 			//Pasa a EN_ESPERA
 			estadoActual = EN_ESPERA;
-			Serial.print("E ");
+			//Serial.print("E ");
 			setearLED();
 		}
 	}
@@ -206,10 +207,10 @@ void loDeSiempre() {
 	if (pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
-			Serial.print("(M) ");
+			//Serial.print("(M) ");
 		} else {
 			modo = AUTO;
-			Serial.print("(A) ");
+			//Serial.print("(A) ");
 		}
 	}
 
@@ -221,19 +222,21 @@ void loDeSiempre() {
  * Envia el nuevo color y los contadores actualizados a la app
  */
 void reportarColores() {
-	//bluetooth.print("#");
-    //bluetooth.print(color); //Mando el color identificado
-    Serial.print("#");
-    Serial.print(color);
+	bluetooth.print("#");
+    bluetooth.print(color); //Mando el color identificado
+    //Serial.println();
+    //Serial.print("#");
+    //Serial.print(color);
+    //Serial.println();
     //Mando los contadores de cada color
 	for (int i = 0; i < CANT_COLORES; i++) {
-		//bluetooth.print("-");
-        Serial.print("-");
-		//bluetooth.print(cantColores[i]);
-        Serial.print(cantColores[i]);
+		bluetooth.print("-");
+        //Serial.print("-");
+		bluetooth.print(cantColores[i]);
+        //Serial.print(cantColores[i]);
 	}
-	//bluetooth.println();
-    Serial.println();
+	bluetooth.println();
+    //Serial.println();
 }
 
 /**
@@ -241,7 +244,8 @@ void reportarColores() {
  */
 void recibirDatos(){
     char c = bluetooth.read();
-    Serial.print(c);
+    
+    //Serial.print(c);
 }
 
 /**
@@ -250,7 +254,7 @@ void recibirDatos(){
  */
 void aBuscando(){
 	estadoActual = BUSCANDO;
-	Serial.print("B ");
+	//Serial.print("B ");
 	setearLED();
 	
 	//Seteo el servo para que busque el rocklet
@@ -264,7 +268,7 @@ void aBuscando(){
  */
 void aLlevando(){
 	estadoActual = LLEVANDO;
-	Serial.print("L ");
+	//Serial.print("L ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
@@ -278,7 +282,7 @@ void aLlevando(){
  */
 void aToboganA(){
 	estadoActual = TOBOGAN_A;
-	Serial.print("TA ");
+	//Serial.print("TA ");
 	setearLED();
 	
 	//Los colores estan del 0 al 5, para servir de indices en los vectores
@@ -295,7 +299,7 @@ void aToboganA(){
  */
 void aToboganM(){
 	estadoActual = TOBOGAN_M;
-	Serial.print("TM ");
+	//Serial.print("TM ");
 	setearLED();
 }
 
@@ -305,7 +309,7 @@ void aToboganM(){
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
-	Serial.print("D ");
+	//Serial.print("D ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
