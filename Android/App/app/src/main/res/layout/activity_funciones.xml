@@ -247,13 +247,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
-            android:text="@string/inicio_contador"
+            android:text="@string/modo"
             android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Modo: " />
+            tools:text="@string/modo" />
 
         <TextView
             android:id="@+id/txtModo"
