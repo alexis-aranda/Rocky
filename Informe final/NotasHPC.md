@@ -6,5 +6,6 @@ Definir algoritmo de reconocimiento de color y forma. Marcar partes paralelizabl
 El procesamiento podria hacerlo una raspberry pi con linux o una jetson.
 Para reconocer formas y demas podemos usar Open CV
 
-#Estructura
-https://academic.oup.com/view-large/27747354
+# Componentes
+- Camara 4K para raspberry pi https://www.e-consystems.com/13mp-autofocus-usb-camera.asp
+Necesita USB 3.1. Review: https://www.youtube.com/watch?v=qMDDPlWbY2Q
