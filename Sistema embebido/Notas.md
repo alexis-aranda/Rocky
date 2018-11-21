@@ -122,12 +122,12 @@ Casi todos trabajan a 490 Hz, salvo 5 y 6 que trabajan a 980 Hz.
 
 # Android
 ## Android a Arduino
-- Poner modo celular
-- Sacar modo celular
-- Pausar
-- Reanudar
-- Soltar rocklet
-- Posicion de giro (0 a 1023)
+- Poner modo celular 0
+- Sacar modo celular 1
+- Pausar 2
+- Reanudar 3
+- Soltar rocklet 4
+- Posicion de giro (0 a 1023) 5
 
 ## Arduino a Android
 - color reconocido y cantidades de cada color
