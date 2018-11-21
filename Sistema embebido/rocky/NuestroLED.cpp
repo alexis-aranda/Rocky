@@ -97,7 +97,7 @@ void NuestroLED::onOff(){
  * Recibe y escribe una nueva intensidad PWM
  */
 void NuestroLED::manual(const int intensidadPWMManual){
-  this->intensidad = intensidadPWMManual;
+  this->intensidad = map(0,1023,0,255,intensidadPWMManual);
   setIntensidadPWM();
 }
 

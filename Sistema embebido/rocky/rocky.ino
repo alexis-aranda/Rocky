@@ -110,7 +110,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TLLEVAR) {
 			//Pasa a SENSANDO
 			estadoActual = SENSANDO;
-            //Serial.print("S ");
+            Serial.print("S ");
 			setearLED();
 		}
 		break;
@@ -162,7 +162,7 @@ void loop() {
 		if (millis() - inicioEsperaServo >= TDESPACHO) {
 			//Pasa a EN_ESPERA
 			estadoActual = EN_ESPERA;
-			//Serial.print("E ");
+			Serial.print("E ");
 			setearLED();
 		}
 	}
@@ -206,10 +206,10 @@ void loDeSiempre() {
 	if (pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
-			//Serial.print("(M) ");
+			Serial.print("(M) ");
 		} else {
 			modo = AUTO;
-			//Serial.print("(A) ");
+			Serial.print("(A) ");
 		}
 	}
 
@@ -241,7 +241,7 @@ void reportarColores() {
  */
 void recibirDatos(){
     char c = bluetooth.read();
-    //Serial.print(c);
+    Serial.print(c);
 }
 
 /**
@@ -250,7 +250,7 @@ void recibirDatos(){
  */
 void aBuscando(){
 	estadoActual = BUSCANDO;
-	//Serial.print("B ");
+	Serial.print("B ");
 	setearLED();
 	
 	//Seteo el servo para que busque el rocklet
@@ -264,7 +264,7 @@ void aBuscando(){
  */
 void aLlevando(){
 	estadoActual = LLEVANDO;
-	//Serial.print("L ");
+	Serial.print("L ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
@@ -278,7 +278,7 @@ void aLlevando(){
  */
 void aToboganA(){
 	estadoActual = TOBOGAN_A;
-	//Serial.print("TA ");
+	Serial.print("TA ");
 	setearLED();
 	
 	//Los colores estan del 0 al 5, para servir de indices en los vectores
@@ -295,7 +295,7 @@ void aToboganA(){
  */
 void aToboganM(){
 	estadoActual = TOBOGAN_M;
-	//Serial.print("TM ");
+	Serial.print("TM ");
 	setearLED();
 }
 
@@ -305,7 +305,7 @@ void aToboganM(){
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
-	//Serial.print("D ");
+	Serial.print("D ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
