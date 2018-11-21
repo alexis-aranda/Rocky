@@ -50,6 +50,14 @@
 #define MAX_AZUL 254
 #define MIN_AZUL 50
 
+/* Comandos que pueden llegar por Bluetooth */
+#define PASAR_A_CELU 0
+#define SALIR_DE_CELU 1
+#define PAUSAR 2
+#define SEGUIR 3
+#define SOLTAR 4
+#define POSICIONAR 5
+
 /*Seteo de variables y pines*/
 ColorRocklet lectorColor = ColorRocklet(
 		PIN_0_LECTOR_COLOR, PIN_1_LECTOR_COLOR,
@@ -134,7 +142,7 @@ void loop() {
 			//Paso al tobogan segun el estado
 			if (modo == AUTO) 
 				aToboganA();
-			else
+			else //Manual o Celular
 				aToboganM();
 		}
 		break;
@@ -143,11 +151,27 @@ void loop() {
 		if (modo == AUTO) {
 			if (millis() - inicioEsperaServo >= TACOMODAR)
 				aDespachando();
-		} else //Modo Manual
+		} else //Modo Manual o Celular
 			aToboganM();
 		break;
 		
-	case TOBOGAN_M:/* Tobogan en modo manual (verificar)*/
+	case TOBOGAN_M:/* Tobogan en modo manual */
+        switch(modo){
+        case MANUAL:
+            if (!pulsador.detectaCorto()) {
+                //Mientras no haya pulso corto, muevo el servo segun el potenciometro
+                posPotenciometro = potenciometro.getPosicion();
+                servoTobogan.irAAnalogico(posPotenciometro);
+            } else
+                aDespachando();
+            break;
+        case CELULAR:
+            //TODO implementar
+            break;
+        default: //Automatico
+            aToboganA();
+        }
+        /*
 		if (modo == MANUAL) {
 			if (!pulsador.detectaCorto()) {
 				//Mientras no haya pulso corto, muevo el servo segun el potenciometro
@@ -155,8 +179,9 @@ void loop() {
 				servoTobogan.irAAnalogico(posPotenciometro);
 			} else
 				aDespachando();
-		} else
+		} else 
 			aToboganA();
+            */
 		break;
 		
 	case DESPACHANDO:/* Despacho */
@@ -175,7 +200,7 @@ void loop() {
  */
 void setearLED() {
 	/* Seteo de LED */
-	if (modo == MANUAL) {
+	if (modo == MANUAL || modo == CELULAR) {
 		if (estadoActual == TOBOGAN_M) {
 			led.setModo(NuestroLED::INTENSIDAD_VARIABLE);
 		} else
@@ -204,7 +229,7 @@ void loDeSiempre() {
 	/* Checkeo el pulsador */
 	pulsador.chequear();
 	//Si hace falta, cambio de modo
-	if (pulsador.detectaLargo()) {
+	if (!modo==CELULAR && pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
 			//Serial.print("(M) ");
@@ -224,19 +249,12 @@ void loDeSiempre() {
 void reportarColores() {
 	bluetooth.print("#");
     bluetooth.print(color); //Mando el color identificado
-    //Serial.println();
-    //Serial.print("#");
-    //Serial.print(color);
-    //Serial.println();
     //Mando los contadores de cada color
 	for (int i = 0; i < CANT_COLORES; i++) {
 		bluetooth.print("-");
-        //Serial.print("-");
 		bluetooth.print(cantColores[i]);
-        //Serial.print(cantColores[i]);
 	}
 	bluetooth.println();
-    //Serial.println();
 }
 
 /**
@@ -244,8 +262,11 @@ void reportarColores() {
  */
 void recibirDatos(){
     char c = bluetooth.read();
-    
-    //Serial.print(c);
+    switch(c){
+        case PASAR_A_CELU:
+            modo = CELULAR;
+            break;
+    }
 }
 
 /**
