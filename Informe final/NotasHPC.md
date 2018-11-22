@@ -10,6 +10,14 @@ Para reconocer formas y demas podemos usar Open CV
 - Camara 4K para raspberry pi https://www.e-consystems.com/13mp-autofocus-usb-camera.asp
 Necesita USB 3.1. Review: https://www.youtube.com/watch?v=qMDDPlWbY2Q
 - Jetson de Nvidia https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/
+  - Jetson TX1: US$366
+  - Jetson TX2: US$468
+  - Jetson TK1: descontinuada desde Abril 2018. Usada: US$206
 
 # Sofware
 - OpenCV JS: no nos sirve para el paper, pero es una muestra de lo que se puede hacer con OpenCV https://docs.opencv.org/3.4/df/df7/tutorial_js_table_of_contents_setup.html
+- Funciones OpenCV GPU https://docs.opencv.org/2.4/modules/gpu/doc/image_processing.html
+
+# Papers
+- Arquitectura Pascal http://images.nvidia.com/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper-v1.2.pdf
+- Arquitectura Maxwell (info) https://developer.nvidia.com/maxwell-compute-architecture
