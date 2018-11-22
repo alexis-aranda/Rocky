@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h>
+#include <stdlib.h>
 #include "nuestroServo.h"
 #include "NuestroPotenciometro.h"
 #include "NuestroLED.h"
@@ -77,6 +78,7 @@ NuestroServo servoTobogan = NuestroServo(
 		MIN_AZUL, MAX_AZUL); //Servo de estaciones de colores
 SoftwareSerial bluetooth(0, 1); //Modulo bluetooth
 
+bool play; //Para play y pausa del celu
 int estadoActual;
 int modo; //Automatico o manual
 unsigned long inicioEsperaServo; //Tiempo en que el servo comenzo a moverse, para saber hasta que tiempo esperar
@@ -87,6 +89,7 @@ const int estaciones[] = { NuestroServo::ST_1, NuestroServo::ST_2,
 		NuestroServo::ST_3, NuestroServo::ST_4, NuestroServo::ST_5,
 		NuestroServo::ST_6 }; //Estaciones segun el color
 int posPotenciometro; // Posicion leida del potenciometro
+bool despachoPendiente; //Por si me llega la orden de despachar desde el bt antes de que este en modo TOBOGAN_M
 
 void setup() {
 	//Serial.begin(9600);
@@ -95,6 +98,8 @@ void setup() {
 	bluetooth.begin(9600);
 	estadoActual = EN_ESPERA;
 	modo = AUTO;
+    play = true;
+    despachoPendiente = false;
 }
 
 void loop() {
@@ -165,8 +170,8 @@ void loop() {
             } else
                 aDespachando();
             break;
-        case CELULAR:
-            //TODO implementar
+        case CELULAR: //El pase a Despachando se maneja desde la recepcion del bt o desde el inicio de TOBOGAN_M
+            servoTobogan.irAAnalogico(posPotenciometro); //Seteado con el celular
             break;
         default: //Automatico
             aToboganA();
@@ -229,7 +234,7 @@ void loDeSiempre() {
 	/* Checkeo el pulsador */
 	pulsador.chequear();
 	//Si hace falta, cambio de modo
-	if (!modo==CELULAR && pulsador.detectaLargo()) {
+	if (!(modo==CELULAR) && pulsador.detectaLargo()) {
 		if (modo == AUTO) {
 			modo = MANUAL;
 			//Serial.print("(M) ");
@@ -266,6 +271,32 @@ void recibirDatos(){
         case PASAR_A_CELU:
             modo = CELULAR;
             break;
+        case SALIR_DE_CELU:
+            modo = AUTO;
+            despachoPendiente = false;
+            break;
+        case PAUSAR:
+            play = false;
+            break;
+        case SEGUIR:
+            play = true;
+            break;
+        case SOLTAR:
+            if(modo == CELULAR){
+                if(estadoActual == TOBOGAN_M)
+                    aDespachando();
+                else 
+                    despachoPendiente = true;
+            } 
+            break;
+        case POSICIONAR:
+            //Leo el numero
+            char val[5];
+            for(int i = 0; i < 4; i++)
+                val[i] = bluetooth.read();
+            val[4] = '\0';
+            //Pongo valor leido en posPotenciometro
+            posPotenciometro = atoi(val);
     }
 }
 
@@ -319,6 +350,11 @@ void aToboganA(){
  * Llamado desde SENSANDO y TOBOGAN_A
  */
 void aToboganM(){
+    if(despachoPendiente){
+        despachoPendiente = false;
+        aDespachando();
+        return;
+    }
 	estadoActual = TOBOGAN_M;
 	//Serial.print("TM ");
 	setearLED();
@@ -326,7 +362,7 @@ void aToboganM(){
 
 /**
  * Pasa a DESPACHANDO.
- * Llamado desde TOBOGAN_A y TOBOGAN_M
+ * Llamado desde TOBOGAN_A, TOBOGAN_M, recibirDatos con SOLTAR y aToboganM con despachoPendiente
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
