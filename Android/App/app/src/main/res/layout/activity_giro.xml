@@ -19,7 +19,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textGyro"
@@ -37,7 +38,7 @@
         app:layout_constraintVertical_bias="0.743" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonPausa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

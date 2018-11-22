@@ -57,14 +57,33 @@ class Tools {
         }
     }
 
-    static public String codToStringModo(String value){
-        switch(value.charAt(0)){
+    static public String codToStringModo(char value){
+        switch(value){
             case 'a':
                 return "Automatico";
             case 'm':
                 return "Manual";
             default:
                 return "Error";
+        }
+    }
+
+    static public int codToBGColor(char value){
+        switch(value){
+            case '0':
+                return 0xFFA0522D;
+            case '1':
+                return Color.GREEN;
+            case '2':
+                return Color.BLUE;
+            case '3':
+                return Color.RED;
+            case '4':
+                return 0xFFFF7700;
+            case '5':
+                return Color.YELLOW;
+            default:
+                return Color.WHITE;
         }
     }
 }

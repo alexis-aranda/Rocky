@@ -37,15 +37,15 @@ public class Funciones extends AppCompatActivity {
     Button tobogan;
     Button pausar;
 
-    private static final String MODO_CELULAR_ON = "0";
-    private static final String MODO_CELULAR_OFF = "1";
-    private static final String PAUSA = "2";
-    private static final String REANUDAR = "3";
-    private static final String SOLTAR_ROCKLET = "4";
-    private static final String GYRO = "5";
+    public static final String MODO_CELULAR_ON = "0";
+    public static final String MODO_CELULAR_OFF = "1";
+    public static final String PAUSA = "2";
+    public static final String REANUDAR = "3";
+    public static final String SOLTAR_ROCKLET = "4";
+    public static final String GYRO = "5";
 
     private boolean modoAuto;
-    private boolean corriendo;
+    private boolean corriendo=true;
 
     //comunicacion con arduino
     Handler btIn;
@@ -184,7 +184,7 @@ public class Funciones extends AppCompatActivity {
                                 }
                                 break;
                             case '$':
-                                txtModo.setText(Tools.codToStringModo((String.valueOf(dataInPrint.charAt(1)))));
+                                txtModo.setText(Tools.codToStringModo(dataInPrint.charAt(1)));
                                 break;
                             default:
                                 break;
@@ -209,10 +209,12 @@ public class Funciones extends AppCompatActivity {
             if(corriendo){
                 thread.write(PAUSA);
                 pausar.setText("Reanudar");
+                corriendo=false;
             }
             else{
                 thread.write(REANUDAR);
                 pausar.setText("Pausar");
+                corriendo=true;
             }
         }
     };
@@ -221,6 +223,13 @@ public class Funciones extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+           if(corriendo) {
+            Intent i = new Intent(Funciones.this, GiroActivity.class);
+            i.putExtra("Direccion_Bluetooth", adress);
+            thread.write(MODO_CELULAR_ON);
+            startActivity(i);
+           }else
+               Toast.makeText(getApplicationContext(),"No se puede pasar a modo tobogan en pausa!",Toast.LENGTH_SHORT).show();
 
         }
     };
@@ -229,7 +238,7 @@ public class Funciones extends AppCompatActivity {
     /*
 Clase para manejar el hilo secundario
  */
-    private class ConnectedThread extends Thread
+    public class ConnectedThread extends Thread
     {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
