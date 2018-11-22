@@ -9,3 +9,7 @@ Para reconocer formas y demas podemos usar Open CV
 # Componentes
 - Camara 4K para raspberry pi https://www.e-consystems.com/13mp-autofocus-usb-camera.asp
 Necesita USB 3.1. Review: https://www.youtube.com/watch?v=qMDDPlWbY2Q
+- Jetson de Nvidia https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/
+
+# Sofware
+- OpenCV JS: no nos sirve para el paper, pero es una muestra de lo que se puede hacer con OpenCV https://docs.opencv.org/3.4/df/df7/tutorial_js_table_of_contents_setup.html
