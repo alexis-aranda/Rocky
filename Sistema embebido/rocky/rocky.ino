@@ -305,7 +305,9 @@ void recibirDatos(){
                     val[i] = bluetooth.read();
                 val[4] = '\0';
                 //Pongo valor leido en posPotenciometro
-                posPotenciometro = atoi(val);
+            int aux = atoi(val);
+            if(aux >= 0 && aux <= 1023)
+                posPotenciometro = aux;
             }
     }
 }
