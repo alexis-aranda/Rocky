@@ -93,6 +93,7 @@ public class Funciones extends AppCompatActivity {
         Intent i = getIntent();
         Bundle extras = i.getExtras();
 
+        SingletonColorPantalla.pantallaActiva(Funciones.this);
         adress = extras.getString("Direccion_Bluetooth");
 
         BluetoothDevice device = btAdapter.getRemoteDevice(adress); //obtengo el adress del device
@@ -138,6 +139,7 @@ public class Funciones extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+        SingletonColorPantalla.pantallaInactiva();
         thread.kill();
         try {
             btSocket.close();
