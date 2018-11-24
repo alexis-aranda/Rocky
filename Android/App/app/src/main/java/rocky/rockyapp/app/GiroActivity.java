@@ -127,7 +127,7 @@ public class GiroActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_NORMAL);
-        SingletonColorPantalla.pantallaActiva(this);
+
         super.onResume();
     }
 
@@ -135,7 +135,7 @@ public class GiroActivity extends AppCompatActivity implements SensorEventListen
     //Cuando se llama al metodo OnPausa se cancela la busqueda de dispositivos bluethoot
     public void onPause()
     {
-        SingletonColorPantalla.pantallaInactiva();
+
         sensorManager.unregisterListener(this);
         super.onPause();
         thread.kill();
