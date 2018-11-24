@@ -150,7 +150,6 @@ void loop() {
     				aToboganA();
     			else //Manual o Celular
     				aToboganM();
-            bluetooth.print("t"); //indica a la aplicación que está en modo TOBOGAN_MANUAL para habilitar el envío de datos
     		}
     		break;
     		
@@ -160,7 +159,6 @@ void loop() {
     				aDespachando();
     		} else //Modo Manual o Celular
     			aToboganM();
-          bluetooth.print("t"); //indica a la aplicación que está en modo TOBOGAN_MANUAL para habilitar el envío de datos
     		break;
     		
     	case TOBOGAN_M:/* Tobogan en modo manual */
@@ -279,36 +277,36 @@ void recibirDatos(){
         return;
     }
     switch(c){
-        case PASAR_A_CELU:
-            modo = CELULAR;
-            break;
-        case SALIR_DE_CELU:
-            modo = AUTO;
-            despachoPendiente = false;
-            break;
-        case PAUSAR:
-            play = false;
-            break;
-        case SOLTAR:
-            if(modo == CELULAR){
-                if(estadoActual == TOBOGAN_M)
-                    aDespachando();
-                else 
-                    despachoPendiente = true;
-            } 
-            break;
-        case POSICIONAR:
-            if(estadoActual == TOBOGAN_M){
-                //Leo el numero
-                char val[5];
-                for(int i = 0; i < 4; i++)
-                    val[i] = bluetooth.read();
-                val[4] = '\0';
-                //Pongo valor leido en posPotenciometro
+    case PASAR_A_CELU:
+        modo = CELULAR;
+        break;
+    case SALIR_DE_CELU:
+        modo = AUTO;
+        despachoPendiente = false;
+        break;
+    case PAUSAR:
+        play = false;
+        break;
+    case SOLTAR:
+        if(modo == CELULAR){
+            if(estadoActual == TOBOGAN_M)
+                aDespachando();
+            else 
+                despachoPendiente = true;
+        } 
+        break;
+    case POSICIONAR:
+        if(estadoActual == TOBOGAN_M){
+            //Leo el numero
+            char val[5];
+            for(int i = 0; i < 4; i++)
+                val[i] = bluetooth.read();
+            val[4] = '\0';
+            //Pongo valor leido en posPotenciometro
             int aux = atoi(val);
             if(aux >= 0 && aux <= 1023)
                 posPotenciometro = aux;
-            }
+        }
     }
 }
 
@@ -370,6 +368,7 @@ void aToboganM(){
 	estadoActual = TOBOGAN_M;
 	//Serial.print("TM ");
 	setearLED();
+    //vbluetooth.println("t"); //indica a la aplicación que está en modo TOBOGAN_MANUAL para habilitar el envío de datos
 }
 
 /**
