@@ -9,7 +9,7 @@ class ColorRocklet{
 	public:
 	    /* Definición de id para los Colores */
 		static const int NO_IDENTIFICADO = 9; //para cuando no reconoce ningún color
-        static const int MARRON = 0;
+    static const int MARRON = 0;
 		static const int VERDE = 1;
 		static const int AZUL = 2;
 		static const int ROJO = 3;
@@ -50,17 +50,17 @@ class ColorRocklet{
 		int azul; //azul medido actual
       
 		int nLectura; //Indica que color hay que leer a continuacion
-        bool inicio_lectura_loop; //Indica si recien inicio la lectura
-        unsigned long tmillis = 0; //Contador de espera entre lecturas
+    bool inicio_lectura_loop; //Indica si recien inicio la lectura
+    unsigned long tmillis = 0; //Contador de espera entre lecturas
     
-        /* pines del sensor de color */
-        int pin_s0;
-        int pin_s1;
-        int pin_s2;
-        int pin_s3;
-        int pin_out;
+    /* pines del sensor de color */
+    int pin_s0;
+    int pin_s1;
+    int pin_s2;
+    int pin_s3;
+    int pin_out;
 
-        void identificarColor();
+    void identificarColor();
     
 };
 

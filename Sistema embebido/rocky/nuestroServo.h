@@ -9,9 +9,9 @@ class NuestroServo
 {
   public:
     //Estaciones para el servo negro
-    static const int RECEPCION_ST=190; //190
-    static const int COLOR_ST=120; //128
-    static const int CAIDA_ST=55; //55
+    static const int RECEPCION_ST=148; //190
+    static const int COLOR_ST=90; //128
+    static const int CAIDA_ST=20; //55
 
     //Estaciones en valores PWM para el servo azul
     static const int ST_1=50;
@@ -22,7 +22,13 @@ class NuestroServo
     static const int ST_6=248;
 
     //Funciones para ambos servos
+    /** Inicializa un servo en el pin indicado y setea entre que valores PWM puede trabajar */
     NuestroServo(int pin, int limiteInf, int limiteSup);
+    /* 
+     * Indica al servo que se mueva hasta la posicion recibida por parametro, 
+     * siempre que esta se encuentre entre los limites setados.
+     * La posicion debe pasarse en valores PWM.
+     */
     void irA(int posicion);
     void irAAnalogico(int posicion);
 
