@@ -351,7 +351,7 @@ void aToboganA(){
 	if (color != ColorRocklet::NO_IDENTIFICADO) //Si reconoci un color
 		servoTobogan.irA(estaciones[color]);
 	else //Sino lo mando a alguna estacion definida para los no reconocidos
-		servoTobogan.irA(NuestroServo::ST_3);
+		servoTobogan.irA(NuestroServo::ST_1);
 	inicioEsperaServo = millis();
 }
 

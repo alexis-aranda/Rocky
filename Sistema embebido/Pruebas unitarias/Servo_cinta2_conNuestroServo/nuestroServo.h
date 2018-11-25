@@ -12,7 +12,7 @@ class NuestroServo
   public:
     //Estaciones para el servo negro
 
-    static const int RECEPCION_ST=148;
+    static const int RECEPCION_ST=144;
     //static const int RECEPCION_ST=76;
     static const int COLOR_ST=90;
     //static const int COLOR_ST=140;
