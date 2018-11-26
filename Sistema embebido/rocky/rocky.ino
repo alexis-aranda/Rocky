@@ -281,8 +281,11 @@ void recibirDatos(){
         modo = CELULAR;
         break;
     case SALIR_DE_CELU:
-        modo = AUTO;
-        despachoPendiente = false;
+        /*Sólo se sale del modo celular si no está en pausa*/
+        if(play){
+          modo = AUTO;
+          despachoPendiente = false;
+        }
         break;
     case PAUSAR:
         play = false;
@@ -368,7 +371,6 @@ void aToboganM(){
 	estadoActual = TOBOGAN_M;
 	//Serial.print("TM ");
 	setearLED();
-    //vbluetooth.println("t"); //indica a la aplicación que está en modo TOBOGAN_MANUAL para habilitar el envío de datos
 }
 
 /**
