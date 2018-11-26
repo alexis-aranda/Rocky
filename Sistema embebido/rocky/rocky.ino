@@ -299,7 +299,8 @@ void recibirDatos(){
         } 
         break;
     case POSICIONAR:
-        if(estadoActual == TOBOGAN_M){
+      /*Sólo lee y procesa los datos del movimiento si está en modo CELULAR y estado TOBOGAN_MANUAL*/
+        if(modo == CELULAR && estadoActual == TOBOGAN_M){
             //Leo el numero
             char val[5];
             for(int i = 0; i < 4; i++)

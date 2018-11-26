@@ -1,7 +1,7 @@
 #include "NuestraBarreraLaser.h"
 
 NuestraBarreraLaser barrera(2,3);
-int pinLed = 13;
+int pinLed = 2;
 
 void setup(){
   barrera.activarBarrera();
