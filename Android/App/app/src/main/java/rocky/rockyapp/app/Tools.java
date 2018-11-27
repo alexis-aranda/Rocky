@@ -83,7 +83,7 @@ class Tools {
             case '5':
                 return Color.YELLOW;
             default:
-                return Color.WHITE;
+                return Color.DKGRAY;
         }
     }
 }

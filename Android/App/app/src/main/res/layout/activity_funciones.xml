@@ -236,6 +236,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/row_modo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -264,20 +265,21 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow
+        android:id="@+id/row_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:id="@+id/txt2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:text="@string/ultimo_color_le_do"
             android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -291,11 +293,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </TableRow>
 
 </TableLayout>

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ public class Funciones extends AppCompatActivity {
     TextView textmsg;
     Button tobogan;
     Button pausar;
+    TableRow rowModo;
+    TableRow rowColor;
 
     public static final String MODO_CELULAR_ON = "0";
     public static final String MODO_CELULAR_OFF = "1";
@@ -75,6 +78,9 @@ public class Funciones extends AppCompatActivity {
 
         tobogan = (Button)findViewById(R.id.btnTobogan);
         pausar = (Button)findViewById(R.id.btnPausar);
+
+        rowModo = (TableRow) findViewById(R.id.row_modo);
+        rowColor = (TableRow) findViewById(R.id.row_color);
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -176,7 +182,13 @@ public class Funciones extends AppCompatActivity {
                             case '#':
                                 String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
                                 if(array.length >= 7) {
-                                    txtUltLanzado.setText(Tools.codToStringColor(array[0].charAt(1)));
+                                    //Ultimo color sensado
+                                    char color = array[0].charAt(1);
+                                    txtUltLanzado.setText(Tools.codToStringColor(color));
+                                    rowColor.setBackgroundColor(Tools.codToBGColor(color));
+                                    rowModo.setBackgroundColor(Tools.codToBGColor(color));
+
+                                    //Contadores
                                     tvContverde.setText(array[2]); // el primer caracter de este contador es un #
                                     tvContazul.setText(array[3]);
                                     tvControjo.setText(array[4]);
