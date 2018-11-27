@@ -9,7 +9,7 @@ class ColorRocklet{
 	public:
 	    /* Definición de id para los Colores */
 		static const int NO_IDENTIFICADO = 9; //para cuando no reconoce ningún color
-    static const int MARRON = 0;
+        static const int MARRON = 0;
 		static const int VERDE = 1;
 		static const int AZUL = 2;
 		static const int ROJO = 3;

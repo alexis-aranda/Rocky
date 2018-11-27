@@ -36,8 +36,6 @@
 #define PIN_PULSADOR 12
 #define PIN_SERVO_CINTA 11
 #define PIN_SERVO_TOBOGAN 10
-//#define PIN_BT_RX 15
-//#define PIN_BT_TX 16
 
 /*Tiempos de espera*/
 #define TBUSCAR 1000
@@ -49,7 +47,7 @@
 #define MAX_NEGRO 190
 #define MIN_NEGRO 0
 #define MAX_AZUL 254
-#define MIN_AZUL 50
+#define MIN_AZUL 55
 
 /* Comandos que pueden llegar por Bluetooth */
 #define PASAR_A_CELU '0'
@@ -89,6 +87,7 @@ const int estaciones[] = { NuestroServo::ST_1, NuestroServo::ST_2,
 		NuestroServo::ST_3, NuestroServo::ST_4, NuestroServo::ST_5,
 		NuestroServo::ST_6 }; //Estaciones segun el color
 int posPotenciometro; // Posicion leida del potenciometro
+int posCelular; //Posicion recibida por bluetooth para modo celular
 bool despachoPendiente; //Por si me llega la orden de despachar desde el bt antes de que este en modo TOBOGAN_M
 
 void setup() {
@@ -100,6 +99,7 @@ void setup() {
 	modo = AUTO;
     play = true;
     despachoPendiente = false;
+    posCelular=128; //Para inicializarlo con algo
 }
 
 void loop() {
@@ -172,22 +172,11 @@ void loop() {
                     aDespachando();
                 break;
             case CELULAR: //El pase a Despachando se maneja desde la recepcion del bt o desde el inicio de TOBOGAN_M
-                servoTobogan.irAAnalogico(posPotenciometro); //Seteado con el celular
+                servoTobogan.irA256(posCelular);
                 break;
             default: //Automatico
                 aToboganA();
             }
-            /*
-    		if (modo == MANUAL) {
-    			if (!pulsador.detectaCorto()) {
-    				//Mientras no haya pulso corto, muevo el servo segun el potenciometro
-    				posPotenciometro = potenciometro.getPosicion();
-    				servoTobogan.irAAnalogico(posPotenciometro);
-    			} else
-    				aDespachando();
-    		} else 
-    			aToboganA();
-                */
     		break;
     		
     	case DESPACHANDO:/* Despacho */
@@ -243,7 +232,7 @@ void loDeSiempre() {
     			bluetooth.println("$m");
     		} else {
     			modo = AUTO;
-    			bluetooth.println("$a");
+    			bluetooth.println("$a1");
     		}
     	}
     
@@ -284,7 +273,7 @@ void recibirDatos(){
         /*Sólo se sale del modo celular si no está en pausa*/
         if(play){
           modo = AUTO;
-          bluetooth.println("$a");
+          bluetooth.println("$a2");
           despachoPendiente = false;
         }
         break;
@@ -301,16 +290,23 @@ void recibirDatos(){
         break;
     case POSICIONAR:
       /*Sólo lee y procesa los datos del movimiento si está en modo CELULAR y estado TOBOGAN_MANUAL*/
-        if(modo == CELULAR && estadoActual == TOBOGAN_M){
+        if(modo == CELULAR){
             //Leo el numero
+            /*
             char val[5];
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < 4; i++){
                 val[i] = bluetooth.read();
+                bluetooth.print(val[i]);
+            }
             val[4] = '\0';
             //Pongo valor leido en posPotenciometro
             int aux = atoi(val);
+            bluetooth.println(aux);
+            
             if(aux >= 0 && aux <= 1023)
                 posPotenciometro = aux;
+            */
+            posCelular = bluetooth.read(); //Read da un char, lo promociono a int que va a tener entre 0 y 255
         }
     }
 }

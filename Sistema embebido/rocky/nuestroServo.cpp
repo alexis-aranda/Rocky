@@ -37,3 +37,10 @@ void NuestroServo::irAAnalogico(int posicion)
   if(pos >= this->limInf && pos <= this->limSup)
      analogWrite(this->pin, pos);
 }
+
+void NuestroServo::irA256(int posicion)
+{
+      int pos = map(posicion, 0, 255, this->limInf, this->limSup);
+      if(pos >= this->limInf && pos <= this->limSup)
+         analogWrite(this->pin, pos);
+}
