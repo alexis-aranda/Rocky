@@ -170,7 +170,7 @@ public class Funciones extends AppCompatActivity {
                     if (endOfLineIndex > 0)
                     {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);//obtengo toda la linea
-                        textmsg.setText(dataInPrint);
+                        //textmsg.setText(dataInPrint);
                         switch (dataInPrint.charAt(0)){
 
                             case '#':
@@ -226,10 +226,12 @@ public class Funciones extends AppCompatActivity {
         public void onClick(View v) {
 
            if(corriendo) {
-            Intent i = new Intent(Funciones.this, GiroActivity.class);
-            i.putExtra("Direccion_Bluetooth", adress);
+            //Intent i = new Intent(Funciones.this, GiroActivity.class);
+            //i.putExtra("Direccion_Bluetooth", adress);
             thread.write(MODO_CELULAR_ON);
-            startActivity(i);
+            //startActivity(i);
+               textmsg.setText("Ahora probá girando el celu!.\nAcercá la mano para tirar el rocklet!");
+               tobogan.setText("Volver a Automatico");
            }else
                Toast.makeText(getApplicationContext(),"No se puede pasar a modo tobogan en pausa!",Toast.LENGTH_SHORT).show();
 
