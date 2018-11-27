@@ -260,6 +260,8 @@ void reportarColores() {
  */
 void recibirDatos(){
     char c = bluetooth.read();
+    bluetooth.print("Celu dice: ");
+    bluetooth.println(c);
     if(!play){
         if(c == SEGUIR)
             play = true;
@@ -306,7 +308,11 @@ void recibirDatos(){
             if(aux >= 0 && aux <= 1023)
                 posPotenciometro = aux;
             */
-            posCelular = bluetooth.read(); //Read da un char, lo promociono a int que va a tener entre 0 y 255
+            
+            int aux= bluetooth.read(); //Read da un char, lo promociono a int que va a tener entre 0 y 255
+            if(aux >= 0 && aux <= 255)
+                posCelular = aux;
+            bluetooth.println(aux);
         }
     }
 }
