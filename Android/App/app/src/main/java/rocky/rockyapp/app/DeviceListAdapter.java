@@ -77,6 +77,7 @@ class DeviceListAdapter extends BaseAdapter {
         });
 
         holder.iniBtn.setText("Iniciar");
+        holder.iniBtn.setEnabled(holder.pairBtn.getText()=="Unpair"?true:false);
         holder.iniBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
