@@ -5,12 +5,17 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +28,9 @@ import java.util.UUID;
 
 Aca irian los listeners de los botones cantRocklets, mover tobogan y pausar
  */
-public class Funciones extends AppCompatActivity {
+public class Funciones extends AppCompatActivity  implements SensorEventListener {
 
+    private SensorManager sensorManager;
     TextView tvContverde;
     TextView tvContazul;
     TextView tvControjo;
@@ -36,6 +42,12 @@ public class Funciones extends AppCompatActivity {
     TextView textmsg;
     Button tobogan;
     Button pausar;
+    TableRow rowModo;
+    TableRow rowColor;
+    private Sensor sensorProx;
+    private Sensor sensorGyro;
+    private boolean readyToLaunch = true;
+
 
     public static final String MODO_CELULAR_ON = "0";
     public static final String MODO_CELULAR_OFF = "1";
@@ -65,6 +77,9 @@ public class Funciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funciones);
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorProx = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        sensorGyro = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         tvContverde = (TextView)findViewById(R.id.textViewCont1); //contador verde
         tvContazul = (TextView)findViewById(R.id.textViewCont2); //contador azul
         tvControjo = (TextView)findViewById(R.id.textViewCont3); //contador rojo
@@ -75,6 +90,9 @@ public class Funciones extends AppCompatActivity {
 
         tobogan = (Button)findViewById(R.id.btnTobogan);
         pausar = (Button)findViewById(R.id.btnPausar);
+
+        rowModo = (TableRow) findViewById(R.id.row_modo);
+        rowColor = (TableRow) findViewById(R.id.row_color);
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -176,7 +194,13 @@ public class Funciones extends AppCompatActivity {
                             case '#':
                                 String [] array = dataInPrint.split("-");//los datos deberian estar separados con un '-' en arduino
                                 if(array.length >= 7) {
-                                    txtUltLanzado.setText(Tools.codToStringColor(array[0].charAt(1)));
+                                    //Ultimo color sensado
+                                    char color = array[0].charAt(1);
+                                    txtUltLanzado.setText(Tools.codToStringColor(color));
+                                    rowColor.setBackgroundColor(Tools.codToBGColor(color));
+                                    rowModo.setBackgroundColor(Tools.codToBGColor(color));
+
+                                    //Contadores
                                     tvContverde.setText(array[2]); // el primer caracter de este contador es un #
                                     tvContazul.setText(array[3]);
                                     tvControjo.setText(array[4]);
@@ -237,7 +261,18 @@ public class Funciones extends AppCompatActivity {
 
         }
     };
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
 Clase para manejar el hilo secundario

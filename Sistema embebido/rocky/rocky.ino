@@ -240,10 +240,10 @@ void loDeSiempre() {
     	if (!(modo==CELULAR) && pulsador.detectaLargo()) {
     		if (modo == AUTO) {
     			modo = MANUAL;
-    			//Serial.print("(M) ");
+    			bluetooth.println("$m");
     		} else {
     			modo = AUTO;
-    			//Serial.print("(A) ");
+    			bluetooth.println("$a");
     		}
     	}
     
@@ -284,6 +284,7 @@ void recibirDatos(){
         /*Sólo se sale del modo celular si no está en pausa*/
         if(play){
           modo = AUTO;
+          bluetooth.println("$a");
           despachoPendiente = false;
         }
         break;
