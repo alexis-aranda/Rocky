@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView textProx;
     private TextView txtGyro;
 
+    TextView textv;
+
     private ProgressDialog mProgressDlg;
 
     private ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         textLuz = (TextView) findViewById(R.id.textLuz);
         textProx = (TextView) findViewById(R.id.textProx);
         txtGyro = (TextView) findViewById(R.id.txtGyro);
+
+        textv = (TextView)findViewById(R.id.textv);
 
         //Se crea un adaptador para podermanejar el bluethoot del celular
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -359,6 +363,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 case Sensor.TYPE_ROTATION_VECTOR:
                         masData = event.values;
                         txtGyro.setText((String.valueOf(masData[2])));
+                        textv.setText(String.format( "%04d",Tools.gyroToServo(masData[2])));
                 default:
                     break;
             }

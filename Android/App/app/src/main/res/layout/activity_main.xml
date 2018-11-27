@@ -89,4 +89,16 @@
         android:background="@color/colorPrimary"
         android:textColor="@android:color/white"/>
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prueba" />
+
+    <TextView
+        android:id="@+id/textv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="rotacion" />
+
 </LinearLayout>

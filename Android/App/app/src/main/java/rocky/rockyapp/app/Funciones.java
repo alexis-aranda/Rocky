@@ -308,7 +308,23 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                     masData = event.values;
                     if(isTobogan)
                         if(readyToLaunch){
-                            thread.write(Funciones.GYRO+String.format( "%04d",Tools.gyroToServo(masData[2])));
+                            /*char[] nro =new char[5];
+                            nro[0]=Funciones.GYRO.charAt(0);
+                            nro[1]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(0);
+                            nro[2]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(1);
+                            nro[3]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(2);
+                            nro[4]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(3);
+
+                          thread.write(String.valueOf(nro[0]));
+
+                          thread.write(String.valueOf(nro[1]));
+                          thread.write(String.valueOf(nro[2]));
+                          thread.write(String.valueOf(nro[3]));
+                          thread.write(String.valueOf(nro[4]));*/
+                            //thread.write(Funciones.GYRO+String.format( "%04d",Tools.gyroToServo(masData[2])));
+                            char nro = (char) Tools.gyroToServo256(masData[2]);
+                            thread.write(Funciones.GYRO);
+                            thread.write(String.valueOf(nro));
                         }
                 default:
                     break;
