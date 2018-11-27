@@ -32,7 +32,6 @@
         </activity>
         <activity android:name=".activity_comunicacion" />
         <activity android:name=".Funciones" />
-        <activity android:name=".GiroActivity"></activity>
     </application>
 
 </manifest>
