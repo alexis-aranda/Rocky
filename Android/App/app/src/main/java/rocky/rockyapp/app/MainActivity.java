@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 case Sensor.TYPE_ROTATION_VECTOR:
                         masData = event.values;
                         txtGyro.setText((String.valueOf(masData[2])));
-                        textv.setText(String.format( "%04d",Tools.gyroToServo(masData[2])));
+                        textv.setText(String.format( "%c",(char)Tools.gyroToServo256(masData[2])));
                 default:
                     break;
             }

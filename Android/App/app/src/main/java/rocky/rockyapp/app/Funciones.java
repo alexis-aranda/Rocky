@@ -45,12 +45,12 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
     TableRow rowColor;
 
     //Constantes
-    private static final String MODO_CELULAR_ON = "0";
-    private static final String MODO_CELULAR_OFF = "1";
-    private static final String PAUSA = "2";
-    private static final String REANUDAR = "3";
-    private static final String SOLTAR_ROCKLET = "4";
-    private static final String GYRO = "5";
+    private static final char MODO_CELULAR_ON = '0';
+    private static final char MODO_CELULAR_OFF = '1';
+    private static final char PAUSA = '2';
+    private static final char REANUDAR = '3';
+    private static final char SOLTAR_ROCKLET = '4';
+    private static final char GYRO = '5';
 
     //Sensores
     private SensorManager sensorManager;
@@ -162,7 +162,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
         thread = new Funciones.ConnectedThread(btSocket);
         thread.start();
         //compruebo que esta conectado. sino se cierra
-        thread.write("x");
+        thread.write((byte)'x');
         //Se registran los sensores
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_NORMAL);
@@ -250,12 +250,12 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
         @Override
         public void onClick(View v) {
             if(corriendo){
-                thread.write(PAUSA);
+                thread.write((byte)PAUSA);
                 pausar.setText("Reanudar");
                 corriendo=false;
             }
             else{
-                thread.write(REANUDAR);
+                thread.write((byte)REANUDAR);
                 pausar.setText("Pausar");
                 corriendo=true;
             }
@@ -267,7 +267,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
         public void onClick(View v) {
             if(!isTobogan) {
                 if (corriendo) {
-                    thread.write(MODO_CELULAR_ON);
+                    thread.write((byte)MODO_CELULAR_ON);
                     textmsg.setText("Ahora probá girando el celu!.\nAcercá la mano para tirar el rocklet!");
                     tobogan.setText("Volver a Automatico");
                     isTobogan=true;
@@ -275,7 +275,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                     Toast.makeText(getApplicationContext(), "No se puede pasar a modo tobogan en pausa!", Toast.LENGTH_SHORT).show();
             }else{
                 if (corriendo) {
-                    thread.write(MODO_CELULAR_OFF);
+                    thread.write((byte)MODO_CELULAR_OFF);
                     textmsg.setText("");
                     tobogan.setText("Mover Tobogan");
                     isTobogan=false;
@@ -298,7 +298,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                             if(readyToLaunch){
                                 Toast.makeText(getApplicationContext(), "Rocklet lanzado!", Toast.LENGTH_SHORT).show();
                                 textmsg.setText("Esperando nuevo rocklet\nAguarde porfavor");
-                                thread.write(Funciones.SOLTAR_ROCKLET);
+                                thread.write((byte)Funciones.SOLTAR_ROCKLET);
                                 readyToLaunch=false;
                             }else{
                                 Toast.makeText(getApplicationContext(), "Aguarde para lanzar!", Toast.LENGTH_SHORT).show();
@@ -322,9 +322,9 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                           thread.write(String.valueOf(nro[3]));
                           thread.write(String.valueOf(nro[4]));*/
                             //thread.write(Funciones.GYRO+String.format( "%04d",Tools.gyroToServo(masData[2])));
-                            char nro = (char) Tools.gyroToServo256(masData[2]);
-                            thread.write(Funciones.GYRO);
-                            thread.write(String.valueOf(nro));
+                            byte nro = Tools.gyroToServo256(masData[2]);
+                            thread.write((byte)Funciones.GYRO);
+                            thread.write(nro);
                         }
                 default:
                     break;
@@ -394,8 +394,8 @@ Clase para manejar el hilo secundario
         }
 
         //write method
-        public void write(String input) {
-            byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
+        public void write(byte input) {//prueba1
+            byte msgBuffer = input/*.getBytes()*/;           //converts entered String into bytes
             try {
                 mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
             } catch (IOException e) {
