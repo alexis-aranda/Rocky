@@ -310,7 +310,7 @@ void recibirDatos(){
             */
             
             int aux= bluetooth.read(); //Read da un char, lo promociono a int que va a tener entre 0 y 255
-            if(aux >= 0 && aux <= 255)
+            if(aux > 0 && aux <= 254) //Reduciendo ruido
                 posCelular = aux;
             bluetooth.println(aux);
         }
