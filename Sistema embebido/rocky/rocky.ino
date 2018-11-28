@@ -125,7 +125,6 @@ void loop() {
     		if (millis() - inicioEsperaServo >= TLLEVAR) {
     			//Pasa a SENSANDO
     			estadoActual = SENSANDO;
-          //Serial.print("S ");
     			setearLED();
     		}
     		break;
@@ -183,7 +182,6 @@ void loop() {
     		if (millis() - inicioEsperaServo >= TDESPACHO) {
     			//Pasa a EN_ESPERA
     			estadoActual = EN_ESPERA;
-    			//Serial.print("E ");
     			setearLED();
     		}
     	}
@@ -232,7 +230,7 @@ void loDeSiempre() {
     			bluetooth.println("$m");
     		} else {
     			modo = AUTO;
-    			bluetooth.println("$a1");
+    			bluetooth.println("$a");
     		}
     	}
     
@@ -260,8 +258,6 @@ void reportarColores() {
  */
 void recibirDatos(){
     char c = bluetooth.read();
-    bluetooth.print("Celu dice: ");
-    bluetooth.println(c);
     if(!play){
         if(c == SEGUIR)
             play = true;
@@ -275,7 +271,7 @@ void recibirDatos(){
         /*Sólo se sale del modo celular si no está en pausa*/
         if(play){
           modo = AUTO;
-          bluetooth.println("$a2");
+          bluetooth.println("$a");
           despachoPendiente = false;
         }
         break;
@@ -293,26 +289,10 @@ void recibirDatos(){
     case POSICIONAR:
       /*Sólo lee y procesa los datos del movimiento si está en modo CELULAR y estado TOBOGAN_MANUAL*/
         if(modo == CELULAR){
-            //Leo el numero
-            /*
-            char val[5];
-            for(int i = 0; i < 4; i++){
-                val[i] = bluetooth.read();
-                bluetooth.print(val[i]);
-            }
-            val[4] = '\0';
-            //Pongo valor leido en posPotenciometro
-            int aux = atoi(val);
-            bluetooth.println(aux);
-            
-            if(aux >= 0 && aux <= 1023)
-                posPotenciometro = aux;
-            */
-            
+            //Leo el numero            
             int aux= bluetooth.read(); //Read da un char, lo promociono a int que va a tener entre 0 y 255
             if(aux > 0 && aux <= 254) //Reduciendo ruido
                 posCelular = aux;
-            bluetooth.println(aux);
         }
     }
 }
@@ -323,7 +303,6 @@ void recibirDatos(){
  */
 void aBuscando(){
 	estadoActual = BUSCANDO;
-	//Serial.print("B ");
 	setearLED();
 	
 	//Seteo el servo para que busque el rocklet
@@ -337,7 +316,6 @@ void aBuscando(){
  */
 void aLlevando(){
 	estadoActual = LLEVANDO;
-	//Serial.print("L ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet
@@ -351,7 +329,6 @@ void aLlevando(){
  */
 void aToboganA(){
 	estadoActual = TOBOGAN_A;
-	//Serial.print("TA ");
 	setearLED();
 	
 	//Los colores estan del 0 al 5, para servir de indices en los vectores
@@ -373,7 +350,6 @@ void aToboganM(){
         return;
     }
 	estadoActual = TOBOGAN_M;
-	//Serial.print("TM ");
 	setearLED();
 }
 
@@ -383,7 +359,6 @@ void aToboganM(){
  */
 void aDespachando(){
 	estadoActual = DESPACHANDO;
-	//Serial.print("D ");
 	setearLED();
 	
 	//Seteo el servo para que lleve el rocklet

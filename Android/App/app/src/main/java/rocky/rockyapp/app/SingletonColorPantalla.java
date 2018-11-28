@@ -26,7 +26,7 @@ class SingletonColorPantalla implements SensorEventListener{
             noLight=true;
         }
         else{
-            Toast.makeText(actividad.getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(actividad.getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
             noLight=false;
         }
