@@ -47,7 +47,7 @@
 #define MAX_NEGRO 190
 #define MIN_NEGRO 0
 #define MAX_AZUL 254
-#define MIN_AZUL 55
+#define MIN_AZUL 60
 
 /* Comandos que pueden llegar por Bluetooth */
 #define PASAR_A_CELU '0'

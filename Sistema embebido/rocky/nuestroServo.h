@@ -14,7 +14,7 @@ class NuestroServo
     static const int CAIDA_ST=20; //55
 
     //Estaciones en valores PWM para el servo azul
-    static const int ST_1=55;
+    static const int ST_1=65;
     static const int ST_2=84;
     static const int ST_3=118;
     static const int ST_4=163;
