@@ -294,6 +294,12 @@ void recibirDatos(){
             if(aux > 0 && aux <= 254) //Reduciendo ruido
                 posCelular = aux;
         }
+        break;
+    case 'x':
+        if(modo == AUTO)
+            bluetooth.println("$a");
+        else
+            bluetooth.println("$m");
     }
 }
 

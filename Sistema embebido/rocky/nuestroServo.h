@@ -11,7 +11,7 @@ class NuestroServo
     //Estaciones para el servo negro
     static const int RECEPCION_ST=140; //190
     static const int COLOR_ST=90; //128
-    static const int CAIDA_ST=22; //55
+    static const int CAIDA_ST=30; //55
 
     //Estaciones en valores PWM para el servo azul
     static const int ST_1=65;
