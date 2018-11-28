@@ -38,11 +38,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor sensorDeLuz;
     private Sensor sensorProx;
     private Sensor sensorGyro;
-    private TextView textLuz;
-    private TextView textProx;
-    private TextView txtGyro;
+    //private TextView textLuz;
+    //private TextView textProx;
+    //private TextView txtGyro;
 
-    TextView textv;
 
     private ProgressDialog mProgressDlg;
 
@@ -68,21 +67,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(getApplicationContext(), "No hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
         }
         if(sensorDeLuz == null){
             Toast.makeText(getApplicationContext(), "No hay Sensor de Luz", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
         }
         if(sensorProx == null){
             Toast.makeText(getApplicationContext(), "No hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this,sensorProx, SensorManager.SENSOR_DELAY_NORMAL);
         }
         //Se definen los componentes del layout
@@ -90,11 +89,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnActivar = (Button) findViewById(R.id.btnActivar);
         btnEmparejar = (Button) findViewById(R.id.btnEmparejar);
         btnBuscar = (Button) findViewById(R.id.btnBuscar);
-        textLuz = (TextView) findViewById(R.id.textLuz);
-        textProx = (TextView) findViewById(R.id.textProx);
-        txtGyro = (TextView) findViewById(R.id.txtGyro);
+        //textLuz = (TextView) findViewById(R.id.textLuz);
+        //textProx = (TextView) findViewById(R.id.textProx);
+        //txtGyro = (TextView) findViewById(R.id.txtGyro);
 
-        textv = (TextView)findViewById(R.id.textv);
 
         //Se crea un adaptador para podermanejar el bluethoot del celular
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -348,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             switch(event.sensor.getType()){
                 case Sensor.TYPE_PROXIMITY:
                     masData = event.values;
-                    textProx.setText((String.valueOf(masData[0])));
+                    //textProx.setText((String.valueOf(masData[0])));
                     break;
                 case Sensor.TYPE_LIGHT:
                     masData = event.values;
@@ -358,12 +356,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                     else if(masData[0]<=30)
                         getWindow().getDecorView().setBackgroundColor(Color.BLACK);*/
-                    textLuz.setText((String.valueOf(masData[0])));
+                    //textLuz.setText((String.valueOf(masData[0])));
                     break;
                 case Sensor.TYPE_ROTATION_VECTOR:
                         masData = event.values;
-                        txtGyro.setText((String.valueOf(masData[2])));
-                        textv.setText(String.format( "%c",(char)Tools.gyroToServo256(masData[2])));
+                        //txtGyro.setText((String.valueOf(masData[2])));
+
                 default:
                     break;
             }

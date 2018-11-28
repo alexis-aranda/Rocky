@@ -61,6 +61,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
     private boolean readyToLaunch = true;
     private boolean corriendo=true;
     private boolean isTobogan=false;
+    private boolean modocelular=false;
 
     //comunicacion con arduino
     Handler btIn;
@@ -109,7 +110,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
             tobogan.setEnabled(false); //Se deshabilita el botón de tobogan
         }
         else{
-            Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
             if(sensorProx == null){
                 Toast.makeText(getApplicationContext(), "No hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
@@ -117,7 +118,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                 tobogan.setEnabled(false); //Se deshabilita el botón de tobogan
             }
             else{
-                Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
                 sensorManager.registerListener(this,sensorProx, SensorManager.SENSOR_DELAY_NORMAL);
             }
         }
@@ -227,7 +228,10 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                                 }
                                 break;
                             case '$':
-                                txtModo.setText(Tools.codToStringModo(dataInPrint.charAt(1)));
+                                if(!modocelular){
+                                    txtModo.setText(Tools.codToStringModo(dataInPrint.charAt(1)));
+                                }
+
                                 break;
                             default:
                                 break;
@@ -268,9 +272,11 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
             if(!isTobogan) {
                 if (corriendo) {
                     thread.write((byte)MODO_CELULAR_ON);
+                    txtModo.setText("Celular");
                     textmsg.setText("Ahora probá girando el celu!.\nAcercá la mano para tirar el rocklet!");
                     tobogan.setText("Volver a Automatico");
                     isTobogan=true;
+                    modocelular=true;
                 } else
                     Toast.makeText(getApplicationContext(), "No se puede pasar a modo tobogan en pausa!", Toast.LENGTH_SHORT).show();
             }else{
@@ -280,6 +286,7 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                     tobogan.setText("Mover Tobogan");
                     isTobogan=false;
                     txtModo.setText("Automatico");
+                    modocelular=false;
                 } else
                     Toast.makeText(getApplicationContext(), "No se puede salir del modo tobogan en pausa!", Toast.LENGTH_SHORT).show();
             }
