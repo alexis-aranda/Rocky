@@ -46,7 +46,7 @@ class ColorRocklet{
         static const int MIN_NARANJA_R = 123;
         static const int MAX_NARANJA_V = 196;
         static const int MIN_MARRON_R = 145;
-        //static const int MIN_MARRON_V = 198;
+        static const int MIN_MARRON_V = 198;
 
         //Atributos
 		int idColor; //id actual
