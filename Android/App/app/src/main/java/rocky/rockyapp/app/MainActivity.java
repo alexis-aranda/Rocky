@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity{
         btnActivar = (Button) findViewById(R.id.btnActivar);
         btnEmparejar = (Button) findViewById(R.id.btnEmparejar);
         btnBuscar = (Button) findViewById(R.id.btnBuscar);
-        //textLuz = (TextView) findViewById(R.id.textLuz);
-        //textProx = (TextView) findViewById(R.id.textProx);
-        //txtGyro = (TextView) findViewById(R.id.txtGyro);
-
 
         //Se crea un adaptador para podermanejar el bluethoot del celular
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -86,8 +82,6 @@ public class MainActivity extends AppCompatActivity{
         {
             //si el celular soporta bluethoot, se definen los listener para los botones de la activity
             btnEmparejar.setOnClickListener(btnEmparejarListener);
-
-            //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
 
             btnBuscar.setOnClickListener(btnBuscarListener);
 
@@ -149,7 +143,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void showEnabled() {
         txtEstado.setText("Bluetooth Habilitado");
-        //txtEstado.setTextColor(Color.BLUE);
 
         btnActivar.setText("Desactivar");
         btnActivar.setEnabled(true);
@@ -160,7 +153,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void showDisabled() {
         txtEstado.setText("Bluetooth Deshabilitado");
-        //txtEstado.setTextColor(Color.RED);
 
         btnActivar.setText("Activar");
         btnActivar.setEnabled(true);
