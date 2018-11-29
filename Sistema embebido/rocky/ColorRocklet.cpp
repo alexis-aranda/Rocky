@@ -108,22 +108,10 @@ void ColorRocklet::identificarColor(){
         this->idColor = AZUL;
     else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->verde < this->azul))
         this->idColor = AMARILLO;
-/*
-    else if((this->rojo < this->verde) && (this->rojo < this->azul) && (this->azul < this->verde)){
-        if(this->rojo > MIN_MARRON_R)
-           this->idColor = MARRON;
-        else if(this->rojo < MAX_NARANJA_R && this->verde < MAX_NARANJA_V)
-          this->idColor = NARANJA;
-        else
-          this->idColor = ROJO;
- */
      else if((this->rojo < this->verde) && (this->azul < this->verde)){
         if(this->rojo >= this->azul)
           this->idColor = MARRON;
         else {
-          //if(this->rojo > MIN_MARRON_R || this->verde > MIN_MARRON_V)
-          //  this->idColor = MARRON;
-          //else 
           if(this->rojo > MIN_NARANJA_R && this->verde < MAX_NARANJA_V)
             this->idColor = NARANJA;
           else
