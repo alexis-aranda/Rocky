@@ -27,7 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity{
 
     private TextView txtEstado;
     private Button btnActivar;
@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor sensorDeLuz;
     private Sensor sensorProx;
     private Sensor sensorGyro;
-    //private TextView textLuz;
-    //private TextView textProx;
-    //private TextView txtGyro;
 
 
     private ProgressDialog mProgressDlg;
@@ -57,33 +54,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
-        //Cosas de los sensores
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorDeLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensorProx = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensorGyro = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        //Valido el sensor de luz, y preparo su Listener
-        if(sensorGyro == null){
-            Toast.makeText(getApplicationContext(), "No hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            //Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
-            sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-        if(sensorDeLuz == null){
-            Toast.makeText(getApplicationContext(), "No hay Sensor de Luz", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            //Toast.makeText(getApplicationContext(), "Hay Sensor de Luz", Toast.LENGTH_SHORT).show();
-            sensorManager.registerListener(this, sensorDeLuz, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-        if(sensorProx == null){
-            Toast.makeText(getApplicationContext(), "No hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            //Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
-            sensorManager.registerListener(this,sensorProx, SensorManager.SENSOR_DELAY_NORMAL);
-        }
         //Se definen los componentes del layout
         txtEstado = (TextView) findViewById(R.id.txtEstado);
         btnActivar = (Button) findViewById(R.id.btnActivar);
@@ -150,9 +120,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onResume() {
-        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_NORMAL);
         SingletonColorPantalla.pantallaActiva(this);
         super.onResume();
     }
@@ -162,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onPause()
     {
         SingletonColorPantalla.pantallaInactiva();
-        sensorManager.unregisterListener(this);
         if (mBluetoothAdapter != null) {
             if (mBluetoothAdapter.isDiscovering()) {
                 mBluetoothAdapter.cancelDiscovery();
@@ -338,39 +304,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             mBluetoothAdapter.cancelDiscovery();
         }
     };
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        synchronized (this){
-            float[] masData;
-            switch(event.sensor.getType()){
-                case Sensor.TYPE_PROXIMITY:
-                    masData = event.values;
-                    //textProx.setText((String.valueOf(masData[0])));
-                    break;
-                case Sensor.TYPE_LIGHT:
-                    masData = event.values;
-                    //getWindow().getDecorView().setBackgroundColor(Tools.luxToGreyColor(masData[0]));
-                    /*if(masData[0]>30){
-                        getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-                    }
-                    else if(masData[0]<=30)
-                        getWindow().getDecorView().setBackgroundColor(Color.BLACK);*/
-                    //textLuz.setText((String.valueOf(masData[0])));
-                    break;
-                case Sensor.TYPE_ROTATION_VECTOR:
-                        masData = event.values;
-                        //txtGyro.setText((String.valueOf(masData[2])));
-
-                default:
-                    break;
-            }
-        }
-    }
-
-
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
 }
