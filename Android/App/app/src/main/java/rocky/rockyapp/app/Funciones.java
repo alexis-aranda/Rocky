@@ -110,7 +110,6 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
             tobogan.setEnabled(false); //Se deshabilita el botón de tobogan
         }
         else{
-            //Toast.makeText(getApplicationContext(), "Hay Sensor de Rotación", Toast.LENGTH_SHORT).show();
             sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
             if(sensorProx == null){
                 Toast.makeText(getApplicationContext(), "No hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
@@ -118,7 +117,6 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                 tobogan.setEnabled(false); //Se deshabilita el botón de tobogan
             }
             else{
-                //Toast.makeText(getApplicationContext(), "Hay Sensor de Proximidad", Toast.LENGTH_SHORT).show();
                 sensorManager.registerListener(this,sensorProx, SensorManager.SENSOR_DELAY_NORMAL);
             }
         }
@@ -315,20 +313,6 @@ public class Funciones extends AppCompatActivity  implements SensorEventListener
                     masData = event.values;
                     if(isTobogan)
                         if(readyToLaunch){
-                            /*char[] nro =new char[5];
-                            nro[0]=Funciones.GYRO.charAt(0);
-                            nro[1]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(0);
-                            nro[2]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(1);
-                            nro[3]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(2);
-                            nro[4]=String.format( "%04d",Tools.gyroToServo(masData[2])).charAt(3);
-
-                          thread.write(String.valueOf(nro[0]));
-
-                          thread.write(String.valueOf(nro[1]));
-                          thread.write(String.valueOf(nro[2]));
-                          thread.write(String.valueOf(nro[3]));
-                          thread.write(String.valueOf(nro[4]));*/
-                            //thread.write(Funciones.GYRO+String.format( "%04d",Tools.gyroToServo(masData[2])));
                             byte nro = Tools.gyroToServo256(masData[2]);
                             thread.write((byte)Funciones.GYRO);
                             thread.write(nro);
@@ -402,7 +386,7 @@ Clase para manejar el hilo secundario
 
         //write method
         public void write(byte input) {//prueba1
-            byte msgBuffer = input/*.getBytes()*/;           //converts entered String into bytes
+            byte msgBuffer = input;           //converts entered String into bytes
             try {
                 mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
             } catch (IOException e) {
